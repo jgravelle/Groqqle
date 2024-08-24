@@ -17,7 +17,7 @@ Groqqle is an innovative, AI-powered search engine that combines the power of la
 - 📊 Option to view results in JSON format
 - 🔄 Extensible architecture for multiple AI providers
 
-![Groqqle Features](image-1.png)
+![Groqqle Features](image-5.png)    
 
 ## 🛠️ Installation
 
