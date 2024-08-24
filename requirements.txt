@@ -1,0 +1,6 @@
+streamlit
+Pillow
+python-dotenv
+requests
+beautifulsoup4
+anthropic
