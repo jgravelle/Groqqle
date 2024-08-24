@@ -1,18 +1,55 @@
 import streamlit as st
-import json
-from PIL import Image
-import base64
 from agents.Web_Agent import Web_Agent
 import os
 from dotenv import load_dotenv
+from fastapi import FastAPI, HTTPException
+from pydantic import BaseModel
+import uvicorn
+import threading
 
 # Load environment variables from .env file
 load_dotenv()
 
-def main():
-    st.set_page_config(page_title="Groqqle Clone", layout="wide")
+# Create FastAPI app
+app = FastAPI()
 
-    # Custom CSS to mimic Groqqle's style
+# Pydantic model for API request
+class SearchRequest(BaseModel):
+    provider_key: str
+    query: str
+
+def get_groq_api_key():
+    api_key = os.getenv('GROQ_API_KEY')
+    
+    if not api_key:
+        if 'groq_api_key' not in st.session_state:
+            st.warning("Groq API Key not found. Please enter your API key below:")
+            api_key = st.text_input("Groq API Key", type="password")
+            if api_key:
+                st.session_state.groq_api_key = api_key
+        else:
+            api_key = st.session_state.groq_api_key
+    else:
+        st.session_state.groq_api_key = api_key
+    
+    return api_key
+
+def perform_search(query, api_key):
+    agent = Web_Agent(api_key)
+    results = agent.process_request(query)
+    return results
+
+@app.post("/api/search")
+async def api_search(request: SearchRequest):
+    try:
+        results = perform_search(request.query, request.provider_key)
+        return {"results": results}
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=str(e))
+
+def main():
+    st.set_page_config(page_title="Groqqle", layout="wide")
+
     st.markdown("""
     <style>
     .stApp {
@@ -70,38 +107,30 @@ def main():
     </style>
     """, unsafe_allow_html=True)
 
-    # Initialize Web_Agent
-    agent = Web_Agent()
+    api_key = get_groq_api_key()
 
-    # Center the content for the search bar and buttons
+    if not api_key:
+        st.error("Please provide a valid Groq API Key to use the application.")
+        return
+
     st.markdown('<div class="search-container">', unsafe_allow_html=True)
     
-    # Groqqle logo
     st.image("images/logo.png", width=272)
 
-    # Search bar with 'Enter' key functionality
-    query = st.text_input("", key="search_bar", on_change=perform_search)
+    query = st.text_input("", key="search_bar")
 
-    # Buttons and checkbox
     col1, col2, col3 = st.columns([2,1,2])
     with col1:
         if st.button("Groqqle Search", key="search_button"):
-            perform_search()
+            results = perform_search(query, api_key)
+            st.session_state.search_results = results
     with col3:
         json_results = st.checkbox("JSON Results", value=False, key="json_results")
 
     st.markdown('</div>', unsafe_allow_html=True)
 
-    # Display results
-    if st.session_state.get('search_results'):
+    if 'search_results' in st.session_state:
         display_results(st.session_state.search_results, json_results)
-
-def perform_search():
-    query = st.session_state.search_bar
-    if query:
-        with st.spinner('Searching...'):
-            results = Web_Agent().process_request(query)
-        st.session_state.search_results = results
 
 def display_results(results, json_format=False):
     if results:
@@ -126,5 +155,11 @@ def display_results(results, json_format=False):
     else:
         st.markdown("No results found.")
 
+def run_fastapi():
+    uvicorn.run(app, host="0.0.0.0", port=8000)
+
 if __name__ == "__main__":
+    api_thread = threading.Thread(target=run_fastapi, daemon=True)
+    api_thread.start()
+
     main()

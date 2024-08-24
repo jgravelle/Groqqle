@@ -11,10 +11,9 @@ class Web_Agent(Base_Agent):
         # Add more domains to skip here
     ]
 
-    def __init__(self):
-        super().__init__()
+    def __init__(self, api_key):
+        super().__init__(api_key)
         self.tools = self._initialize_tools()
-        self.provider = ProviderFactory.get_provider()
 
     def process_request(self, user_request: str) -> list:
         """

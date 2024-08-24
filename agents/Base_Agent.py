@@ -3,8 +3,8 @@ from typing import Any
 from providers.provider_factory import ProviderFactory
 
 class Base_Agent(ABC):
-    def __init__(self):
-        self.provider = ProviderFactory.get_provider()
+    def __init__(self, api_key):
+        self.provider = ProviderFactory.get_provider(api_key)
         self.model = ProviderFactory.get_model()
 
     @abstractmethod
