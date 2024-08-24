@@ -1,6 +1,6 @@
 # Groqqle: Your AI-Powered Search Engine
 
-![alt text](image.png)
+![Groqqle Logo](image.png)
 
 Groqqle is an innovative, AI-powered search engine that combines the power of large language models with web search capabilities. It offers both a user-friendly web interface and a robust API for seamless integration into your projects.
 
@@ -11,19 +11,20 @@ Groqqle is an innovative, AI-powered search engine that combines the power of la
 
 - 🔍 Advanced search capabilities powered by AI
 - 🖥️ Intuitive web interface for easy searching
-- 🚀 Fast and efficient results
+- 🚀 Fast and efficient results using Groq's high-speed inference
 - 🔌 RESTful API for programmatic access
 - 🔒 Secure handling of API keys
 - 📊 Option to view results in JSON format
+- 🔄 Extensible architecture for multiple AI providers
 
-![alt text](image-1.png)
+![Groqqle Features](image-1.png)
 
 ## 🛠️ Installation
 
 1. Clone the repository:
    ```
-   git clone https://github.com/yourusername/groqqle.git
-   cd groqqle
+   git clone https://github.com/jgravelle/Groqqle.git
+   cd Groqqle
    ```
 
 2. Set up a virtual environment:
@@ -58,7 +59,7 @@ Groqqle is an innovative, AI-powered search engine that combines the power of la
 
 4. View your results! Toggle the "JSON Results" checkbox to see the raw JSON data.
 
-![alt text](image-2.png)
+![Groqqle Web Interface](image-2.png)
 
 ### API
 
@@ -91,7 +92,13 @@ results = response.json()
 print(results)
 ```
 
-![alt text](image-3.png)
+![Groqqle API Usage](image-3.png)
+
+## 🔄 AI Providers
+
+While Groqqle is optimized for use with Groq's lightning-fast inference capabilities, we've also included stubbed-out provider code for Anthropic. This demonstrates how easily other AI providers can be integrated into the system. 
+
+Please note that while other providers can be added, they may not match the exceptional speed offered by Groq. Groq's high-speed inference is a key feature that sets Groqqle apart in terms of performance.
 
 ## 🤝 Contributing
 
@@ -117,9 +124,9 @@ Project Link: [https://github.com/jgravelle/Groqqle](https://github.com/jgravell
 
 ## 🙏 Acknowledgements
 
-- [Groq](https://groq.com/) for their powerful language models
+- [Groq](https://groq.com/) for their powerful and incredibly fast language models
 - [Streamlit](https://streamlit.io/) for the amazing web app framework
 - [FastAPI](https://fastapi.tiangolo.com/) for the high-performance API framework
 - [Beautiful Soup](https://www.crummy.com/software/BeautifulSoup/) for web scraping capabilities
 
-![alt text](image-4.png)
+![Groqqle Footer](image-4.png)
