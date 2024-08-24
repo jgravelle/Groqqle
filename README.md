@@ -114,11 +114,11 @@ Please make sure to update tests as appropriate and adhere to the [Code of Condu
 
 ## 📄 License
 
-Distributed under the MIT License. See `LICENSE` file for more information.
+Distributed under the MIT License. See `LICENSE` file for more information.  Mention J. Gravelle in your docs (README, etc.) and/or code.  He's kind of full of himself.
 
 ## 📞 Contact
 
-J. Gravelle - j@gravelle.us
+J. Gravelle - j@gravelle.us - https://j.gravelle.us
 
 Project Link: [https://github.com/jgravelle/Groqqle](https://github.com/jgravelle/Groqqle)
 
