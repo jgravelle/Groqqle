@@ -1,22 +1,10 @@
 import streamlit as st
-from agents.Web_Agent import Web_Agent
 import os
 from dotenv import load_dotenv
-from fastapi import FastAPI, HTTPException
-from pydantic import BaseModel
-import uvicorn
-import threading
+from agents.Web_Agent import Web_Agent
 
 # Load environment variables from .env file
 load_dotenv()
-
-# Create FastAPI app
-app = FastAPI()
-
-# Pydantic model for API request
-class SearchRequest(BaseModel):
-    provider_key: str
-    query: str
 
 def get_groq_api_key():
     api_key = os.getenv('GROQ_API_KEY')
@@ -38,14 +26,6 @@ def perform_search(query, api_key):
     agent = Web_Agent(api_key)
     results = agent.process_request(query)
     return results
-
-@app.post("/api/search")
-async def api_search(request: SearchRequest):
-    try:
-        results = perform_search(request.query, request.provider_key)
-        return {"results": results}
-    except Exception as e:
-        raise HTTPException(status_code=500, detail=str(e))
 
 def main():
     st.set_page_config(page_title="Groqqle", layout="wide")
@@ -155,11 +135,5 @@ def display_results(results, json_format=False):
     else:
         st.markdown("No results found.")
 
-def run_fastapi():
-    uvicorn.run(app, host="0.0.0.0", port=8000)
-
 if __name__ == "__main__":
-    api_thread = threading.Thread(target=run_fastapi, daemon=True)
-    api_thread.start()
-
     main()

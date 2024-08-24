@@ -7,10 +7,10 @@ from providers.base_provider import BaseLLMProvider
 DEBUG = os.environ.get('DEBUG') == 'True'
 
 class Groq_Provider(BaseLLMProvider):
-    def __init__(self, api_url=None):
-        self.api_key = os.environ.get('GROQ_API_KEY')
+    def __init__(self, api_key, api_url=None):
+        self.api_key = api_key
         if not self.api_key:
-            raise ValueError("Groq API key is not set in environment variables")
+            raise ValueError("Groq API key is not provided")
         self.api_url = api_url or "https://api.groq.com/openai/v1/chat/completions"
 
     def generate(self, prompt):
