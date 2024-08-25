@@ -1,22 +1,14 @@
 import streamlit as st
+import json
+from PIL import Image
+import base64
 from agents.Web_Agent import Web_Agent
 import os
 from dotenv import load_dotenv
-from fastapi import FastAPI, HTTPException
-from pydantic import BaseModel
-import uvicorn
-import threading
+import argparse
+from flask import Flask, request, jsonify
 
-# Load environment variables from .env file
 load_dotenv()
-
-# Create FastAPI app
-app = FastAPI()
-
-# Pydantic model for API request
-class SearchRequest(BaseModel):
-    provider_key: str
-    query: str
 
 def get_groq_api_key():
     api_key = os.getenv('GROQ_API_KEY')
@@ -34,26 +26,10 @@ def get_groq_api_key():
     
     return api_key
 
-def perform_search(query, api_key):
-    agent = Web_Agent(api_key)
-    results = agent.process_request(query)
-    return results
-
-@app.post("/api/search")
-async def api_search(request: SearchRequest):
-    try:
-        results = perform_search(request.query, request.provider_key)
-        return {"results": results}
-    except Exception as e:
-        raise HTTPException(status_code=500, detail=str(e))
-
-def run_fastapi():
-    uvicorn.run(app, host="0.0.0.0", port=8000)
-
 def main():
-    st.set_page_config(page_title="Groqqle", layout="wide")
+    st.set_page_config(page_title="Groqqle Clone", layout="wide")
 
-    st.markdown("""
+    st.markdown(""" 
     <style>
     .stApp {
         max-width: 100%;
@@ -116,24 +92,32 @@ def main():
         st.error("Please provide a valid Groq API Key to use the application.")
         return
 
+    agent = Web_Agent(api_key)
+
     st.markdown('<div class="search-container">', unsafe_allow_html=True)
     
     st.image("images/logo.png", width=272)
 
-    query = st.text_input("", key="search_bar")
+    query = st.text_input("Search query", key="search_bar", on_change=perform_search, label_visibility="collapsed")
 
     col1, col2, col3 = st.columns([2,1,2])
     with col1:
         if st.button("Groqqle Search", key="search_button"):
-            results = perform_search(query, api_key)
-            st.session_state.search_results = results
+            perform_search()
     with col3:
         json_results = st.checkbox("JSON Results", value=False, key="json_results")
 
     st.markdown('</div>', unsafe_allow_html=True)
 
-    if 'search_results' in st.session_state:
+    if st.session_state.get('search_results'):
         display_results(st.session_state.search_results, json_results)
+
+def perform_search():
+    query = st.session_state.search_bar
+    if query and 'groq_api_key' in st.session_state:
+        with st.spinner('Searching...'):
+            results = Web_Agent(st.session_state.groq_api_key).process_request(query)
+        st.session_state.search_results = results
 
 def display_results(results, json_format=False):
     if results:
@@ -158,13 +142,33 @@ def display_results(results, json_format=False):
     else:
         st.markdown("No results found.")
 
-if __name__ == "__main__":
-    import sys
+def create_api_app():
+    app = Flask(__name__)
 
-    if len(sys.argv) > 1 and sys.argv[1] == "api":
-        print("Starting FastAPI server...")
-        run_fastapi()
-    else:
-        api_thread = threading.Thread(target=run_fastapi, daemon=True)
-        api_thread.start()
+    @app.route('/search', methods=['POST'])
+    def api_search():
+        data = request.json
+        query = data.get('query')
+        if not query:
+            return jsonify({"error": "No query provided"}), 400
+
+        api_key = os.getenv('GROQ_API_KEY')
+        if not api_key:
+            return jsonify({"error": "Groq API Key not set"}), 500
+
+        agent = Web_Agent(api_key)
+        results = agent.process_request(query)
+        return jsonify(results)
+
+    return app
+
+if __name__ == "__main__":
+    parser = argparse.ArgumentParser(description="Run Groqqle as Streamlit app or API server")
+    parser.add_argument('mode', choices=['streamlit', 'api'], help="Run mode: 'streamlit' for the Streamlit app, 'api' for the API server")
+    args = parser.parse_args()
+
+    if args.mode == 'streamlit':
         main()
+    elif args.mode == 'api':
+        api_app = create_api_app()
+        api_app.run(debug=True, port=5000)
