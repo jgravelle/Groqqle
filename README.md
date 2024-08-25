@@ -51,7 +51,7 @@ Groqqle is an innovative, AI-powered search engine that combines the power of la
 
 1. Start the Groqqle application:
    ```
-   python Groqqle.py
+   streamlit run Groqqle.py
    ```
 
 2. Open your web browser and navigate to `http://localhost:8501`.
