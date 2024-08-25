@@ -1,6 +1,7 @@
 # Groqqle: Your AI-Powered Search Engine
 
-![Groqqle Logo](image.png)
+![Groqqle Logo](https://github.com/user-attachments/assets/1ff3686d-130f-4b63-ae4d-f0cf7bb6562e)
+
 
 Groqqle is an innovative, AI-powered search engine that combines the power of large language models with web search capabilities. It offers both a user-friendly web interface and a robust API for seamless integration into your projects.
 
@@ -136,4 +137,4 @@ Project Link: [https://github.com/jgravelle/Groqqle](https://github.com/jgravell
 - [FastAPI](https://fastapi.tiangolo.com/) for the high-performance API framework
 - [Beautiful Soup](https://www.crummy.com/software/BeautifulSoup/) for web scraping capabilities
 
-![Groqqle Footer](image-4.png)
+![Groqqle Footer](https://github.com/user-attachments/assets/1ff3686d-130f-4b63-ae4d-f0cf7bb6562e)
