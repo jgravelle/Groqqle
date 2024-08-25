@@ -27,7 +27,7 @@ def get_groq_api_key():
     return api_key
 
 def main():
-    st.set_page_config(page_title="Groqqle Clone", layout="wide")
+    st.set_page_config(page_title="Groqqle", layout="wide")
 
     st.markdown(""" 
     <style>
