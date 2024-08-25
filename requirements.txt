@@ -6,3 +6,4 @@ beautifulsoup4
 anthropic
 fastapi
 uvicorn
+Flask
