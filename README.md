@@ -65,31 +65,38 @@ Groqqle is an innovative, AI-powered search engine that combines the power of la
 
 The Groqqle API allows you to programmatically access search results. Here's how to use it:
 
-1. Ensure the Groqqle application is running.
+1. Start the Groqqle application in API mode:
+   ```
+   python Groqqle.py api
+   ```
 
-2. Send a POST request to `http://localhost:8000/api/search` with the following JSON body:
+2. The API server will start running on `http://127.0.0.1:5000`.
+
+3. Send a POST request to `http://127.0.0.1:5000/search` with the following JSON body:
    ```json
    {
-     "provider_key": "your_groq_api_key_here",
      "query": "your search query"
    }
    ```
 
-3. The API will return a JSON response with your search results.
+   Note: The API key is now managed through environment variables, so you don't need to include it in the request.
+
+4. The API will return a JSON response with your search results.
 
 Example using Python's `requests` library:
 
 ```python
 import requests
 
-url = "http://localhost:8000/api/search"
+url = "http://127.0.0.1:5000/search"
 data = {
-    "provider_key": "your_groq_api_key_here",
     "query": "artificial intelligence"
 }
 response = requests.post(url, json=data)
 results = response.json()
 print(results)
+
+Make sure you have set the `GROQ_API_KEY` in your environment variables or `.env` file before starting the API server.
 ```
 
 ![Groqqle API Usage](image-3.png)
