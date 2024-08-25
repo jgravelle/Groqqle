@@ -16,15 +16,6 @@ class Web_Agent(Base_Agent):
         self.tools = self._initialize_tools()
 
     def process_request(self, user_request: str) -> list:
-        """
-        Process the user's request and return a response.
-        
-        Args:
-        user_request (str): The user's request to be processed.
-        
-        Returns:
-        list: The processed response as a list of search result dictionaries.
-        """
         try:
             return self._process_web_search(user_request)
         except Exception as e:
@@ -41,7 +32,8 @@ class Web_Agent(Base_Agent):
         if not filtered_results:
             return [{"title": "No Results", "url": "", "description": "I found some results, but they were all from domains I've been instructed to skip. Could you try rephrasing your request?"}]
 
-        return filtered_results[:10]  # Return top 10 results
+        deduplicated_results = self._remove_duplicates(filtered_results)
+        return deduplicated_results[:10]  # Return top 10 unique results
 
     def _initialize_tools(self):
         return {
@@ -51,11 +43,19 @@ class Web_Agent(Base_Agent):
         }
 
     def _perform_web_search(self, query: str):
-        return self.tools["WebSearch_Tool"](query, 10)  # Request 10 results
+        return self.tools["WebSearch_Tool"](query, 20)  # Request 20 results to account for filtering
 
     def _filter_search_results(self, results):
         return [result for result in results if not any(domain in result['url'] for domain in self.SKIP_DOMAINS)]
 
+    def _remove_duplicates(self, results):
+        seen_urls = set()
+        unique_results = []
+        for result in results:
+            if result['url'] not in seen_urls:
+                seen_urls.add(result['url'])
+                unique_results.append(result)
+        return unique_results
 
     def _get_web_content(self, url: str) -> str:
         return self.tools["WebGetContents_Tool"](url)
