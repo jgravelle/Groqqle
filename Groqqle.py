@@ -5,7 +5,7 @@ import base64
 from agents.Web_Agent import Web_Agent
 import os
 from dotenv import load_dotenv
-import argparse
+import sys
 from flask import Flask, request, jsonify
 
 load_dotenv()
@@ -163,12 +163,8 @@ def create_api_app():
     return app
 
 if __name__ == "__main__":
-    parser = argparse.ArgumentParser(description="Run Groqqle as Streamlit app or API server")
-    parser.add_argument('mode', choices=['streamlit', 'api'], help="Run mode: 'streamlit' for the Streamlit app, 'api' for the API server")
-    args = parser.parse_args()
-
-    if args.mode == 'streamlit':
-        main()
-    elif args.mode == 'api':
+    if len(sys.argv) > 1 and sys.argv[1] == 'api':
         api_app = create_api_app()
         api_app.run(debug=True, port=5000)
+    else:
+        main()
