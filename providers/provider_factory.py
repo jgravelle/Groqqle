@@ -26,13 +26,8 @@ class ProviderFactory:
             log_debug(f"Unsupported provider: {provider_name}")
             raise ValueError(f"Unsupported provider: {provider_name}")
         
-        if provider_name.lower() == 'groq':
-            # GroqProvider from PocketGroq doesn't require an api_key parameter
-            log_debug("Creating GroqProvider instance")
-            return provider_class()
-        else:
-            log_debug(f"Creating {provider_name} instance")
-            return provider_class(api_key)
+        log_debug(f"Creating {provider_name} instance with API key")
+        return provider_class(api_key)
 
     @staticmethod
     def get_model():

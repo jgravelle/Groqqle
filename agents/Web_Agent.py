@@ -39,7 +39,7 @@ class Web_Agent(Base_Agent):
             log_debug("ProviderFactory is None. Raising ImportError.")
             raise ImportError("ProviderFactory is not available. Please check your project structure.")
         try:
-            log_debug("Attempting to get provider")
+            log_debug(f"Attempting to get provider with API key: {api_key[:5]}...")
             self.provider = ProviderFactory.get_provider(provider_name, api_key)
             log_debug("Provider obtained successfully")
             log_debug("Attempting to get model")

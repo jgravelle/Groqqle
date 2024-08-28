@@ -1,20 +1,56 @@
 Current working directory: C:\ai\Groqqle
 Current sys.path: ['Groqqle.py', '', 'C:\\Users\\j\\miniconda3\\envs\\groqqle\\Scripts\\streamlit.exe', 'C:\\Users\\j\\miniconda3\\envs\\groqqle\\python311.zip', 'C:\\Users\\j\\miniconda3\\envs\\groqqle\\DLLs', 'C:\\Users\\j\\miniconda3\\envs\\groqqle\\Lib', 'C:\\Users\\j\\miniconda3\\envs\\groqqle', 'C:\\Users\\j\\AppData\\Roaming\\Python\\Python311\\site-packages', 'C:\\Users\\j\\miniconda3\\envs\\groqqle\\Lib\\site-packages', 'C:\\ai\\Groqqle', 'C:\\ai\\Groqqle', 'C:\\ai\\Groqqle']
+GROQ_API_KEY from environment: Not found
+Current working directory: C:\ai\Groqqle
+Current sys.path: ['Groqqle.py', '', 'C:\\Users\\j\\miniconda3\\envs\\groqqle\\Scripts\\streamlit.exe', 'C:\\Users\\j\\miniconda3\\envs\\groqqle\\python311.zip', 'C:\\Users\\j\\miniconda3\\envs\\groqqle\\DLLs', 'C:\\Users\\j\\miniconda3\\envs\\groqqle\\Lib', 'C:\\Users\\j\\miniconda3\\envs\\groqqle', 'C:\\Users\\j\\AppData\\Roaming\\Python\\Python311\\site-packages', 'C:\\Users\\j\\miniconda3\\envs\\groqqle\\Lib\\site-packages', 'C:\\ai\\Groqqle', 'C:\\ai\\Groqqle', 'C:\\ai\\Groqqle']
+GROQ_API_KEY from environment: Not found
+API key entered by user and stored in session state
+Attempting to initialize Web_Agent with API key: [REDACTED]
 Initializing Web_Agent with provider_name: groq
 Attempting to get provider
 get_provider called with provider_name: groq
 Creating GroqProvider instance
-Provider obtained successfully
-Attempting to get model
-get_model called, returning: llama3-groq-8b-8192-tool-use-preview
-Model obtained successfully
-Initializing tools
-Tools initialized successfully
-WebSearch_Tool: Starting search for query: test query, num_results: 10
-WebSearch_Tool: Sending request to Google
-WebSearch_Tool: Request successful. Status code: 200
-WebSearch_Tool: Found 9 raw search results
-WebSearch_Tool: Returning 9 processed results
+Error in Web_Agent.__init__: GROQ_API_KEY not found in environment variables or .env file
+Traceback:
+Traceback (most recent call last):
+  File "C:\ai\Groqqle\agents\Web_Agent.py", line 43, in __init__
+    self.provider = ProviderFactory.get_provider(provider_name, api_key)
+                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\ai\Groqqle\providers\provider_factory.py", line 32, in get_provider
+    return provider_class()
+           ^^^^^^^^^^^^^^^^
+  File "C:\Users\j\miniconda3\envs\groqqle\Lib\site-packages\pocketgroq\groq_provider.py", line 20, in __init__
+    self.api_key = api_key or get_api_key()
+                              ^^^^^^^^^^^^^
+  File "C:\Users\j\miniconda3\envs\groqqle\Lib\site-packages\pocketgroq\config.py", line 17, in get_api_key
+    raise GroqAPIKeyMissingError("GROQ_API_KEY not found in environment variables or .env file")
+pocketgroq.exceptions.GroqAPIKeyMissingError: GROQ_API_KEY not found in environment variables or .env file
+
+Error initializing Web_Agent: GROQ_API_KEY not found in environment variables or .env file
+Current working directory: c:\ai\Groqqle
+Current sys.path: ['Groqqle.py', '', 'C:\\Program Files\\Python310\\Scripts\\streamlit.exe', 'C:\\Program Files\\Python310\\python310.zip', 'C:\\Program Files\\Python310\\DLLs', 'C:\\Program Files\\Python310\\lib', 'C:\\Program Files\\Python310', 'C:\\Users\\j\\AppData\\Roaming\\Python\\Python310\\site-packages', 'C:\\Program Files\\Python310\\lib\\site-packages', 'C:\\Program Files\\Python310\\lib\\site-packages\\win32', 'C:\\Program Files\\Python310\\lib\\site-packages\\win32\\lib', 'C:\\Program Files\\Python310\\lib\\site-packages\\Pythonwin', 'C:\\ai\\Groqqle', 'c:\\ai\\Groqqle', 'c:\\ai\\Groqqle']
+Updated sys.path: ['Groqqle.py', '', 'C:\\Program Files\\Python310\\Scripts\\streamlit.exe', 'C:\\Program Files\\Python310\\python310.zip', 'C:\\Program Files\\Python310\\DLLs', 'C:\\Program Files\\Python310\\lib', 'C:\\Program Files\\Python310', 'C:\\Users\\j\\AppData\\Roaming\\Python\\Python310\\site-packages', 'C:\\Program Files\\Python310\\lib\\site-packages', 'C:\\Program Files\\Python310\\lib\\site-packages\\win32', 'C:\\Program Files\\Python310\\lib\\site-packages\\win32\\lib', 'C:\\Program Files\\Python310\\lib\\site-packages\\Pythonwin', 'C:\\ai\\Groqqle', 'c:\\ai\\Groqqle', 'c:\\ai\\Groqqle']
+Attempting to import ProviderFactory
+Error importing ProviderFactory: No module named 'pocketgroq'
+Traceback:
+Traceback (most recent call last):
+  File "c:\ai\Groqqle\agents\Web_Agent.py", line 25, in <module>
+    from providers.provider_factory import ProviderFactory
+  File "c:\ai\Groqqle\providers\provider_factory.py", line 3, in <module>
+    from pocketgroq import GroqProvider
+ModuleNotFoundError: No module named 'pocketgroq'
+
+Current working directory: c:\ai\Groqqle
+Current sys.path: ['Groqqle.py', '', 'C:\\Program Files\\Python310\\Scripts\\streamlit.exe', 'C:\\Program Files\\Python310\\python310.zip', 'C:\\Program Files\\Python310\\DLLs', 'C:\\Program Files\\Python310\\lib', 'C:\\Program Files\\Python310', 'C:\\Users\\j\\AppData\\Roaming\\Python\\Python310\\site-packages', 'C:\\Program Files\\Python310\\lib\\site-packages', 'C:\\Program Files\\Python310\\lib\\site-packages\\win32', 'C:\\Program Files\\Python310\\lib\\site-packages\\win32\\lib', 'C:\\Program Files\\Python310\\lib\\site-packages\\Pythonwin', 'C:\\ai\\Groqqle', 'c:\\ai\\Groqqle', 'c:\\ai\\Groqqle']
+GROQ_API_KEY from environment: Not found
+Current working directory: c:\ai\Groqqle
+Current sys.path: ['Groqqle.py', '', 'C:\\Program Files\\Python310\\Scripts\\streamlit.exe', 'C:\\Program Files\\Python310\\python310.zip', 'C:\\Program Files\\Python310\\DLLs', 'C:\\Program Files\\Python310\\lib', 'C:\\Program Files\\Python310', 'C:\\Users\\j\\AppData\\Roaming\\Python\\Python310\\site-packages', 'C:\\Program Files\\Python310\\lib\\site-packages', 'C:\\Program Files\\Python310\\lib\\site-packages\\win32', 'C:\\Program Files\\Python310\\lib\\site-packages\\win32\\lib', 'C:\\Program Files\\Python310\\lib\\site-packages\\Pythonwin', 'C:\\ai\\Groqqle', 'c:\\ai\\Groqqle', 'c:\\ai\\Groqqle']
+GROQ_API_KEY from environment: Not found
+API key entered by user and stored in session state
+Attempting to initialize Web_Agent with API key: [REDACTED]
+Initializing Web_Agent with provider_name: groq
+ProviderFactory is None. Raising ImportError.
+Error initializing Web_Agent: ProviderFactory is not available. Please check your project structure.
 Current working directory: C:\ai\Groqqle
 Current sys.path: ['Groqqle.py', '', 'C:\\Users\\j\\miniconda3\\envs\\groqqle\\Scripts\\streamlit.exe', 'C:\\Users\\j\\miniconda3\\envs\\groqqle\\python311.zip', 'C:\\Users\\j\\miniconda3\\envs\\groqqle\\DLLs', 'C:\\Users\\j\\miniconda3\\envs\\groqqle\\Lib', 'C:\\Users\\j\\miniconda3\\envs\\groqqle', 'C:\\Users\\j\\AppData\\Roaming\\Python\\Python311\\site-packages', 'C:\\Users\\j\\miniconda3\\envs\\groqqle\\Lib\\site-packages', 'C:\\ai\\Groqqle', 'C:\\ai\\Groqqle', 'C:\\ai\\Groqqle']
 Updated sys.path: ['Groqqle.py', '', 'C:\\Users\\j\\miniconda3\\envs\\groqqle\\Scripts\\streamlit.exe', 'C:\\Users\\j\\miniconda3\\envs\\groqqle\\python311.zip', 'C:\\Users\\j\\miniconda3\\envs\\groqqle\\DLLs', 'C:\\Users\\j\\miniconda3\\envs\\groqqle\\Lib', 'C:\\Users\\j\\miniconda3\\envs\\groqqle', 'C:\\Users\\j\\AppData\\Roaming\\Python\\Python311\\site-packages', 'C:\\Users\\j\\miniconda3\\envs\\groqqle\\Lib\\site-packages', 'C:\\ai\\Groqqle', 'C:\\ai\\Groqqle', 'C:\\ai\\Groqqle']
@@ -25,75 +61,79 @@ Current sys.path: ['Groqqle.py', '', 'C:\\Users\\j\\miniconda3\\envs\\groqqle\\S
 Exiting provider_factory.py
 ProviderFactory imported successfully
 Current working directory: C:\ai\Groqqle
+Current sys.path: ['Groqqle.py', '', 'C:\\Users\\j\\miniconda3\\envs\\groqqle\\Scripts\\streamlit.exe', 'C:\\Users\\j\\miniconda3\\envs\\groqqle\\python311.zip', 'C:\\Users\\j\\miniconda3\\envs\\groqqle\\DLLs', 'C:\\Users\\j\\miniconda3\\envs\\groqqle\\Lib', 'C:\\Users\\j\\miniconda3\\envs\\groqqle', 'C:\\Users\\j\\AppData\\Roaming\\Python\\Python311\\site-packages', 'C:\\Users\\j\\miniconda3\\envs\\groqqle\\Lib\\site-packages', 'C:\\ai\\Groqqle', 'C:\\ai\\Groqqle', 'C:\\ai\\Groqqle']
+GROQ_API_KEY from environment: Not found
 Current working directory: C:\ai\Groqqle
 Current sys.path: ['Groqqle.py', '', 'C:\\Users\\j\\miniconda3\\envs\\groqqle\\Scripts\\streamlit.exe', 'C:\\Users\\j\\miniconda3\\envs\\groqqle\\python311.zip', 'C:\\Users\\j\\miniconda3\\envs\\groqqle\\DLLs', 'C:\\Users\\j\\miniconda3\\envs\\groqqle\\Lib', 'C:\\Users\\j\\miniconda3\\envs\\groqqle', 'C:\\Users\\j\\AppData\\Roaming\\Python\\Python311\\site-packages', 'C:\\Users\\j\\miniconda3\\envs\\groqqle\\Lib\\site-packages', 'C:\\ai\\Groqqle', 'C:\\ai\\Groqqle', 'C:\\ai\\Groqqle']
-Current sys.path: ['Groqqle.py', '', 'C:\\Users\\j\\miniconda3\\envs\\groqqle\\Scripts\\streamlit.exe', 'C:\\Users\\j\\miniconda3\\envs\\groqqle\\python311.zip', 'C:\\Users\\j\\miniconda3\\envs\\groqqle\\DLLs', 'C:\\Users\\j\\miniconda3\\envs\\groqqle\\Lib', 'C:\\Users\\j\\miniconda3\\envs\\groqqle', 'C:\\Users\\j\\AppData\\Roaming\\Python\\Python311\\site-packages', 'C:\\Users\\j\\miniconda3\\envs\\groqqle\\Lib\\site-packages', 'C:\\ai\\Groqqle', 'C:\\ai\\Groqqle', 'C:\\ai\\Groqqle']
-GROQ_API_KEY from environment: Found
-API key from environment stored in session state
+GROQ_API_KEY from environment: Not found
+API key entered by user and stored in session state
 Attempting to initialize Web_Agent with API key: [REDACTED]
 Initializing Web_Agent with provider_name: groq
-Attempting to get provider
+Attempting to get provider with API key: gsk_p...
 get_provider called with provider_name: groq
-Creating GroqProvider instance
-GROQ_API_KEY from environment: Found
-API key from environment stored in session state
-Attempting to initialize Web_Agent with API key: [REDACTED]
-Initializing Web_Agent with provider_name: groq
-Attempting to get provider
-get_provider called with provider_name: groq
-Creating GroqProvider instance
+Creating groq instance with API key
 Provider obtained successfully
 Attempting to get model
-get_model called, returning: llama3-groq-8b-8192-tool-use-preview
+get_model called, returning: mixtral-8x7b-32768
 Model obtained successfully
 Initializing tools
 Tools initialized successfully
 Web_Agent initialized successfully
-Provider obtained successfully
-Attempting to get model
-get_model called, returning: llama3-groq-8b-8192-tool-use-preview
-Model obtained successfully
-Initializing tools
-Tools initialized successfully
-Web_Agent initialized successfully
-Performing search with query: Test
+Performing search with query: Sheboygan
 Initializing Web_Agent with provider_name: groq
-Attempting to get provider
+Attempting to get provider with API key: gsk_p...
 get_provider called with provider_name: groq
-Creating GroqProvider instance
+Creating groq instance with API key
 Provider obtained successfully
 Attempting to get model
-get_model called, returning: llama3-groq-8b-8192-tool-use-preview
+get_model called, returning: mixtral-8x7b-32768
 Model obtained successfully
 Initializing tools
 Tools initialized successfully
-Processing request: Test
+Processing request: Sheboygan
 Calling _process_web_search
 Entering _process_web_search
-Performing web search with query: Test
-WebSearch_Tool: Starting search for query: Test, num_results: 20
+Performing web search with query: Sheboygan
+WebSearch_Tool: Starting search for query: Sheboygan, num_results: 20
 WebSearch_Tool: Sending request to Google
 WebSearch_Tool: Request successful. Status code: 200
-WebSearch_Tool: Found 19 raw search results
-WebSearch_Tool: Returning 19 processed results
-Web search completed successfully. Number of results: 19
-Web search completed. Number of results: 19
-Results filtered. Number of filtered results: 19
+WebSearch_Tool: Found 11 raw search results
+WebSearch_Tool: Skipping result due to missing title
+WebSearch_Tool: Returning 10 processed results
+Web search completed successfully. Number of results: 10
+Web search completed. Number of results: 10
+Results filtered. Number of filtered results: 10
 Results deduplicated. Number of final results: 10
 _process_web_search completed. Number of results: 10
 Search completed. Number of results: 10
 Current working directory: C:\ai\Groqqle
 Current sys.path: ['Groqqle.py', '', 'C:\\Users\\j\\miniconda3\\envs\\groqqle\\Scripts\\streamlit.exe', 'C:\\Users\\j\\miniconda3\\envs\\groqqle\\python311.zip', 'C:\\Users\\j\\miniconda3\\envs\\groqqle\\DLLs', 'C:\\Users\\j\\miniconda3\\envs\\groqqle\\Lib', 'C:\\Users\\j\\miniconda3\\envs\\groqqle', 'C:\\Users\\j\\AppData\\Roaming\\Python\\Python311\\site-packages', 'C:\\Users\\j\\miniconda3\\envs\\groqqle\\Lib\\site-packages', 'C:\\ai\\Groqqle', 'C:\\ai\\Groqqle', 'C:\\ai\\Groqqle']
-GROQ_API_KEY from environment: Found
-API key from environment stored in session state
+GROQ_API_KEY from environment: Not found
+API key retrieved from session state
 Attempting to initialize Web_Agent with API key: [REDACTED]
 Initializing Web_Agent with provider_name: groq
-Attempting to get provider
+Attempting to get provider with API key: gsk_p...
 get_provider called with provider_name: groq
-Creating GroqProvider instance
+Creating groq instance with API key
 Provider obtained successfully
 Attempting to get model
-get_model called, returning: llama3-groq-8b-8192-tool-use-preview
+get_model called, returning: mixtral-8x7b-32768
+Model obtained successfully
+Initializing tools
+Tools initialized successfully
+Web_Agent initialized successfully
+Current working directory: C:\ai\Groqqle
+Current sys.path: ['Groqqle.py', '', 'C:\\Users\\j\\miniconda3\\envs\\groqqle\\Scripts\\streamlit.exe', 'C:\\Users\\j\\miniconda3\\envs\\groqqle\\python311.zip', 'C:\\Users\\j\\miniconda3\\envs\\groqqle\\DLLs', 'C:\\Users\\j\\miniconda3\\envs\\groqqle\\Lib', 'C:\\Users\\j\\miniconda3\\envs\\groqqle', 'C:\\Users\\j\\AppData\\Roaming\\Python\\Python311\\site-packages', 'C:\\Users\\j\\miniconda3\\envs\\groqqle\\Lib\\site-packages', 'C:\\ai\\Groqqle', 'C:\\ai\\Groqqle', 'C:\\ai\\Groqqle']
+GROQ_API_KEY from environment: Not found
+API key retrieved from session state
+Attempting to initialize Web_Agent with API key: [REDACTED]
+Initializing Web_Agent with provider_name: groq
+Attempting to get provider with API key: gsk_p...
+get_provider called with provider_name: groq
+Creating groq instance with API key
+Provider obtained successfully
+Attempting to get model
+get_model called, returning: mixtral-8x7b-32768
 Model obtained successfully
 Initializing tools
 Tools initialized successfully
