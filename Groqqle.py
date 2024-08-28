@@ -1,14 +1,22 @@
-import streamlit as st
-import json
-from PIL import Image
-import base64
-from agents.Web_Agent import Web_Agent
 import os
-from dotenv import load_dotenv
 import sys
+import streamlit as st
+from PIL import Image
+from dotenv import load_dotenv
 from flask import Flask, request, jsonify
 
 load_dotenv()
+
+# Add the parent directory to sys.path
+parent_dir = os.path.dirname(os.path.abspath(__file__))
+if parent_dir not in sys.path:
+    sys.path.append(parent_dir)
+
+from agents.Web_Agent import Web_Agent
+
+with open('debug_info.txt', 'w') as f:
+    f.write(f"Current working directory: {os.getcwd()}\n")
+    f.write(f"Current sys.path: {sys.path}\n")
 
 def get_groq_api_key():
     api_key = os.getenv('GROQ_API_KEY')
@@ -92,7 +100,13 @@ def main():
         st.error("Please provide a valid Groq API Key to use the application.")
         return
 
-    agent = Web_Agent(api_key)
+    try:
+        agent = Web_Agent(api_key)
+    except Exception as e:
+        with open('debug_info.txt', 'a') as f:
+            f.write(f"Error initializing Web_Agent: {str(e)}\n")
+        st.error(f"Error initializing Web_Agent: {str(e)}")
+        return
 
     st.markdown('<div class="search-container">', unsafe_allow_html=True)
     
@@ -163,8 +177,4 @@ def create_api_app():
     return app
 
 if __name__ == "__main__":
-    if len(sys.argv) > 1 and sys.argv[1] == 'api':
-        api_app = create_api_app()
-        api_app.run(debug=True, port=5000)
-    else:
-        main()
+    main()

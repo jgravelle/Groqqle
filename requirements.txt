@@ -7,3 +7,4 @@ anthropic
 fastapi
 uvicorn
 Flask
+pocketgroq

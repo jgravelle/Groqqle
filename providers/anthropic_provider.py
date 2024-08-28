@@ -5,10 +5,10 @@ from typing import Dict, Any
 from providers.base_provider import BaseLLMProvider
 
 class AnthropicProvider(BaseLLMProvider):
-    def __init__(self):
-        self.api_key = os.environ.get('ANTHROPIC_API_KEY')
+    def __init__(self, api_key: str):
+        self.api_key = api_key
         if not self.api_key:
-            raise ValueError("Anthropic API key is not set in environment variables")
+            raise ValueError("Anthropic API key is not provided")
         self.api_url = "https://api.anthropic.com/v1/messages"
         self.client = anthropic.Anthropic(api_key=self.api_key)
 

@@ -1,0 +1,12 @@
+Current working directory: C:\ai\Groqqle
+Current sys.path: ['Groqqle.py', '', 'C:\\Users\\j\\miniconda3\\envs\\groqqle\\Scripts\\streamlit.exe', 'C:\\Users\\j\\miniconda3\\envs\\groqqle\\python311.zip', 'C:\\Users\\j\\miniconda3\\envs\\groqqle\\DLLs', 'C:\\Users\\j\\miniconda3\\envs\\groqqle\\Lib', 'C:\\Users\\j\\miniconda3\\envs\\groqqle', 'C:\\Users\\j\\AppData\\Roaming\\Python\\Python311\\site-packages', 'C:\\Users\\j\\miniconda3\\envs\\groqqle\\Lib\\site-packages', 'C:\\ai\\Groqqle', 'C:\\ai\\Groqqle', 'C:\\ai\\Groqqle']
+Initializing Web_Agent with provider_name: groq
+Attempting to get provider
+get_provider called with provider_name: groq
+Creating GroqProvider instance
+Provider obtained successfully
+Attempting to get model
+get_model called, returning: llama3-groq-8b-8192-tool-use-preview
+Model obtained successfully
+Initializing tools
+Tools initialized successfully
