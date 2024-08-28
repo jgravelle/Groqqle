@@ -14,23 +14,30 @@ if parent_dir not in sys.path:
 
 from agents.Web_Agent import Web_Agent
 
-with open('debug_info.txt', 'w') as f:
-    f.write(f"Current working directory: {os.getcwd()}\n")
-    f.write(f"Current sys.path: {sys.path}\n")
+def log_debug(message):
+    with open('debug_info.txt', 'a') as f:
+        f.write(f"{message}\n")
+
+log_debug(f"Current working directory: {os.getcwd()}")
+log_debug(f"Current sys.path: {sys.path}")
 
 def get_groq_api_key():
     api_key = os.getenv('GROQ_API_KEY')
+    log_debug(f"GROQ_API_KEY from environment: {'Found' if api_key else 'Not found'}")
     
     if not api_key:
         if 'groq_api_key' not in st.session_state:
-            st.warning("Groq API Key not found. Please enter your API key below:")
+            st.warning("Groq API Key not found in environment. Please enter your API key below:")
             api_key = st.text_input("Groq API Key", type="password")
             if api_key:
                 st.session_state.groq_api_key = api_key
+                log_debug("API key entered by user and stored in session state")
         else:
             api_key = st.session_state.groq_api_key
+            log_debug("API key retrieved from session state")
     else:
         st.session_state.groq_api_key = api_key
+        log_debug("API key from environment stored in session state")
     
     return api_key
 
@@ -100,11 +107,12 @@ def main():
         st.error("Please provide a valid Groq API Key to use the application.")
         return
 
+    log_debug(f"Attempting to initialize Web_Agent with API key: {'[REDACTED]' if api_key else 'None'}")
     try:
         agent = Web_Agent(api_key)
+        log_debug("Web_Agent initialized successfully")
     except Exception as e:
-        with open('debug_info.txt', 'a') as f:
-            f.write(f"Error initializing Web_Agent: {str(e)}\n")
+        log_debug(f"Error initializing Web_Agent: {str(e)}")
         st.error(f"Error initializing Web_Agent: {str(e)}")
         return
 
@@ -128,10 +136,18 @@ def main():
 
 def perform_search():
     query = st.session_state.search_bar
-    if query and 'groq_api_key' in st.session_state:
+    api_key = st.session_state.get('groq_api_key')
+    if query and api_key:
         with st.spinner('Searching...'):
-            results = Web_Agent(st.session_state.groq_api_key).process_request(query)
+            log_debug(f"Performing search with query: {query}")
+            results = Web_Agent(api_key).process_request(query)
+            log_debug(f"Search completed. Number of results: {len(results)}")
         st.session_state.search_results = results
+    else:
+        if not api_key:
+            st.error("Please provide a valid Groq API Key to perform the search.")
+        if not query:
+            st.error("Please enter a search query.")
 
 def display_results(results, json_format=False):
     if results:

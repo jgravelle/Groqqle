@@ -10,3 +10,91 @@ get_model called, returning: llama3-groq-8b-8192-tool-use-preview
 Model obtained successfully
 Initializing tools
 Tools initialized successfully
+WebSearch_Tool: Starting search for query: test query, num_results: 10
+WebSearch_Tool: Sending request to Google
+WebSearch_Tool: Request successful. Status code: 200
+WebSearch_Tool: Found 9 raw search results
+WebSearch_Tool: Returning 9 processed results
+Current working directory: C:\ai\Groqqle
+Current sys.path: ['Groqqle.py', '', 'C:\\Users\\j\\miniconda3\\envs\\groqqle\\Scripts\\streamlit.exe', 'C:\\Users\\j\\miniconda3\\envs\\groqqle\\python311.zip', 'C:\\Users\\j\\miniconda3\\envs\\groqqle\\DLLs', 'C:\\Users\\j\\miniconda3\\envs\\groqqle\\Lib', 'C:\\Users\\j\\miniconda3\\envs\\groqqle', 'C:\\Users\\j\\AppData\\Roaming\\Python\\Python311\\site-packages', 'C:\\Users\\j\\miniconda3\\envs\\groqqle\\Lib\\site-packages', 'C:\\ai\\Groqqle', 'C:\\ai\\Groqqle', 'C:\\ai\\Groqqle']
+Updated sys.path: ['Groqqle.py', '', 'C:\\Users\\j\\miniconda3\\envs\\groqqle\\Scripts\\streamlit.exe', 'C:\\Users\\j\\miniconda3\\envs\\groqqle\\python311.zip', 'C:\\Users\\j\\miniconda3\\envs\\groqqle\\DLLs', 'C:\\Users\\j\\miniconda3\\envs\\groqqle\\Lib', 'C:\\Users\\j\\miniconda3\\envs\\groqqle', 'C:\\Users\\j\\AppData\\Roaming\\Python\\Python311\\site-packages', 'C:\\Users\\j\\miniconda3\\envs\\groqqle\\Lib\\site-packages', 'C:\\ai\\Groqqle', 'C:\\ai\\Groqqle', 'C:\\ai\\Groqqle']
+Attempting to import ProviderFactory
+Entering provider_factory.py
+Current working directory: C:\ai\Groqqle
+Current sys.path: ['Groqqle.py', '', 'C:\\Users\\j\\miniconda3\\envs\\groqqle\\Scripts\\streamlit.exe', 'C:\\Users\\j\\miniconda3\\envs\\groqqle\\python311.zip', 'C:\\Users\\j\\miniconda3\\envs\\groqqle\\DLLs', 'C:\\Users\\j\\miniconda3\\envs\\groqqle\\Lib', 'C:\\Users\\j\\miniconda3\\envs\\groqqle', 'C:\\Users\\j\\AppData\\Roaming\\Python\\Python311\\site-packages', 'C:\\Users\\j\\miniconda3\\envs\\groqqle\\Lib\\site-packages', 'C:\\ai\\Groqqle', 'C:\\ai\\Groqqle', 'C:\\ai\\Groqqle']
+Exiting provider_factory.py
+ProviderFactory imported successfully
+Current working directory: C:\ai\Groqqle
+Current working directory: C:\ai\Groqqle
+Current sys.path: ['Groqqle.py', '', 'C:\\Users\\j\\miniconda3\\envs\\groqqle\\Scripts\\streamlit.exe', 'C:\\Users\\j\\miniconda3\\envs\\groqqle\\python311.zip', 'C:\\Users\\j\\miniconda3\\envs\\groqqle\\DLLs', 'C:\\Users\\j\\miniconda3\\envs\\groqqle\\Lib', 'C:\\Users\\j\\miniconda3\\envs\\groqqle', 'C:\\Users\\j\\AppData\\Roaming\\Python\\Python311\\site-packages', 'C:\\Users\\j\\miniconda3\\envs\\groqqle\\Lib\\site-packages', 'C:\\ai\\Groqqle', 'C:\\ai\\Groqqle', 'C:\\ai\\Groqqle']
+Current sys.path: ['Groqqle.py', '', 'C:\\Users\\j\\miniconda3\\envs\\groqqle\\Scripts\\streamlit.exe', 'C:\\Users\\j\\miniconda3\\envs\\groqqle\\python311.zip', 'C:\\Users\\j\\miniconda3\\envs\\groqqle\\DLLs', 'C:\\Users\\j\\miniconda3\\envs\\groqqle\\Lib', 'C:\\Users\\j\\miniconda3\\envs\\groqqle', 'C:\\Users\\j\\AppData\\Roaming\\Python\\Python311\\site-packages', 'C:\\Users\\j\\miniconda3\\envs\\groqqle\\Lib\\site-packages', 'C:\\ai\\Groqqle', 'C:\\ai\\Groqqle', 'C:\\ai\\Groqqle']
+GROQ_API_KEY from environment: Found
+API key from environment stored in session state
+Attempting to initialize Web_Agent with API key: [REDACTED]
+Initializing Web_Agent with provider_name: groq
+Attempting to get provider
+get_provider called with provider_name: groq
+Creating GroqProvider instance
+GROQ_API_KEY from environment: Found
+API key from environment stored in session state
+Attempting to initialize Web_Agent with API key: [REDACTED]
+Initializing Web_Agent with provider_name: groq
+Attempting to get provider
+get_provider called with provider_name: groq
+Creating GroqProvider instance
+Provider obtained successfully
+Attempting to get model
+get_model called, returning: llama3-groq-8b-8192-tool-use-preview
+Model obtained successfully
+Initializing tools
+Tools initialized successfully
+Web_Agent initialized successfully
+Provider obtained successfully
+Attempting to get model
+get_model called, returning: llama3-groq-8b-8192-tool-use-preview
+Model obtained successfully
+Initializing tools
+Tools initialized successfully
+Web_Agent initialized successfully
+Performing search with query: Test
+Initializing Web_Agent with provider_name: groq
+Attempting to get provider
+get_provider called with provider_name: groq
+Creating GroqProvider instance
+Provider obtained successfully
+Attempting to get model
+get_model called, returning: llama3-groq-8b-8192-tool-use-preview
+Model obtained successfully
+Initializing tools
+Tools initialized successfully
+Processing request: Test
+Calling _process_web_search
+Entering _process_web_search
+Performing web search with query: Test
+WebSearch_Tool: Starting search for query: Test, num_results: 20
+WebSearch_Tool: Sending request to Google
+WebSearch_Tool: Request successful. Status code: 200
+WebSearch_Tool: Found 19 raw search results
+WebSearch_Tool: Returning 19 processed results
+Web search completed successfully. Number of results: 19
+Web search completed. Number of results: 19
+Results filtered. Number of filtered results: 19
+Results deduplicated. Number of final results: 10
+_process_web_search completed. Number of results: 10
+Search completed. Number of results: 10
+Current working directory: C:\ai\Groqqle
+Current sys.path: ['Groqqle.py', '', 'C:\\Users\\j\\miniconda3\\envs\\groqqle\\Scripts\\streamlit.exe', 'C:\\Users\\j\\miniconda3\\envs\\groqqle\\python311.zip', 'C:\\Users\\j\\miniconda3\\envs\\groqqle\\DLLs', 'C:\\Users\\j\\miniconda3\\envs\\groqqle\\Lib', 'C:\\Users\\j\\miniconda3\\envs\\groqqle', 'C:\\Users\\j\\AppData\\Roaming\\Python\\Python311\\site-packages', 'C:\\Users\\j\\miniconda3\\envs\\groqqle\\Lib\\site-packages', 'C:\\ai\\Groqqle', 'C:\\ai\\Groqqle', 'C:\\ai\\Groqqle']
+GROQ_API_KEY from environment: Found
+API key from environment stored in session state
+Attempting to initialize Web_Agent with API key: [REDACTED]
+Initializing Web_Agent with provider_name: groq
+Attempting to get provider
+get_provider called with provider_name: groq
+Creating GroqProvider instance
+Provider obtained successfully
+Attempting to get model
+get_model called, returning: llama3-groq-8b-8192-tool-use-preview
+Model obtained successfully
+Initializing tools
+Tools initialized successfully
+Web_Agent initialized successfully

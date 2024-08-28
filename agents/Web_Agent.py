@@ -1,5 +1,3 @@
-# agents/Web_Agent.py
-
 import os
 import sys
 import traceback
@@ -34,6 +32,9 @@ except ImportError as e:
 class Web_Agent(Base_Agent):
     def __init__(self, api_key, provider_name='groq'):
         log_debug(f"Initializing Web_Agent with provider_name: {provider_name}")
+        if not api_key:
+            log_debug("API key is missing or empty")
+            raise ValueError("API key is required")
         if ProviderFactory is None:
             log_debug("ProviderFactory is None. Raising ImportError.")
             raise ImportError("ProviderFactory is not available. Please check your project structure.")
@@ -53,23 +54,35 @@ class Web_Agent(Base_Agent):
             raise
 
     def process_request(self, user_request: str) -> list:
+        log_debug(f"Processing request: {user_request}")
         try:
-            return self._process_web_search(user_request)
+            log_debug("Calling _process_web_search")
+            results = self._process_web_search(user_request)
+            log_debug(f"_process_web_search completed. Number of results: {len(results)}")
+            return results
         except Exception as e:
+            log_debug(f"Error in process_request: {str(e)}")
+            log_debug(f"Traceback:\n{traceback.format_exc()}")
             if os.environ.get('DEBUG') == 'True':
                 print(f"Error in Web_Agent: {str(e)}")
             return [{"title": "Error", "url": "", "description": f"An error occurred while processing your request: {str(e)}"}]
 
     def _process_web_search(self, user_request: str) -> list:
+        log_debug("Entering _process_web_search")
         search_results = self._perform_web_search(user_request)
+        log_debug(f"Web search completed. Number of results: {len(search_results)}")
         if not search_results:
+            log_debug("No search results found")
             return [{"title": "No Results", "url": "", "description": "I'm sorry, but I couldn't find any relevant information for your request."}]
 
         filtered_results = self._filter_search_results(search_results)
+        log_debug(f"Results filtered. Number of filtered results: {len(filtered_results)}")
         if not filtered_results:
+            log_debug("No results after filtering")
             return [{"title": "No Results", "url": "", "description": "I found some results, but they were all from domains I've been instructed to skip. Could you try rephrasing your request?"}]
 
         deduplicated_results = self._remove_duplicates(filtered_results)
+        log_debug(f"Results deduplicated. Number of final results: {len(deduplicated_results[:10])}")
         return deduplicated_results[:10]  # Return top 10 unique results
 
     def _initialize_tools(self):
@@ -80,7 +93,15 @@ class Web_Agent(Base_Agent):
         }
 
     def _perform_web_search(self, query: str):
-        return self.tools["WebSearch_Tool"](query, 20)  # Request 20 results to account for filtering
+        log_debug(f"Performing web search with query: {query}")
+        try:
+            results = self.tools["WebSearch_Tool"](query, 20)  # Request 20 results to account for filtering
+            log_debug(f"Web search completed successfully. Number of results: {len(results)}")
+            return results
+        except Exception as e:
+            log_debug(f"Error in _perform_web_search: {str(e)}")
+            log_debug(f"Traceback:\n{traceback.format_exc()}")
+            raise
 
     def _filter_search_results(self, results):
         # Implement your filtering logic here
