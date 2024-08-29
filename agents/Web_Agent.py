@@ -30,7 +30,7 @@ except ImportError as e:
     ProviderFactory = None
 
 class Web_Agent(Base_Agent):
-    def __init__(self, api_key, provider_name='groq', num_results=10, max_tokens=256):
+    def __init__(self, api_key, provider_name='groq', num_results=10, max_tokens=4096):
         log_debug(f"Initializing Web_Agent with provider_name: {provider_name}, num_results: {num_results}, max_tokens: {max_tokens}")
         if not api_key:
             log_debug("API key is missing or empty")

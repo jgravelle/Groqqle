@@ -71,7 +71,7 @@ The Groqqle API allows you to programmatically access search results. Here's how
 
 1. Start the Groqqle application in API mode:
    ```
-   python Groqqle.py api --num_results 20 --max_tokens 256
+   python Groqqle.py api --num_results 20 --max_tokens 4096
    ```
 
 2. The API server will start running on `http://127.0.0.1:5000`.
@@ -81,7 +81,7 @@ The Groqqle API allows you to programmatically access search results. Here's how
    {
      "query": "your search query",
      "num_results": 20,
-     "max_tokens": 256
+     "max_tokens": 4096
    }
    ```
 
@@ -98,7 +98,7 @@ url = "http://127.0.0.1:5000/search"
 data = {
     "query": "Groq",
     "num_results": 20,
-    "max_tokens": 256
+    "max_tokens": 4096
 }
 response = requests.post(url, json=data)
 results = response.json()
@@ -120,7 +120,7 @@ To use a different provider, you can modify the `provider_name` parameter when i
 Groqqle now supports the following configuration options:
 
 - `num_results`: Number of search results to return (default: 10)
-- `max_tokens`: Maximum number of tokens for the AI model response (default: 256)
+- `max_tokens`: Maximum number of tokens for the AI model response (default: 4096)
 
 These options can be set when running the application or when making API requests.
 
