@@ -1,5 +1,3 @@
-Based on the changes we've made and the new features we've added, here's an updated version of the README that accurately reflects all the new changes and adequately explains the new features:
-
 # Groqqle: Your AI-Powered Search Engine
 
 ![Groqqle Logo](https://github.com/user-attachments/assets/1ff3686d-130f-4b63-ae4d-f0cf7bb6562e)
@@ -154,13 +152,3 @@ Project Link: [https://github.com/jgravelle/Groqqle](https://github.com/jgravell
 - [Beautiful Soup](https://www.crummy.com/software/BeautifulSoup/) for web scraping capabilities
 
 ![Groqqle Footer](https://github.com/user-attachments/assets/1ff3686d-130f-4b63-ae4d-f0cf7bb6562e)
-
-This updated README now accurately reflects the new changes and features, including:
-
-1. The updated usage instructions for both the web interface and API.
-2. The new configuration options for `num_results` and `max_tokens`.
-3. The change to using environment variables for API key management.
-4. The updated order of search results (title, description, URL).
-5. The explanation of how to use different AI providers.
-
-The License, Contact, and Acknowledgment sections remain unchanged as requested.
