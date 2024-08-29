@@ -30,7 +30,7 @@ except ImportError as e:
     ProviderFactory = None
 
 class Web_Agent(Base_Agent):
-    def __init__(self, api_key, provider_name='groq', num_results=10, max_tokens=4096):
+    def __init__(self, api_key, provider_name='groq', num_results=10, max_tokens=256):
         log_debug(f"Initializing Web_Agent with provider_name: {provider_name}, num_results: {num_results}, max_tokens: {max_tokens}")
         if not api_key:
             log_debug("API key is missing or empty")
@@ -109,12 +109,24 @@ class Web_Agent(Base_Agent):
             raise
 
     def _filter_search_results(self, results):
-        # Implement your filtering logic here
-        return results
+        log_debug("Starting filtering process")
+        filtered_results = []
+        for result in results:
+            if result['description'] and result['title'] != 'No title' and result['url'].startswith('https://'):
+                filtered_results.append(result)
+        log_debug(f"Filtering completed. Number of filtered results: {len(filtered_results)}")
+        return filtered_results
 
     def _remove_duplicates(self, results):
-        # Implement your deduplication logic here
-        return results
+        log_debug("Starting deduplication process")
+        seen_urls = set()
+        unique_results = []
+        for result in results:
+            if result['url'] not in seen_urls:
+                seen_urls.add(result['url'])
+                unique_results.append(result)
+        log_debug(f"Deduplication completed. Number of unique results: {len(unique_results)}")
+        return unique_results
 
     def _get_web_content(self, url: str) -> str:
         return self.tools["WebGetContents_Tool"](url)

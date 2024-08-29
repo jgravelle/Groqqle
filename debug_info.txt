@@ -1292,3 +1292,158 @@ Web search completed. Number of results: 40
 Results filtered. Number of filtered results: 40
 Results deduplicated. Number of final results: 20
 _process_web_search completed. Number of results: 20
+Current working directory: C:\ai\Groqqle
+Current sys.path: ['C:\\ai\\Groqqle', 'C:\\Users\\j\\miniconda3\\envs\\groqqle\\python311.zip', 'C:\\Users\\j\\miniconda3\\envs\\groqqle\\DLLs', 'C:\\Users\\j\\miniconda3\\envs\\groqqle\\Lib', 'C:\\Users\\j\\miniconda3\\envs\\groqqle', 'C:\\Users\\j\\AppData\\Roaming\\Python\\Python311\\site-packages', 'C:\\Users\\j\\miniconda3\\envs\\groqqle\\Lib\\site-packages', 'C:\\ai\\Groqqle', 'C:\\ai\\Groqqle', 'C:\\ai\\Groqqle']
+Updated sys.path: ['C:\\ai\\Groqqle', 'C:\\Users\\j\\miniconda3\\envs\\groqqle\\python311.zip', 'C:\\Users\\j\\miniconda3\\envs\\groqqle\\DLLs', 'C:\\Users\\j\\miniconda3\\envs\\groqqle\\Lib', 'C:\\Users\\j\\miniconda3\\envs\\groqqle', 'C:\\Users\\j\\AppData\\Roaming\\Python\\Python311\\site-packages', 'C:\\Users\\j\\miniconda3\\envs\\groqqle\\Lib\\site-packages', 'C:\\ai\\Groqqle', 'C:\\ai\\Groqqle', 'C:\\ai\\Groqqle']
+Attempting to import ProviderFactory
+Entering provider_factory.py
+Current working directory: C:\ai\Groqqle
+Current sys.path: ['C:\\ai\\Groqqle', 'C:\\Users\\j\\miniconda3\\envs\\groqqle\\python311.zip', 'C:\\Users\\j\\miniconda3\\envs\\groqqle\\DLLs', 'C:\\Users\\j\\miniconda3\\envs\\groqqle\\Lib', 'C:\\Users\\j\\miniconda3\\envs\\groqqle', 'C:\\Users\\j\\AppData\\Roaming\\Python\\Python311\\site-packages', 'C:\\Users\\j\\miniconda3\\envs\\groqqle\\Lib\\site-packages', 'C:\\ai\\Groqqle', 'C:\\ai\\Groqqle', 'C:\\ai\\Groqqle']
+Exiting provider_factory.py
+ProviderFactory imported successfully
+Current working directory: C:\ai\Groqqle
+Current sys.path: ['C:\\ai\\Groqqle', 'C:\\Users\\j\\miniconda3\\envs\\groqqle\\python311.zip', 'C:\\Users\\j\\miniconda3\\envs\\groqqle\\DLLs', 'C:\\Users\\j\\miniconda3\\envs\\groqqle\\Lib', 'C:\\Users\\j\\miniconda3\\envs\\groqqle', 'C:\\Users\\j\\AppData\\Roaming\\Python\\Python311\\site-packages', 'C:\\Users\\j\\miniconda3\\envs\\groqqle\\Lib\\site-packages', 'C:\\ai\\Groqqle', 'C:\\ai\\Groqqle', 'C:\\ai\\Groqqle']
+Running in API mode on port 5000
+API search endpoint hit with query: Sheboygan, WI and num_results: 20
+Initializing Web_Agent with provider_name: groq, num_results: 20, max_tokens: 4096
+Attempting to get provider with API key: gsk_p...
+get_provider called with provider_name: groq
+Creating groq instance with API key
+Provider obtained successfully
+Attempting to get model
+get_model called, returning: mixtral-8x7b-32768
+Model obtained successfully
+Initializing tools
+Tools initialized successfully
+Processing request: Sheboygan, WI
+Calling _process_web_search with num_results: 20
+Entering _process_web_search with num_results: 20
+Performing web search with query: Sheboygan, WI and num_results: 20
+Web search completed successfully. Number of results: 12
+Web search completed. Number of results: 12
+Results filtered. Number of filtered results: 12
+Starting deduplication process
+Deduplication completed. Number of unique results: 11
+Results deduplicated. Number of final results: 11
+_process_web_search completed. Number of results: 11
+Current working directory: C:\ai\Groqqle
+Current sys.path: ['C:\\ai\\Groqqle', 'C:\\Users\\j\\miniconda3\\envs\\groqqle\\python311.zip', 'C:\\Users\\j\\miniconda3\\envs\\groqqle\\DLLs', 'C:\\Users\\j\\miniconda3\\envs\\groqqle\\Lib', 'C:\\Users\\j\\miniconda3\\envs\\groqqle', 'C:\\Users\\j\\AppData\\Roaming\\Python\\Python311\\site-packages', 'C:\\Users\\j\\miniconda3\\envs\\groqqle\\Lib\\site-packages', 'C:\\ai\\Groqqle', 'C:\\ai\\Groqqle', 'C:\\ai\\Groqqle']
+Updated sys.path: ['C:\\ai\\Groqqle', 'C:\\Users\\j\\miniconda3\\envs\\groqqle\\python311.zip', 'C:\\Users\\j\\miniconda3\\envs\\groqqle\\DLLs', 'C:\\Users\\j\\miniconda3\\envs\\groqqle\\Lib', 'C:\\Users\\j\\miniconda3\\envs\\groqqle', 'C:\\Users\\j\\AppData\\Roaming\\Python\\Python311\\site-packages', 'C:\\Users\\j\\miniconda3\\envs\\groqqle\\Lib\\site-packages', 'C:\\ai\\Groqqle', 'C:\\ai\\Groqqle', 'C:\\ai\\Groqqle']
+Attempting to import ProviderFactory
+Entering provider_factory.py
+Current working directory: C:\ai\Groqqle
+Current sys.path: ['C:\\ai\\Groqqle', 'C:\\Users\\j\\miniconda3\\envs\\groqqle\\python311.zip', 'C:\\Users\\j\\miniconda3\\envs\\groqqle\\DLLs', 'C:\\Users\\j\\miniconda3\\envs\\groqqle\\Lib', 'C:\\Users\\j\\miniconda3\\envs\\groqqle', 'C:\\Users\\j\\AppData\\Roaming\\Python\\Python311\\site-packages', 'C:\\Users\\j\\miniconda3\\envs\\groqqle\\Lib\\site-packages', 'C:\\ai\\Groqqle', 'C:\\ai\\Groqqle', 'C:\\ai\\Groqqle']
+Exiting provider_factory.py
+ProviderFactory imported successfully
+Current working directory: C:\ai\Groqqle
+Current sys.path: ['C:\\ai\\Groqqle', 'C:\\Users\\j\\miniconda3\\envs\\groqqle\\python311.zip', 'C:\\Users\\j\\miniconda3\\envs\\groqqle\\DLLs', 'C:\\Users\\j\\miniconda3\\envs\\groqqle\\Lib', 'C:\\Users\\j\\miniconda3\\envs\\groqqle', 'C:\\Users\\j\\AppData\\Roaming\\Python\\Python311\\site-packages', 'C:\\Users\\j\\miniconda3\\envs\\groqqle\\Lib\\site-packages', 'C:\\ai\\Groqqle', 'C:\\ai\\Groqqle', 'C:\\ai\\Groqqle']
+Running in API mode on port 5000
+API search endpoint hit with query: Sheboygan, WI and num_results: 20
+Initializing Web_Agent with provider_name: groq, num_results: 20, max_tokens: 4096
+Attempting to get provider with API key: gsk_p...
+get_provider called with provider_name: groq
+Creating groq instance with API key
+Provider obtained successfully
+Attempting to get model
+get_model called, returning: mixtral-8x7b-32768
+Model obtained successfully
+Initializing tools
+Tools initialized successfully
+Processing request: Sheboygan, WI
+Calling _process_web_search with num_results: 20
+Entering _process_web_search with num_results: 20
+Performing web search with query: Sheboygan, WI and num_results: 20
+Web search completed successfully. Number of results: 12
+Web search completed. Number of results: 12
+Starting filtering process
+Filtering completed. Number of filtered results: 11
+Results filtered. Number of filtered results: 11
+Starting deduplication process
+Deduplication completed. Number of unique results: 10
+Results deduplicated. Number of final results: 10
+_process_web_search completed. Number of results: 10
+Current working directory: C:\ai\Groqqle
+Current sys.path: ['Groqqle.py', '', 'C:\\Users\\j\\miniconda3\\envs\\groqqle\\Scripts\\streamlit.exe', 'C:\\Users\\j\\miniconda3\\envs\\groqqle\\python311.zip', 'C:\\Users\\j\\miniconda3\\envs\\groqqle\\DLLs', 'C:\\Users\\j\\miniconda3\\envs\\groqqle\\Lib', 'C:\\Users\\j\\miniconda3\\envs\\groqqle', 'C:\\Users\\j\\AppData\\Roaming\\Python\\Python311\\site-packages', 'C:\\Users\\j\\miniconda3\\envs\\groqqle\\Lib\\site-packages', 'C:\\ai\\Groqqle', 'C:\\ai\\Groqqle', 'C:\\ai\\Groqqle', 'C:\\ai\\Groqqle']
+Updated sys.path: ['Groqqle.py', '', 'C:\\Users\\j\\miniconda3\\envs\\groqqle\\Scripts\\streamlit.exe', 'C:\\Users\\j\\miniconda3\\envs\\groqqle\\python311.zip', 'C:\\Users\\j\\miniconda3\\envs\\groqqle\\DLLs', 'C:\\Users\\j\\miniconda3\\envs\\groqqle\\Lib', 'C:\\Users\\j\\miniconda3\\envs\\groqqle', 'C:\\Users\\j\\AppData\\Roaming\\Python\\Python311\\site-packages', 'C:\\Users\\j\\miniconda3\\envs\\groqqle\\Lib\\site-packages', 'C:\\ai\\Groqqle', 'C:\\ai\\Groqqle', 'C:\\ai\\Groqqle', 'C:\\ai\\Groqqle']
+Attempting to import ProviderFactory
+Entering provider_factory.py
+Current working directory: C:\ai\Groqqle
+Current sys.path: ['Groqqle.py', '', 'C:\\Users\\j\\miniconda3\\envs\\groqqle\\Scripts\\streamlit.exe', 'C:\\Users\\j\\miniconda3\\envs\\groqqle\\python311.zip', 'C:\\Users\\j\\miniconda3\\envs\\groqqle\\DLLs', 'C:\\Users\\j\\miniconda3\\envs\\groqqle\\Lib', 'C:\\Users\\j\\miniconda3\\envs\\groqqle', 'C:\\Users\\j\\AppData\\Roaming\\Python\\Python311\\site-packages', 'C:\\Users\\j\\miniconda3\\envs\\groqqle\\Lib\\site-packages', 'C:\\ai\\Groqqle', 'C:\\ai\\Groqqle', 'C:\\ai\\Groqqle', 'C:\\ai\\Groqqle']
+Exiting provider_factory.py
+ProviderFactory imported successfully
+Current working directory: C:\ai\Groqqle
+Current sys.path: ['Groqqle.py', '', 'C:\\Users\\j\\miniconda3\\envs\\groqqle\\Scripts\\streamlit.exe', 'C:\\Users\\j\\miniconda3\\envs\\groqqle\\python311.zip', 'C:\\Users\\j\\miniconda3\\envs\\groqqle\\DLLs', 'C:\\Users\\j\\miniconda3\\envs\\groqqle\\Lib', 'C:\\Users\\j\\miniconda3\\envs\\groqqle', 'C:\\Users\\j\\AppData\\Roaming\\Python\\Python311\\site-packages', 'C:\\Users\\j\\miniconda3\\envs\\groqqle\\Lib\\site-packages', 'C:\\ai\\Groqqle', 'C:\\ai\\Groqqle', 'C:\\ai\\Groqqle', 'C:\\ai\\Groqqle']
+Running in app mode
+GROQ_API_KEY from environment: Found
+API key from environment stored in session state
+Attempting to initialize Web_Agent with API key: [REDACTED]
+Initializing Web_Agent with provider_name: groq, num_results: 10, max_tokens: 4096
+Attempting to get provider with API key: gsk_p...
+get_provider called with provider_name: groq
+Creating groq instance with API key
+Provider obtained successfully
+Attempting to get model
+get_model called, returning: mixtral-8x7b-32768
+Model obtained successfully
+Initializing tools
+Tools initialized successfully
+Web_Agent initialized successfully
+Performing search with query: Manitowoc
+Initializing Web_Agent with provider_name: groq, num_results: 10, max_tokens: 4096
+Attempting to get provider with API key: gsk_p...
+get_provider called with provider_name: groq
+Creating groq instance with API key
+Provider obtained successfully
+Attempting to get model
+get_model called, returning: mixtral-8x7b-32768
+Model obtained successfully
+Initializing tools
+Tools initialized successfully
+Processing request: Manitowoc
+Calling _process_web_search with num_results: 10
+Entering _process_web_search with num_results: 10
+Performing web search with query: Manitowoc and num_results: 10
+Web search completed successfully. Number of results: 19
+Web search completed. Number of results: 19
+Starting filtering process
+Filtering completed. Number of filtered results: 18
+Results filtered. Number of filtered results: 18
+Starting deduplication process
+Deduplication completed. Number of unique results: 18
+Results deduplicated. Number of final results: 10
+_process_web_search completed. Number of results: 10
+Search completed. Number of results: 10
+Current working directory: C:\ai\Groqqle
+Current sys.path: ['Groqqle.py', '', 'C:\\Users\\j\\miniconda3\\envs\\groqqle\\Scripts\\streamlit.exe', 'C:\\Users\\j\\miniconda3\\envs\\groqqle\\python311.zip', 'C:\\Users\\j\\miniconda3\\envs\\groqqle\\DLLs', 'C:\\Users\\j\\miniconda3\\envs\\groqqle\\Lib', 'C:\\Users\\j\\miniconda3\\envs\\groqqle', 'C:\\Users\\j\\AppData\\Roaming\\Python\\Python311\\site-packages', 'C:\\Users\\j\\miniconda3\\envs\\groqqle\\Lib\\site-packages', 'C:\\ai\\Groqqle', 'C:\\ai\\Groqqle', 'C:\\ai\\Groqqle', 'C:\\ai\\Groqqle']
+Running in app mode
+GROQ_API_KEY from environment: Found
+API key from environment stored in session state
+Attempting to initialize Web_Agent with API key: [REDACTED]
+Initializing Web_Agent with provider_name: groq, num_results: 10, max_tokens: 4096
+Attempting to get provider with API key: gsk_p...
+get_provider called with provider_name: groq
+Creating groq instance with API key
+Provider obtained successfully
+Attempting to get model
+get_model called, returning: mixtral-8x7b-32768
+Model obtained successfully
+Initializing tools
+Tools initialized successfully
+Web_Agent initialized successfully
+Current working directory: C:\ai\Groqqle
+Current sys.path: ['Groqqle.py', '', 'C:\\Users\\j\\miniconda3\\envs\\groqqle\\Scripts\\streamlit.exe', 'C:\\Users\\j\\miniconda3\\envs\\groqqle\\python311.zip', 'C:\\Users\\j\\miniconda3\\envs\\groqqle\\DLLs', 'C:\\Users\\j\\miniconda3\\envs\\groqqle\\Lib', 'C:\\Users\\j\\miniconda3\\envs\\groqqle', 'C:\\Users\\j\\AppData\\Roaming\\Python\\Python311\\site-packages', 'C:\\Users\\j\\miniconda3\\envs\\groqqle\\Lib\\site-packages', 'C:\\ai\\Groqqle', 'C:\\ai\\Groqqle', 'C:\\ai\\Groqqle', 'C:\\ai\\Groqqle']
+Running in app mode
+GROQ_API_KEY from environment: Found
+API key from environment stored in session state
+Attempting to initialize Web_Agent with API key: [REDACTED]
+Initializing Web_Agent with provider_name: groq, num_results: 10, max_tokens: 4096
+Attempting to get provider with API key: gsk_p...
+get_provider called with provider_name: groq
+Creating groq instance with API key
+Provider obtained successfully
+Attempting to get model
+get_model called, returning: mixtral-8x7b-32768
+Model obtained successfully
+Initializing tools
+Tools initialized successfully
+Web_Agent initialized successfully
