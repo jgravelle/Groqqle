@@ -138,3 +138,1157 @@ Model obtained successfully
 Initializing tools
 Tools initialized successfully
 Web_Agent initialized successfully
+Current working directory: C:\ai\Groqqle
+Current sys.path: ['C:\\ai\\Groqqle', 'C:\\Users\\j\\miniconda3\\envs\\groqqle\\python311.zip', 'C:\\Users\\j\\miniconda3\\envs\\groqqle\\DLLs', 'C:\\Users\\j\\miniconda3\\envs\\groqqle\\Lib', 'C:\\Users\\j\\miniconda3\\envs\\groqqle', 'C:\\Users\\j\\AppData\\Roaming\\Python\\Python311\\site-packages', 'C:\\Users\\j\\miniconda3\\envs\\groqqle\\Lib\\site-packages', 'C:\\ai\\Groqqle', 'C:\\ai\\Groqqle']
+Updated sys.path: ['C:\\ai\\Groqqle', 'C:\\Users\\j\\miniconda3\\envs\\groqqle\\python311.zip', 'C:\\Users\\j\\miniconda3\\envs\\groqqle\\DLLs', 'C:\\Users\\j\\miniconda3\\envs\\groqqle\\Lib', 'C:\\Users\\j\\miniconda3\\envs\\groqqle', 'C:\\Users\\j\\AppData\\Roaming\\Python\\Python311\\site-packages', 'C:\\Users\\j\\miniconda3\\envs\\groqqle\\Lib\\site-packages', 'C:\\ai\\Groqqle', 'C:\\ai\\Groqqle']
+Attempting to import ProviderFactory
+Entering provider_factory.py
+Current working directory: C:\ai\Groqqle
+Current sys.path: ['C:\\ai\\Groqqle', 'C:\\Users\\j\\miniconda3\\envs\\groqqle\\python311.zip', 'C:\\Users\\j\\miniconda3\\envs\\groqqle\\DLLs', 'C:\\Users\\j\\miniconda3\\envs\\groqqle\\Lib', 'C:\\Users\\j\\miniconda3\\envs\\groqqle', 'C:\\Users\\j\\AppData\\Roaming\\Python\\Python311\\site-packages', 'C:\\Users\\j\\miniconda3\\envs\\groqqle\\Lib\\site-packages', 'C:\\ai\\Groqqle', 'C:\\ai\\Groqqle']
+Exiting provider_factory.py
+ProviderFactory imported successfully
+Current working directory: C:\ai\Groqqle
+Current sys.path: ['C:\\ai\\Groqqle', 'C:\\Users\\j\\miniconda3\\envs\\groqqle\\python311.zip', 'C:\\Users\\j\\miniconda3\\envs\\groqqle\\DLLs', 'C:\\Users\\j\\miniconda3\\envs\\groqqle\\Lib', 'C:\\Users\\j\\miniconda3\\envs\\groqqle', 'C:\\Users\\j\\AppData\\Roaming\\Python\\Python311\\site-packages', 'C:\\Users\\j\\miniconda3\\envs\\groqqle\\Lib\\site-packages', 'C:\\ai\\Groqqle', 'C:\\ai\\Groqqle']
+Current working directory: C:\ai\Groqqle
+Current sys.path: ['C:\\ai\\Groqqle', 'C:\\Users\\j\\miniconda3\\envs\\groqqle\\python311.zip', 'C:\\Users\\j\\miniconda3\\envs\\groqqle\\DLLs', 'C:\\Users\\j\\miniconda3\\envs\\groqqle\\Lib', 'C:\\Users\\j\\miniconda3\\envs\\groqqle', 'C:\\Users\\j\\AppData\\Roaming\\Python\\Python311\\site-packages', 'C:\\Users\\j\\miniconda3\\envs\\groqqle\\Lib\\site-packages', 'C:\\ai\\Groqqle', 'C:\\ai\\Groqqle']
+Updated sys.path: ['C:\\ai\\Groqqle', 'C:\\Users\\j\\miniconda3\\envs\\groqqle\\python311.zip', 'C:\\Users\\j\\miniconda3\\envs\\groqqle\\DLLs', 'C:\\Users\\j\\miniconda3\\envs\\groqqle\\Lib', 'C:\\Users\\j\\miniconda3\\envs\\groqqle', 'C:\\Users\\j\\AppData\\Roaming\\Python\\Python311\\site-packages', 'C:\\Users\\j\\miniconda3\\envs\\groqqle\\Lib\\site-packages', 'C:\\ai\\Groqqle', 'C:\\ai\\Groqqle']
+Attempting to import ProviderFactory
+Entering provider_factory.py
+Current working directory: C:\ai\Groqqle
+Current sys.path: ['C:\\ai\\Groqqle', 'C:\\Users\\j\\miniconda3\\envs\\groqqle\\python311.zip', 'C:\\Users\\j\\miniconda3\\envs\\groqqle\\DLLs', 'C:\\Users\\j\\miniconda3\\envs\\groqqle\\Lib', 'C:\\Users\\j\\miniconda3\\envs\\groqqle', 'C:\\Users\\j\\AppData\\Roaming\\Python\\Python311\\site-packages', 'C:\\Users\\j\\miniconda3\\envs\\groqqle\\Lib\\site-packages', 'C:\\ai\\Groqqle', 'C:\\ai\\Groqqle']
+Exiting provider_factory.py
+ProviderFactory imported successfully
+Current working directory: C:\ai\Groqqle
+Current sys.path: ['C:\\ai\\Groqqle', 'C:\\Users\\j\\miniconda3\\envs\\groqqle\\python311.zip', 'C:\\Users\\j\\miniconda3\\envs\\groqqle\\DLLs', 'C:\\Users\\j\\miniconda3\\envs\\groqqle\\Lib', 'C:\\Users\\j\\miniconda3\\envs\\groqqle', 'C:\\Users\\j\\AppData\\Roaming\\Python\\Python311\\site-packages', 'C:\\Users\\j\\miniconda3\\envs\\groqqle\\Lib\\site-packages', 'C:\\ai\\Groqqle', 'C:\\ai\\Groqqle']
+Current working directory: C:\ai\Groqqle
+Current sys.path: ['C:\\ai\\Groqqle', 'C:\\Users\\j\\miniconda3\\envs\\groqqle\\python311.zip', 'C:\\Users\\j\\miniconda3\\envs\\groqqle\\DLLs', 'C:\\Users\\j\\miniconda3\\envs\\groqqle\\Lib', 'C:\\Users\\j\\miniconda3\\envs\\groqqle', 'C:\\Users\\j\\AppData\\Roaming\\Python\\Python311\\site-packages', 'C:\\Users\\j\\miniconda3\\envs\\groqqle\\Lib\\site-packages', 'C:\\ai\\Groqqle', 'C:\\ai\\Groqqle']
+Updated sys.path: ['C:\\ai\\Groqqle', 'C:\\Users\\j\\miniconda3\\envs\\groqqle\\python311.zip', 'C:\\Users\\j\\miniconda3\\envs\\groqqle\\DLLs', 'C:\\Users\\j\\miniconda3\\envs\\groqqle\\Lib', 'C:\\Users\\j\\miniconda3\\envs\\groqqle', 'C:\\Users\\j\\AppData\\Roaming\\Python\\Python311\\site-packages', 'C:\\Users\\j\\miniconda3\\envs\\groqqle\\Lib\\site-packages', 'C:\\ai\\Groqqle', 'C:\\ai\\Groqqle']
+Attempting to import ProviderFactory
+Entering provider_factory.py
+Current working directory: C:\ai\Groqqle
+Current sys.path: ['C:\\ai\\Groqqle', 'C:\\Users\\j\\miniconda3\\envs\\groqqle\\python311.zip', 'C:\\Users\\j\\miniconda3\\envs\\groqqle\\DLLs', 'C:\\Users\\j\\miniconda3\\envs\\groqqle\\Lib', 'C:\\Users\\j\\miniconda3\\envs\\groqqle', 'C:\\Users\\j\\AppData\\Roaming\\Python\\Python311\\site-packages', 'C:\\Users\\j\\miniconda3\\envs\\groqqle\\Lib\\site-packages', 'C:\\ai\\Groqqle', 'C:\\ai\\Groqqle']
+Exiting provider_factory.py
+ProviderFactory imported successfully
+Current working directory: C:\ai\Groqqle
+Current sys.path: ['C:\\ai\\Groqqle', 'C:\\Users\\j\\miniconda3\\envs\\groqqle\\python311.zip', 'C:\\Users\\j\\miniconda3\\envs\\groqqle\\DLLs', 'C:\\Users\\j\\miniconda3\\envs\\groqqle\\Lib', 'C:\\Users\\j\\miniconda3\\envs\\groqqle', 'C:\\Users\\j\\AppData\\Roaming\\Python\\Python311\\site-packages', 'C:\\Users\\j\\miniconda3\\envs\\groqqle\\Lib\\site-packages', 'C:\\ai\\Groqqle', 'C:\\ai\\Groqqle']
+Current working directory: C:\ai\Groqqle
+Current sys.path: ['C:\\ai\\Groqqle', 'C:\\Users\\j\\miniconda3\\envs\\groqqle\\python311.zip', 'C:\\Users\\j\\miniconda3\\envs\\groqqle\\DLLs', 'C:\\Users\\j\\miniconda3\\envs\\groqqle\\Lib', 'C:\\Users\\j\\miniconda3\\envs\\groqqle', 'C:\\Users\\j\\AppData\\Roaming\\Python\\Python311\\site-packages', 'C:\\Users\\j\\miniconda3\\envs\\groqqle\\Lib\\site-packages', 'C:\\ai\\Groqqle', 'C:\\ai\\Groqqle']
+Updated sys.path: ['C:\\ai\\Groqqle', 'C:\\Users\\j\\miniconda3\\envs\\groqqle\\python311.zip', 'C:\\Users\\j\\miniconda3\\envs\\groqqle\\DLLs', 'C:\\Users\\j\\miniconda3\\envs\\groqqle\\Lib', 'C:\\Users\\j\\miniconda3\\envs\\groqqle', 'C:\\Users\\j\\AppData\\Roaming\\Python\\Python311\\site-packages', 'C:\\Users\\j\\miniconda3\\envs\\groqqle\\Lib\\site-packages', 'C:\\ai\\Groqqle', 'C:\\ai\\Groqqle']
+Attempting to import ProviderFactory
+Entering provider_factory.py
+Current working directory: C:\ai\Groqqle
+Current sys.path: ['C:\\ai\\Groqqle', 'C:\\Users\\j\\miniconda3\\envs\\groqqle\\python311.zip', 'C:\\Users\\j\\miniconda3\\envs\\groqqle\\DLLs', 'C:\\Users\\j\\miniconda3\\envs\\groqqle\\Lib', 'C:\\Users\\j\\miniconda3\\envs\\groqqle', 'C:\\Users\\j\\AppData\\Roaming\\Python\\Python311\\site-packages', 'C:\\Users\\j\\miniconda3\\envs\\groqqle\\Lib\\site-packages', 'C:\\ai\\Groqqle', 'C:\\ai\\Groqqle']
+Exiting provider_factory.py
+ProviderFactory imported successfully
+Current working directory: C:\ai\Groqqle
+Current sys.path: ['C:\\ai\\Groqqle', 'C:\\Users\\j\\miniconda3\\envs\\groqqle\\python311.zip', 'C:\\Users\\j\\miniconda3\\envs\\groqqle\\DLLs', 'C:\\Users\\j\\miniconda3\\envs\\groqqle\\Lib', 'C:\\Users\\j\\miniconda3\\envs\\groqqle', 'C:\\Users\\j\\AppData\\Roaming\\Python\\Python311\\site-packages', 'C:\\Users\\j\\miniconda3\\envs\\groqqle\\Lib\\site-packages', 'C:\\ai\\Groqqle', 'C:\\ai\\Groqqle']
+Current working directory: C:\ai\Groqqle
+Current sys.path: ['C:\\ai\\Groqqle', 'C:\\Users\\j\\miniconda3\\envs\\groqqle\\python311.zip', 'C:\\Users\\j\\miniconda3\\envs\\groqqle\\DLLs', 'C:\\Users\\j\\miniconda3\\envs\\groqqle\\Lib', 'C:\\Users\\j\\miniconda3\\envs\\groqqle', 'C:\\Users\\j\\AppData\\Roaming\\Python\\Python311\\site-packages', 'C:\\Users\\j\\miniconda3\\envs\\groqqle\\Lib\\site-packages', 'C:\\ai\\Groqqle', 'C:\\ai\\Groqqle']
+Updated sys.path: ['C:\\ai\\Groqqle', 'C:\\Users\\j\\miniconda3\\envs\\groqqle\\python311.zip', 'C:\\Users\\j\\miniconda3\\envs\\groqqle\\DLLs', 'C:\\Users\\j\\miniconda3\\envs\\groqqle\\Lib', 'C:\\Users\\j\\miniconda3\\envs\\groqqle', 'C:\\Users\\j\\AppData\\Roaming\\Python\\Python311\\site-packages', 'C:\\Users\\j\\miniconda3\\envs\\groqqle\\Lib\\site-packages', 'C:\\ai\\Groqqle', 'C:\\ai\\Groqqle']
+Attempting to import ProviderFactory
+Entering provider_factory.py
+Current working directory: C:\ai\Groqqle
+Current sys.path: ['C:\\ai\\Groqqle', 'C:\\Users\\j\\miniconda3\\envs\\groqqle\\python311.zip', 'C:\\Users\\j\\miniconda3\\envs\\groqqle\\DLLs', 'C:\\Users\\j\\miniconda3\\envs\\groqqle\\Lib', 'C:\\Users\\j\\miniconda3\\envs\\groqqle', 'C:\\Users\\j\\AppData\\Roaming\\Python\\Python311\\site-packages', 'C:\\Users\\j\\miniconda3\\envs\\groqqle\\Lib\\site-packages', 'C:\\ai\\Groqqle', 'C:\\ai\\Groqqle']
+Exiting provider_factory.py
+ProviderFactory imported successfully
+Current working directory: C:\ai\Groqqle
+Current sys.path: ['C:\\ai\\Groqqle', 'C:\\Users\\j\\miniconda3\\envs\\groqqle\\python311.zip', 'C:\\Users\\j\\miniconda3\\envs\\groqqle\\DLLs', 'C:\\Users\\j\\miniconda3\\envs\\groqqle\\Lib', 'C:\\Users\\j\\miniconda3\\envs\\groqqle', 'C:\\Users\\j\\AppData\\Roaming\\Python\\Python311\\site-packages', 'C:\\Users\\j\\miniconda3\\envs\\groqqle\\Lib\\site-packages', 'C:\\ai\\Groqqle', 'C:\\ai\\Groqqle']
+Current working directory: C:\ai\Groqqle
+Current sys.path: ['C:\\ai\\Groqqle', 'C:\\Users\\j\\miniconda3\\envs\\groqqle\\python311.zip', 'C:\\Users\\j\\miniconda3\\envs\\groqqle\\DLLs', 'C:\\Users\\j\\miniconda3\\envs\\groqqle\\Lib', 'C:\\Users\\j\\miniconda3\\envs\\groqqle', 'C:\\Users\\j\\AppData\\Roaming\\Python\\Python311\\site-packages', 'C:\\Users\\j\\miniconda3\\envs\\groqqle\\Lib\\site-packages', 'C:\\ai\\Groqqle', 'C:\\ai\\Groqqle']
+Updated sys.path: ['C:\\ai\\Groqqle', 'C:\\Users\\j\\miniconda3\\envs\\groqqle\\python311.zip', 'C:\\Users\\j\\miniconda3\\envs\\groqqle\\DLLs', 'C:\\Users\\j\\miniconda3\\envs\\groqqle\\Lib', 'C:\\Users\\j\\miniconda3\\envs\\groqqle', 'C:\\Users\\j\\AppData\\Roaming\\Python\\Python311\\site-packages', 'C:\\Users\\j\\miniconda3\\envs\\groqqle\\Lib\\site-packages', 'C:\\ai\\Groqqle', 'C:\\ai\\Groqqle']
+Attempting to import ProviderFactory
+Entering provider_factory.py
+Current working directory: C:\ai\Groqqle
+Current sys.path: ['C:\\ai\\Groqqle', 'C:\\Users\\j\\miniconda3\\envs\\groqqle\\python311.zip', 'C:\\Users\\j\\miniconda3\\envs\\groqqle\\DLLs', 'C:\\Users\\j\\miniconda3\\envs\\groqqle\\Lib', 'C:\\Users\\j\\miniconda3\\envs\\groqqle', 'C:\\Users\\j\\AppData\\Roaming\\Python\\Python311\\site-packages', 'C:\\Users\\j\\miniconda3\\envs\\groqqle\\Lib\\site-packages', 'C:\\ai\\Groqqle', 'C:\\ai\\Groqqle']
+Exiting provider_factory.py
+ProviderFactory imported successfully
+Current working directory: C:\ai\Groqqle
+Current sys.path: ['C:\\ai\\Groqqle', 'C:\\Users\\j\\miniconda3\\envs\\groqqle\\python311.zip', 'C:\\Users\\j\\miniconda3\\envs\\groqqle\\DLLs', 'C:\\Users\\j\\miniconda3\\envs\\groqqle\\Lib', 'C:\\Users\\j\\miniconda3\\envs\\groqqle', 'C:\\Users\\j\\AppData\\Roaming\\Python\\Python311\\site-packages', 'C:\\Users\\j\\miniconda3\\envs\\groqqle\\Lib\\site-packages', 'C:\\ai\\Groqqle', 'C:\\ai\\Groqqle']
+Current working directory: C:\ai\Groqqle
+Current sys.path: ['C:\\ai\\Groqqle', 'C:\\Users\\j\\miniconda3\\envs\\groqqle\\python311.zip', 'C:\\Users\\j\\miniconda3\\envs\\groqqle\\DLLs', 'C:\\Users\\j\\miniconda3\\envs\\groqqle\\Lib', 'C:\\Users\\j\\miniconda3\\envs\\groqqle', 'C:\\Users\\j\\AppData\\Roaming\\Python\\Python311\\site-packages', 'C:\\Users\\j\\miniconda3\\envs\\groqqle\\Lib\\site-packages', 'C:\\ai\\Groqqle', 'C:\\ai\\Groqqle']
+Updated sys.path: ['C:\\ai\\Groqqle', 'C:\\Users\\j\\miniconda3\\envs\\groqqle\\python311.zip', 'C:\\Users\\j\\miniconda3\\envs\\groqqle\\DLLs', 'C:\\Users\\j\\miniconda3\\envs\\groqqle\\Lib', 'C:\\Users\\j\\miniconda3\\envs\\groqqle', 'C:\\Users\\j\\AppData\\Roaming\\Python\\Python311\\site-packages', 'C:\\Users\\j\\miniconda3\\envs\\groqqle\\Lib\\site-packages', 'C:\\ai\\Groqqle', 'C:\\ai\\Groqqle']
+Attempting to import ProviderFactory
+Entering provider_factory.py
+Current working directory: C:\ai\Groqqle
+Current sys.path: ['C:\\ai\\Groqqle', 'C:\\Users\\j\\miniconda3\\envs\\groqqle\\python311.zip', 'C:\\Users\\j\\miniconda3\\envs\\groqqle\\DLLs', 'C:\\Users\\j\\miniconda3\\envs\\groqqle\\Lib', 'C:\\Users\\j\\miniconda3\\envs\\groqqle', 'C:\\Users\\j\\AppData\\Roaming\\Python\\Python311\\site-packages', 'C:\\Users\\j\\miniconda3\\envs\\groqqle\\Lib\\site-packages', 'C:\\ai\\Groqqle', 'C:\\ai\\Groqqle']
+Exiting provider_factory.py
+ProviderFactory imported successfully
+Current working directory: C:\ai\Groqqle
+Current sys.path: ['C:\\ai\\Groqqle', 'C:\\Users\\j\\miniconda3\\envs\\groqqle\\python311.zip', 'C:\\Users\\j\\miniconda3\\envs\\groqqle\\DLLs', 'C:\\Users\\j\\miniconda3\\envs\\groqqle\\Lib', 'C:\\Users\\j\\miniconda3\\envs\\groqqle', 'C:\\Users\\j\\AppData\\Roaming\\Python\\Python311\\site-packages', 'C:\\Users\\j\\miniconda3\\envs\\groqqle\\Lib\\site-packages', 'C:\\ai\\Groqqle', 'C:\\ai\\Groqqle']
+Current working directory: C:\ai\Groqqle
+Current sys.path: ['C:\\ai\\Groqqle', 'C:\\Users\\j\\miniconda3\\envs\\groqqle\\python311.zip', 'C:\\Users\\j\\miniconda3\\envs\\groqqle\\DLLs', 'C:\\Users\\j\\miniconda3\\envs\\groqqle\\Lib', 'C:\\Users\\j\\miniconda3\\envs\\groqqle', 'C:\\Users\\j\\AppData\\Roaming\\Python\\Python311\\site-packages', 'C:\\Users\\j\\miniconda3\\envs\\groqqle\\Lib\\site-packages', 'C:\\ai\\Groqqle', 'C:\\ai\\Groqqle']
+Updated sys.path: ['C:\\ai\\Groqqle', 'C:\\Users\\j\\miniconda3\\envs\\groqqle\\python311.zip', 'C:\\Users\\j\\miniconda3\\envs\\groqqle\\DLLs', 'C:\\Users\\j\\miniconda3\\envs\\groqqle\\Lib', 'C:\\Users\\j\\miniconda3\\envs\\groqqle', 'C:\\Users\\j\\AppData\\Roaming\\Python\\Python311\\site-packages', 'C:\\Users\\j\\miniconda3\\envs\\groqqle\\Lib\\site-packages', 'C:\\ai\\Groqqle', 'C:\\ai\\Groqqle']
+Attempting to import ProviderFactory
+Entering provider_factory.py
+Current working directory: C:\ai\Groqqle
+Current sys.path: ['C:\\ai\\Groqqle', 'C:\\Users\\j\\miniconda3\\envs\\groqqle\\python311.zip', 'C:\\Users\\j\\miniconda3\\envs\\groqqle\\DLLs', 'C:\\Users\\j\\miniconda3\\envs\\groqqle\\Lib', 'C:\\Users\\j\\miniconda3\\envs\\groqqle', 'C:\\Users\\j\\AppData\\Roaming\\Python\\Python311\\site-packages', 'C:\\Users\\j\\miniconda3\\envs\\groqqle\\Lib\\site-packages', 'C:\\ai\\Groqqle', 'C:\\ai\\Groqqle']
+Exiting provider_factory.py
+ProviderFactory imported successfully
+Current working directory: C:\ai\Groqqle
+Current sys.path: ['C:\\ai\\Groqqle', 'C:\\Users\\j\\miniconda3\\envs\\groqqle\\python311.zip', 'C:\\Users\\j\\miniconda3\\envs\\groqqle\\DLLs', 'C:\\Users\\j\\miniconda3\\envs\\groqqle\\Lib', 'C:\\Users\\j\\miniconda3\\envs\\groqqle', 'C:\\Users\\j\\AppData\\Roaming\\Python\\Python311\\site-packages', 'C:\\Users\\j\\miniconda3\\envs\\groqqle\\Lib\\site-packages', 'C:\\ai\\Groqqle', 'C:\\ai\\Groqqle']
+Current working directory: C:\ai\Groqqle
+Current sys.path: ['C:\\ai\\Groqqle', 'C:\\Users\\j\\miniconda3\\envs\\groqqle\\python311.zip', 'C:\\Users\\j\\miniconda3\\envs\\groqqle\\DLLs', 'C:\\Users\\j\\miniconda3\\envs\\groqqle\\Lib', 'C:\\Users\\j\\miniconda3\\envs\\groqqle', 'C:\\Users\\j\\AppData\\Roaming\\Python\\Python311\\site-packages', 'C:\\Users\\j\\miniconda3\\envs\\groqqle\\Lib\\site-packages', 'C:\\ai\\Groqqle', 'C:\\ai\\Groqqle']
+Updated sys.path: ['C:\\ai\\Groqqle', 'C:\\Users\\j\\miniconda3\\envs\\groqqle\\python311.zip', 'C:\\Users\\j\\miniconda3\\envs\\groqqle\\DLLs', 'C:\\Users\\j\\miniconda3\\envs\\groqqle\\Lib', 'C:\\Users\\j\\miniconda3\\envs\\groqqle', 'C:\\Users\\j\\AppData\\Roaming\\Python\\Python311\\site-packages', 'C:\\Users\\j\\miniconda3\\envs\\groqqle\\Lib\\site-packages', 'C:\\ai\\Groqqle', 'C:\\ai\\Groqqle']
+Attempting to import ProviderFactory
+Entering provider_factory.py
+Current working directory: C:\ai\Groqqle
+Current sys.path: ['C:\\ai\\Groqqle', 'C:\\Users\\j\\miniconda3\\envs\\groqqle\\python311.zip', 'C:\\Users\\j\\miniconda3\\envs\\groqqle\\DLLs', 'C:\\Users\\j\\miniconda3\\envs\\groqqle\\Lib', 'C:\\Users\\j\\miniconda3\\envs\\groqqle', 'C:\\Users\\j\\AppData\\Roaming\\Python\\Python311\\site-packages', 'C:\\Users\\j\\miniconda3\\envs\\groqqle\\Lib\\site-packages', 'C:\\ai\\Groqqle', 'C:\\ai\\Groqqle']
+Exiting provider_factory.py
+ProviderFactory imported successfully
+Current working directory: C:\ai\Groqqle
+Current sys.path: ['C:\\ai\\Groqqle', 'C:\\Users\\j\\miniconda3\\envs\\groqqle\\python311.zip', 'C:\\Users\\j\\miniconda3\\envs\\groqqle\\DLLs', 'C:\\Users\\j\\miniconda3\\envs\\groqqle\\Lib', 'C:\\Users\\j\\miniconda3\\envs\\groqqle', 'C:\\Users\\j\\AppData\\Roaming\\Python\\Python311\\site-packages', 'C:\\Users\\j\\miniconda3\\envs\\groqqle\\Lib\\site-packages', 'C:\\ai\\Groqqle', 'C:\\ai\\Groqqle']
+Current working directory: C:\ai\Groqqle
+Current sys.path: ['C:\\ai\\Groqqle', 'C:\\Users\\j\\miniconda3\\envs\\groqqle\\python311.zip', 'C:\\Users\\j\\miniconda3\\envs\\groqqle\\DLLs', 'C:\\Users\\j\\miniconda3\\envs\\groqqle\\Lib', 'C:\\Users\\j\\miniconda3\\envs\\groqqle', 'C:\\Users\\j\\AppData\\Roaming\\Python\\Python311\\site-packages', 'C:\\Users\\j\\miniconda3\\envs\\groqqle\\Lib\\site-packages', 'C:\\ai\\Groqqle', 'C:\\ai\\Groqqle']
+Updated sys.path: ['C:\\ai\\Groqqle', 'C:\\Users\\j\\miniconda3\\envs\\groqqle\\python311.zip', 'C:\\Users\\j\\miniconda3\\envs\\groqqle\\DLLs', 'C:\\Users\\j\\miniconda3\\envs\\groqqle\\Lib', 'C:\\Users\\j\\miniconda3\\envs\\groqqle', 'C:\\Users\\j\\AppData\\Roaming\\Python\\Python311\\site-packages', 'C:\\Users\\j\\miniconda3\\envs\\groqqle\\Lib\\site-packages', 'C:\\ai\\Groqqle', 'C:\\ai\\Groqqle']
+Attempting to import ProviderFactory
+Entering provider_factory.py
+Current working directory: C:\ai\Groqqle
+Current sys.path: ['C:\\ai\\Groqqle', 'C:\\Users\\j\\miniconda3\\envs\\groqqle\\python311.zip', 'C:\\Users\\j\\miniconda3\\envs\\groqqle\\DLLs', 'C:\\Users\\j\\miniconda3\\envs\\groqqle\\Lib', 'C:\\Users\\j\\miniconda3\\envs\\groqqle', 'C:\\Users\\j\\AppData\\Roaming\\Python\\Python311\\site-packages', 'C:\\Users\\j\\miniconda3\\envs\\groqqle\\Lib\\site-packages', 'C:\\ai\\Groqqle', 'C:\\ai\\Groqqle']
+Exiting provider_factory.py
+ProviderFactory imported successfully
+Current working directory: C:\ai\Groqqle
+Current sys.path: ['C:\\ai\\Groqqle', 'C:\\Users\\j\\miniconda3\\envs\\groqqle\\python311.zip', 'C:\\Users\\j\\miniconda3\\envs\\groqqle\\DLLs', 'C:\\Users\\j\\miniconda3\\envs\\groqqle\\Lib', 'C:\\Users\\j\\miniconda3\\envs\\groqqle', 'C:\\Users\\j\\AppData\\Roaming\\Python\\Python311\\site-packages', 'C:\\Users\\j\\miniconda3\\envs\\groqqle\\Lib\\site-packages', 'C:\\ai\\Groqqle', 'C:\\ai\\Groqqle']
+Current working directory: C:\ai\Groqqle
+Current sys.path: ['C:\\ai\\Groqqle', 'C:\\Users\\j\\miniconda3\\envs\\groqqle\\python311.zip', 'C:\\Users\\j\\miniconda3\\envs\\groqqle\\DLLs', 'C:\\Users\\j\\miniconda3\\envs\\groqqle\\Lib', 'C:\\Users\\j\\miniconda3\\envs\\groqqle', 'C:\\Users\\j\\AppData\\Roaming\\Python\\Python311\\site-packages', 'C:\\Users\\j\\miniconda3\\envs\\groqqle\\Lib\\site-packages', 'C:\\ai\\Groqqle', 'C:\\ai\\Groqqle']
+Updated sys.path: ['C:\\ai\\Groqqle', 'C:\\Users\\j\\miniconda3\\envs\\groqqle\\python311.zip', 'C:\\Users\\j\\miniconda3\\envs\\groqqle\\DLLs', 'C:\\Users\\j\\miniconda3\\envs\\groqqle\\Lib', 'C:\\Users\\j\\miniconda3\\envs\\groqqle', 'C:\\Users\\j\\AppData\\Roaming\\Python\\Python311\\site-packages', 'C:\\Users\\j\\miniconda3\\envs\\groqqle\\Lib\\site-packages', 'C:\\ai\\Groqqle', 'C:\\ai\\Groqqle']
+Attempting to import ProviderFactory
+Entering provider_factory.py
+Current working directory: C:\ai\Groqqle
+Current sys.path: ['C:\\ai\\Groqqle', 'C:\\Users\\j\\miniconda3\\envs\\groqqle\\python311.zip', 'C:\\Users\\j\\miniconda3\\envs\\groqqle\\DLLs', 'C:\\Users\\j\\miniconda3\\envs\\groqqle\\Lib', 'C:\\Users\\j\\miniconda3\\envs\\groqqle', 'C:\\Users\\j\\AppData\\Roaming\\Python\\Python311\\site-packages', 'C:\\Users\\j\\miniconda3\\envs\\groqqle\\Lib\\site-packages', 'C:\\ai\\Groqqle', 'C:\\ai\\Groqqle']
+Exiting provider_factory.py
+ProviderFactory imported successfully
+Current working directory: C:\ai\Groqqle
+Current sys.path: ['C:\\ai\\Groqqle', 'C:\\Users\\j\\miniconda3\\envs\\groqqle\\python311.zip', 'C:\\Users\\j\\miniconda3\\envs\\groqqle\\DLLs', 'C:\\Users\\j\\miniconda3\\envs\\groqqle\\Lib', 'C:\\Users\\j\\miniconda3\\envs\\groqqle', 'C:\\Users\\j\\AppData\\Roaming\\Python\\Python311\\site-packages', 'C:\\Users\\j\\miniconda3\\envs\\groqqle\\Lib\\site-packages', 'C:\\ai\\Groqqle', 'C:\\ai\\Groqqle']
+Current working directory: C:\ai\Groqqle
+Current sys.path: ['C:\\ai\\Groqqle', 'C:\\Users\\j\\miniconda3\\envs\\groqqle\\python311.zip', 'C:\\Users\\j\\miniconda3\\envs\\groqqle\\DLLs', 'C:\\Users\\j\\miniconda3\\envs\\groqqle\\Lib', 'C:\\Users\\j\\miniconda3\\envs\\groqqle', 'C:\\Users\\j\\AppData\\Roaming\\Python\\Python311\\site-packages', 'C:\\Users\\j\\miniconda3\\envs\\groqqle\\Lib\\site-packages', 'C:\\ai\\Groqqle', 'C:\\ai\\Groqqle']
+Updated sys.path: ['C:\\ai\\Groqqle', 'C:\\Users\\j\\miniconda3\\envs\\groqqle\\python311.zip', 'C:\\Users\\j\\miniconda3\\envs\\groqqle\\DLLs', 'C:\\Users\\j\\miniconda3\\envs\\groqqle\\Lib', 'C:\\Users\\j\\miniconda3\\envs\\groqqle', 'C:\\Users\\j\\AppData\\Roaming\\Python\\Python311\\site-packages', 'C:\\Users\\j\\miniconda3\\envs\\groqqle\\Lib\\site-packages', 'C:\\ai\\Groqqle', 'C:\\ai\\Groqqle']
+Attempting to import ProviderFactory
+Entering provider_factory.py
+Current working directory: C:\ai\Groqqle
+Current sys.path: ['C:\\ai\\Groqqle', 'C:\\Users\\j\\miniconda3\\envs\\groqqle\\python311.zip', 'C:\\Users\\j\\miniconda3\\envs\\groqqle\\DLLs', 'C:\\Users\\j\\miniconda3\\envs\\groqqle\\Lib', 'C:\\Users\\j\\miniconda3\\envs\\groqqle', 'C:\\Users\\j\\AppData\\Roaming\\Python\\Python311\\site-packages', 'C:\\Users\\j\\miniconda3\\envs\\groqqle\\Lib\\site-packages', 'C:\\ai\\Groqqle', 'C:\\ai\\Groqqle']
+Exiting provider_factory.py
+ProviderFactory imported successfully
+Current working directory: C:\ai\Groqqle
+Current sys.path: ['C:\\ai\\Groqqle', 'C:\\Users\\j\\miniconda3\\envs\\groqqle\\python311.zip', 'C:\\Users\\j\\miniconda3\\envs\\groqqle\\DLLs', 'C:\\Users\\j\\miniconda3\\envs\\groqqle\\Lib', 'C:\\Users\\j\\miniconda3\\envs\\groqqle', 'C:\\Users\\j\\AppData\\Roaming\\Python\\Python311\\site-packages', 'C:\\Users\\j\\miniconda3\\envs\\groqqle\\Lib\\site-packages', 'C:\\ai\\Groqqle', 'C:\\ai\\Groqqle']
+Current working directory: C:\ai\Groqqle
+Current sys.path: ['C:\\ai\\Groqqle', 'C:\\Users\\j\\miniconda3\\envs\\groqqle\\python311.zip', 'C:\\Users\\j\\miniconda3\\envs\\groqqle\\DLLs', 'C:\\Users\\j\\miniconda3\\envs\\groqqle\\Lib', 'C:\\Users\\j\\miniconda3\\envs\\groqqle', 'C:\\Users\\j\\AppData\\Roaming\\Python\\Python311\\site-packages', 'C:\\Users\\j\\miniconda3\\envs\\groqqle\\Lib\\site-packages', 'C:\\ai\\Groqqle', 'C:\\ai\\Groqqle']
+Updated sys.path: ['C:\\ai\\Groqqle', 'C:\\Users\\j\\miniconda3\\envs\\groqqle\\python311.zip', 'C:\\Users\\j\\miniconda3\\envs\\groqqle\\DLLs', 'C:\\Users\\j\\miniconda3\\envs\\groqqle\\Lib', 'C:\\Users\\j\\miniconda3\\envs\\groqqle', 'C:\\Users\\j\\AppData\\Roaming\\Python\\Python311\\site-packages', 'C:\\Users\\j\\miniconda3\\envs\\groqqle\\Lib\\site-packages', 'C:\\ai\\Groqqle', 'C:\\ai\\Groqqle']
+Attempting to import ProviderFactory
+Entering provider_factory.py
+Current working directory: C:\ai\Groqqle
+Current sys.path: ['C:\\ai\\Groqqle', 'C:\\Users\\j\\miniconda3\\envs\\groqqle\\python311.zip', 'C:\\Users\\j\\miniconda3\\envs\\groqqle\\DLLs', 'C:\\Users\\j\\miniconda3\\envs\\groqqle\\Lib', 'C:\\Users\\j\\miniconda3\\envs\\groqqle', 'C:\\Users\\j\\AppData\\Roaming\\Python\\Python311\\site-packages', 'C:\\Users\\j\\miniconda3\\envs\\groqqle\\Lib\\site-packages', 'C:\\ai\\Groqqle', 'C:\\ai\\Groqqle']
+Exiting provider_factory.py
+ProviderFactory imported successfully
+Current working directory: C:\ai\Groqqle
+Current sys.path: ['C:\\ai\\Groqqle', 'C:\\Users\\j\\miniconda3\\envs\\groqqle\\python311.zip', 'C:\\Users\\j\\miniconda3\\envs\\groqqle\\DLLs', 'C:\\Users\\j\\miniconda3\\envs\\groqqle\\Lib', 'C:\\Users\\j\\miniconda3\\envs\\groqqle', 'C:\\Users\\j\\AppData\\Roaming\\Python\\Python311\\site-packages', 'C:\\Users\\j\\miniconda3\\envs\\groqqle\\Lib\\site-packages', 'C:\\ai\\Groqqle', 'C:\\ai\\Groqqle']
+Initializing Web_Agent with provider_name: groq, num_results: 10, max_tokens: 4096
+Attempting to get provider with API key: gsk_p...
+get_provider called with provider_name: groq
+Creating groq instance with API key
+Provider obtained successfully
+Attempting to get model
+get_model called, returning: mixtral-8x7b-32768
+Model obtained successfully
+Initializing tools
+Tools initialized successfully
+Processing request: What is artificial intelligence?
+Calling _process_web_search
+Entering _process_web_search
+Performing web search with query: What is artificial intelligence?
+WebSearch_Tool: Starting search for query: What is artificial intelligence?, num_results: 20
+WebSearch_Tool: Sending request to Google
+WebSearch_Tool: Request successful. Status code: 200
+WebSearch_Tool: Found 20 raw search results
+WebSearch_Tool: Returning 20 processed results
+Web search completed successfully. Number of results: 20
+Web search completed. Number of results: 20
+Results filtered. Number of filtered results: 20
+Results deduplicated. Number of final results: 10
+_process_web_search completed. Number of results: 10
+Initializing Web_Agent with provider_name: groq, num_results: 10, max_tokens: 4096
+Attempting to get provider with API key: gsk_p...
+get_provider called with provider_name: groq
+Creating groq instance with API key
+Provider obtained successfully
+Attempting to get model
+get_model called, returning: mixtral-8x7b-32768
+Model obtained successfully
+Initializing tools
+Tools initialized successfully
+Processing request: What is artificial intelligence?
+Calling _process_web_search
+Entering _process_web_search
+Performing web search with query: What is artificial intelligence?
+WebSearch_Tool: Starting search for query: What is artificial intelligence?, num_results: 20
+WebSearch_Tool: Sending request to Google
+WebSearch_Tool: Request successful. Status code: 200
+WebSearch_Tool: Found 20 raw search results
+WebSearch_Tool: Returning 20 processed results
+Web search completed successfully. Number of results: 20
+Web search completed. Number of results: 20
+Results filtered. Number of filtered results: 20
+Results deduplicated. Number of final results: 10
+_process_web_search completed. Number of results: 10
+Initializing Web_Agent with provider_name: groq, num_results: 10, max_tokens: 4096
+Attempting to get provider with API key: gsk_p...
+get_provider called with provider_name: groq
+Creating groq instance with API key
+Provider obtained successfully
+Attempting to get model
+get_model called, returning: mixtral-8x7b-32768
+Model obtained successfully
+Initializing tools
+Tools initialized successfully
+Processing request: What is artificial intelligence?
+Calling _process_web_search
+Entering _process_web_search
+Performing web search with query: What is artificial intelligence?
+WebSearch_Tool: Starting search for query: What is artificial intelligence?, num_results: 20
+WebSearch_Tool: Sending request to Google
+WebSearch_Tool: Request successful. Status code: 200
+WebSearch_Tool: Found 20 raw search results
+WebSearch_Tool: Returning 20 processed results
+Web search completed successfully. Number of results: 20
+Web search completed. Number of results: 20
+Results filtered. Number of filtered results: 20
+Results deduplicated. Number of final results: 10
+_process_web_search completed. Number of results: 10
+Initializing Web_Agent with provider_name: groq, num_results: 10, max_tokens: 4096
+Attempting to get provider with API key: gsk_p...
+get_provider called with provider_name: groq
+Creating groq instance with API key
+Provider obtained successfully
+Attempting to get model
+get_model called, returning: mixtral-8x7b-32768
+Model obtained successfully
+Initializing tools
+Tools initialized successfully
+Processing request: What is artificial intelligence?
+Calling _process_web_search
+Entering _process_web_search
+Performing web search with query: What is artificial intelligence?
+WebSearch_Tool: Starting search for query: What is artificial intelligence?, num_results: 20
+WebSearch_Tool: Sending request to Google
+WebSearch_Tool: Request successful. Status code: 200
+WebSearch_Tool: Found 20 raw search results
+WebSearch_Tool: Returning 20 processed results
+Web search completed successfully. Number of results: 20
+Web search completed. Number of results: 20
+Results filtered. Number of filtered results: 20
+Results deduplicated. Number of final results: 10
+_process_web_search completed. Number of results: 10
+Current working directory: C:\ai\Groqqle
+Current sys.path: ['C:\\ai\\Groqqle', 'C:\\Users\\j\\miniconda3\\envs\\groqqle\\python311.zip', 'C:\\Users\\j\\miniconda3\\envs\\groqqle\\DLLs', 'C:\\Users\\j\\miniconda3\\envs\\groqqle\\Lib', 'C:\\Users\\j\\miniconda3\\envs\\groqqle', 'C:\\Users\\j\\AppData\\Roaming\\Python\\Python311\\site-packages', 'C:\\Users\\j\\miniconda3\\envs\\groqqle\\Lib\\site-packages', 'C:\\ai\\Groqqle', 'C:\\ai\\Groqqle']
+Updated sys.path: ['C:\\ai\\Groqqle', 'C:\\Users\\j\\miniconda3\\envs\\groqqle\\python311.zip', 'C:\\Users\\j\\miniconda3\\envs\\groqqle\\DLLs', 'C:\\Users\\j\\miniconda3\\envs\\groqqle\\Lib', 'C:\\Users\\j\\miniconda3\\envs\\groqqle', 'C:\\Users\\j\\AppData\\Roaming\\Python\\Python311\\site-packages', 'C:\\Users\\j\\miniconda3\\envs\\groqqle\\Lib\\site-packages', 'C:\\ai\\Groqqle', 'C:\\ai\\Groqqle']
+Attempting to import ProviderFactory
+Entering provider_factory.py
+Current working directory: C:\ai\Groqqle
+Current sys.path: ['C:\\ai\\Groqqle', 'C:\\Users\\j\\miniconda3\\envs\\groqqle\\python311.zip', 'C:\\Users\\j\\miniconda3\\envs\\groqqle\\DLLs', 'C:\\Users\\j\\miniconda3\\envs\\groqqle\\Lib', 'C:\\Users\\j\\miniconda3\\envs\\groqqle', 'C:\\Users\\j\\AppData\\Roaming\\Python\\Python311\\site-packages', 'C:\\Users\\j\\miniconda3\\envs\\groqqle\\Lib\\site-packages', 'C:\\ai\\Groqqle', 'C:\\ai\\Groqqle']
+Exiting provider_factory.py
+ProviderFactory imported successfully
+Current working directory: C:\ai\Groqqle
+Current sys.path: ['C:\\ai\\Groqqle', 'C:\\Users\\j\\miniconda3\\envs\\groqqle\\python311.zip', 'C:\\Users\\j\\miniconda3\\envs\\groqqle\\DLLs', 'C:\\Users\\j\\miniconda3\\envs\\groqqle\\Lib', 'C:\\Users\\j\\miniconda3\\envs\\groqqle', 'C:\\Users\\j\\AppData\\Roaming\\Python\\Python311\\site-packages', 'C:\\Users\\j\\miniconda3\\envs\\groqqle\\Lib\\site-packages', 'C:\\ai\\Groqqle', 'C:\\ai\\Groqqle']
+Current working directory: C:\ai\Groqqle
+Current sys.path: ['C:\\ai\\Groqqle', 'C:\\Users\\j\\miniconda3\\envs\\groqqle\\python311.zip', 'C:\\Users\\j\\miniconda3\\envs\\groqqle\\DLLs', 'C:\\Users\\j\\miniconda3\\envs\\groqqle\\Lib', 'C:\\Users\\j\\miniconda3\\envs\\groqqle', 'C:\\Users\\j\\AppData\\Roaming\\Python\\Python311\\site-packages', 'C:\\Users\\j\\miniconda3\\envs\\groqqle\\Lib\\site-packages', 'C:\\ai\\Groqqle', 'C:\\ai\\Groqqle']
+Updated sys.path: ['C:\\ai\\Groqqle', 'C:\\Users\\j\\miniconda3\\envs\\groqqle\\python311.zip', 'C:\\Users\\j\\miniconda3\\envs\\groqqle\\DLLs', 'C:\\Users\\j\\miniconda3\\envs\\groqqle\\Lib', 'C:\\Users\\j\\miniconda3\\envs\\groqqle', 'C:\\Users\\j\\AppData\\Roaming\\Python\\Python311\\site-packages', 'C:\\Users\\j\\miniconda3\\envs\\groqqle\\Lib\\site-packages', 'C:\\ai\\Groqqle', 'C:\\ai\\Groqqle']
+Attempting to import ProviderFactory
+Entering provider_factory.py
+Current working directory: C:\ai\Groqqle
+Current sys.path: ['C:\\ai\\Groqqle', 'C:\\Users\\j\\miniconda3\\envs\\groqqle\\python311.zip', 'C:\\Users\\j\\miniconda3\\envs\\groqqle\\DLLs', 'C:\\Users\\j\\miniconda3\\envs\\groqqle\\Lib', 'C:\\Users\\j\\miniconda3\\envs\\groqqle', 'C:\\Users\\j\\AppData\\Roaming\\Python\\Python311\\site-packages', 'C:\\Users\\j\\miniconda3\\envs\\groqqle\\Lib\\site-packages', 'C:\\ai\\Groqqle', 'C:\\ai\\Groqqle']
+Exiting provider_factory.py
+ProviderFactory imported successfully
+Current working directory: C:\ai\Groqqle
+Current sys.path: ['C:\\ai\\Groqqle', 'C:\\Users\\j\\miniconda3\\envs\\groqqle\\python311.zip', 'C:\\Users\\j\\miniconda3\\envs\\groqqle\\DLLs', 'C:\\Users\\j\\miniconda3\\envs\\groqqle\\Lib', 'C:\\Users\\j\\miniconda3\\envs\\groqqle', 'C:\\Users\\j\\AppData\\Roaming\\Python\\Python311\\site-packages', 'C:\\Users\\j\\miniconda3\\envs\\groqqle\\Lib\\site-packages', 'C:\\ai\\Groqqle', 'C:\\ai\\Groqqle']
+Current working directory: C:\ai\Groqqle
+Current sys.path: ['C:\\ai\\Groqqle', 'C:\\Users\\j\\miniconda3\\envs\\groqqle\\python311.zip', 'C:\\Users\\j\\miniconda3\\envs\\groqqle\\DLLs', 'C:\\Users\\j\\miniconda3\\envs\\groqqle\\Lib', 'C:\\Users\\j\\miniconda3\\envs\\groqqle', 'C:\\Users\\j\\AppData\\Roaming\\Python\\Python311\\site-packages', 'C:\\Users\\j\\miniconda3\\envs\\groqqle\\Lib\\site-packages', 'C:\\ai\\Groqqle', 'C:\\ai\\Groqqle']
+Updated sys.path: ['C:\\ai\\Groqqle', 'C:\\Users\\j\\miniconda3\\envs\\groqqle\\python311.zip', 'C:\\Users\\j\\miniconda3\\envs\\groqqle\\DLLs', 'C:\\Users\\j\\miniconda3\\envs\\groqqle\\Lib', 'C:\\Users\\j\\miniconda3\\envs\\groqqle', 'C:\\Users\\j\\AppData\\Roaming\\Python\\Python311\\site-packages', 'C:\\Users\\j\\miniconda3\\envs\\groqqle\\Lib\\site-packages', 'C:\\ai\\Groqqle', 'C:\\ai\\Groqqle']
+Attempting to import ProviderFactory
+Entering provider_factory.py
+Current working directory: C:\ai\Groqqle
+Current sys.path: ['C:\\ai\\Groqqle', 'C:\\Users\\j\\miniconda3\\envs\\groqqle\\python311.zip', 'C:\\Users\\j\\miniconda3\\envs\\groqqle\\DLLs', 'C:\\Users\\j\\miniconda3\\envs\\groqqle\\Lib', 'C:\\Users\\j\\miniconda3\\envs\\groqqle', 'C:\\Users\\j\\AppData\\Roaming\\Python\\Python311\\site-packages', 'C:\\Users\\j\\miniconda3\\envs\\groqqle\\Lib\\site-packages', 'C:\\ai\\Groqqle', 'C:\\ai\\Groqqle']
+Exiting provider_factory.py
+ProviderFactory imported successfully
+Current working directory: C:\ai\Groqqle
+Current sys.path: ['C:\\ai\\Groqqle', 'C:\\Users\\j\\miniconda3\\envs\\groqqle\\python311.zip', 'C:\\Users\\j\\miniconda3\\envs\\groqqle\\DLLs', 'C:\\Users\\j\\miniconda3\\envs\\groqqle\\Lib', 'C:\\Users\\j\\miniconda3\\envs\\groqqle', 'C:\\Users\\j\\AppData\\Roaming\\Python\\Python311\\site-packages', 'C:\\Users\\j\\miniconda3\\envs\\groqqle\\Lib\\site-packages', 'C:\\ai\\Groqqle', 'C:\\ai\\Groqqle']
+Initializing Web_Agent with provider_name: groq, num_results: 10, max_tokens: 4096
+Attempting to get provider with API key: gsk_p...
+get_provider called with provider_name: groq
+Creating groq instance with API key
+Provider obtained successfully
+Attempting to get model
+get_model called, returning: mixtral-8x7b-32768
+Model obtained successfully
+Initializing tools
+Tools initialized successfully
+Processing request: What is artificial intelligence?
+Calling _process_web_search
+Entering _process_web_search
+Performing web search with query: What is artificial intelligence?
+WebSearch_Tool: Starting search for query: What is artificial intelligence?, num_results: 20
+WebSearch_Tool: Sending request to Google
+WebSearch_Tool: Request successful. Status code: 200
+WebSearch_Tool: Found 20 raw search results
+WebSearch_Tool: Returning 20 processed results
+Web search completed successfully. Number of results: 20
+Web search completed. Number of results: 20
+Results filtered. Number of filtered results: 20
+Results deduplicated. Number of final results: 10
+_process_web_search completed. Number of results: 10
+Current working directory: C:\ai\Groqqle
+Current sys.path: ['C:\\ai\\Groqqle', 'C:\\Users\\j\\miniconda3\\envs\\groqqle\\python311.zip', 'C:\\Users\\j\\miniconda3\\envs\\groqqle\\DLLs', 'C:\\Users\\j\\miniconda3\\envs\\groqqle\\Lib', 'C:\\Users\\j\\miniconda3\\envs\\groqqle', 'C:\\Users\\j\\AppData\\Roaming\\Python\\Python311\\site-packages', 'C:\\Users\\j\\miniconda3\\envs\\groqqle\\Lib\\site-packages', 'C:\\ai\\Groqqle', 'C:\\ai\\Groqqle', 'C:\\ai\\Groqqle']
+Updated sys.path: ['C:\\ai\\Groqqle', 'C:\\Users\\j\\miniconda3\\envs\\groqqle\\python311.zip', 'C:\\Users\\j\\miniconda3\\envs\\groqqle\\DLLs', 'C:\\Users\\j\\miniconda3\\envs\\groqqle\\Lib', 'C:\\Users\\j\\miniconda3\\envs\\groqqle', 'C:\\Users\\j\\AppData\\Roaming\\Python\\Python311\\site-packages', 'C:\\Users\\j\\miniconda3\\envs\\groqqle\\Lib\\site-packages', 'C:\\ai\\Groqqle', 'C:\\ai\\Groqqle', 'C:\\ai\\Groqqle']
+Attempting to import ProviderFactory
+Entering provider_factory.py
+Current working directory: C:\ai\Groqqle
+Current sys.path: ['C:\\ai\\Groqqle', 'C:\\Users\\j\\miniconda3\\envs\\groqqle\\python311.zip', 'C:\\Users\\j\\miniconda3\\envs\\groqqle\\DLLs', 'C:\\Users\\j\\miniconda3\\envs\\groqqle\\Lib', 'C:\\Users\\j\\miniconda3\\envs\\groqqle', 'C:\\Users\\j\\AppData\\Roaming\\Python\\Python311\\site-packages', 'C:\\Users\\j\\miniconda3\\envs\\groqqle\\Lib\\site-packages', 'C:\\ai\\Groqqle', 'C:\\ai\\Groqqle', 'C:\\ai\\Groqqle']
+Exiting provider_factory.py
+ProviderFactory imported successfully
+Current working directory: C:\ai\Groqqle
+Current sys.path: ['C:\\ai\\Groqqle', 'C:\\Users\\j\\miniconda3\\envs\\groqqle\\python311.zip', 'C:\\Users\\j\\miniconda3\\envs\\groqqle\\DLLs', 'C:\\Users\\j\\miniconda3\\envs\\groqqle\\Lib', 'C:\\Users\\j\\miniconda3\\envs\\groqqle', 'C:\\Users\\j\\AppData\\Roaming\\Python\\Python311\\site-packages', 'C:\\Users\\j\\miniconda3\\envs\\groqqle\\Lib\\site-packages', 'C:\\ai\\Groqqle', 'C:\\ai\\Groqqle', 'C:\\ai\\Groqqle']
+Current working directory: C:\ai\Groqqle
+Current sys.path: ['C:\\ai\\Groqqle', 'C:\\Users\\j\\miniconda3\\envs\\groqqle\\python311.zip', 'C:\\Users\\j\\miniconda3\\envs\\groqqle\\DLLs', 'C:\\Users\\j\\miniconda3\\envs\\groqqle\\Lib', 'C:\\Users\\j\\miniconda3\\envs\\groqqle', 'C:\\Users\\j\\AppData\\Roaming\\Python\\Python311\\site-packages', 'C:\\Users\\j\\miniconda3\\envs\\groqqle\\Lib\\site-packages', 'C:\\ai\\Groqqle', 'C:\\ai\\Groqqle', 'C:\\ai\\Groqqle']
+Updated sys.path: ['C:\\ai\\Groqqle', 'C:\\Users\\j\\miniconda3\\envs\\groqqle\\python311.zip', 'C:\\Users\\j\\miniconda3\\envs\\groqqle\\DLLs', 'C:\\Users\\j\\miniconda3\\envs\\groqqle\\Lib', 'C:\\Users\\j\\miniconda3\\envs\\groqqle', 'C:\\Users\\j\\AppData\\Roaming\\Python\\Python311\\site-packages', 'C:\\Users\\j\\miniconda3\\envs\\groqqle\\Lib\\site-packages', 'C:\\ai\\Groqqle', 'C:\\ai\\Groqqle', 'C:\\ai\\Groqqle']
+Attempting to import ProviderFactory
+Entering provider_factory.py
+Current working directory: C:\ai\Groqqle
+Current sys.path: ['C:\\ai\\Groqqle', 'C:\\Users\\j\\miniconda3\\envs\\groqqle\\python311.zip', 'C:\\Users\\j\\miniconda3\\envs\\groqqle\\DLLs', 'C:\\Users\\j\\miniconda3\\envs\\groqqle\\Lib', 'C:\\Users\\j\\miniconda3\\envs\\groqqle', 'C:\\Users\\j\\AppData\\Roaming\\Python\\Python311\\site-packages', 'C:\\Users\\j\\miniconda3\\envs\\groqqle\\Lib\\site-packages', 'C:\\ai\\Groqqle', 'C:\\ai\\Groqqle', 'C:\\ai\\Groqqle']
+Exiting provider_factory.py
+ProviderFactory imported successfully
+Current working directory: C:\ai\Groqqle
+Current sys.path: ['C:\\ai\\Groqqle', 'C:\\Users\\j\\miniconda3\\envs\\groqqle\\python311.zip', 'C:\\Users\\j\\miniconda3\\envs\\groqqle\\DLLs', 'C:\\Users\\j\\miniconda3\\envs\\groqqle\\Lib', 'C:\\Users\\j\\miniconda3\\envs\\groqqle', 'C:\\Users\\j\\AppData\\Roaming\\Python\\Python311\\site-packages', 'C:\\Users\\j\\miniconda3\\envs\\groqqle\\Lib\\site-packages', 'C:\\ai\\Groqqle', 'C:\\ai\\Groqqle', 'C:\\ai\\Groqqle']
+Current working directory: C:\ai\Groqqle
+Current sys.path: ['C:\\ai\\Groqqle', 'C:\\Users\\j\\miniconda3\\envs\\groqqle\\python311.zip', 'C:\\Users\\j\\miniconda3\\envs\\groqqle\\DLLs', 'C:\\Users\\j\\miniconda3\\envs\\groqqle\\Lib', 'C:\\Users\\j\\miniconda3\\envs\\groqqle', 'C:\\Users\\j\\AppData\\Roaming\\Python\\Python311\\site-packages', 'C:\\Users\\j\\miniconda3\\envs\\groqqle\\Lib\\site-packages', 'C:\\ai\\Groqqle', 'C:\\ai\\Groqqle', 'C:\\ai\\Groqqle']
+Updated sys.path: ['C:\\ai\\Groqqle', 'C:\\Users\\j\\miniconda3\\envs\\groqqle\\python311.zip', 'C:\\Users\\j\\miniconda3\\envs\\groqqle\\DLLs', 'C:\\Users\\j\\miniconda3\\envs\\groqqle\\Lib', 'C:\\Users\\j\\miniconda3\\envs\\groqqle', 'C:\\Users\\j\\AppData\\Roaming\\Python\\Python311\\site-packages', 'C:\\Users\\j\\miniconda3\\envs\\groqqle\\Lib\\site-packages', 'C:\\ai\\Groqqle', 'C:\\ai\\Groqqle', 'C:\\ai\\Groqqle']
+Attempting to import ProviderFactory
+Entering provider_factory.py
+Current working directory: C:\ai\Groqqle
+Current sys.path: ['C:\\ai\\Groqqle', 'C:\\Users\\j\\miniconda3\\envs\\groqqle\\python311.zip', 'C:\\Users\\j\\miniconda3\\envs\\groqqle\\DLLs', 'C:\\Users\\j\\miniconda3\\envs\\groqqle\\Lib', 'C:\\Users\\j\\miniconda3\\envs\\groqqle', 'C:\\Users\\j\\AppData\\Roaming\\Python\\Python311\\site-packages', 'C:\\Users\\j\\miniconda3\\envs\\groqqle\\Lib\\site-packages', 'C:\\ai\\Groqqle', 'C:\\ai\\Groqqle', 'C:\\ai\\Groqqle']
+Exiting provider_factory.py
+ProviderFactory imported successfully
+Current working directory: C:\ai\Groqqle
+Current sys.path: ['C:\\ai\\Groqqle', 'C:\\Users\\j\\miniconda3\\envs\\groqqle\\python311.zip', 'C:\\Users\\j\\miniconda3\\envs\\groqqle\\DLLs', 'C:\\Users\\j\\miniconda3\\envs\\groqqle\\Lib', 'C:\\Users\\j\\miniconda3\\envs\\groqqle', 'C:\\Users\\j\\AppData\\Roaming\\Python\\Python311\\site-packages', 'C:\\Users\\j\\miniconda3\\envs\\groqqle\\Lib\\site-packages', 'C:\\ai\\Groqqle', 'C:\\ai\\Groqqle', 'C:\\ai\\Groqqle']
+Initializing Web_Agent with provider_name: groq, num_results: 10, max_tokens: 4096
+Attempting to get provider with API key: gsk_p...
+get_provider called with provider_name: groq
+Creating groq instance with API key
+Provider obtained successfully
+Attempting to get model
+get_model called, returning: mixtral-8x7b-32768
+Model obtained successfully
+Initializing tools
+Tools initialized successfully
+Processing request: What is artificial intelligence?
+Calling _process_web_search
+Entering _process_web_search
+Performing web search with query: What is artificial intelligence?
+Web search completed successfully. Number of results: 20
+Web search completed. Number of results: 20
+Results filtered. Number of filtered results: 20
+Results deduplicated. Number of final results: 10
+_process_web_search completed. Number of results: 10
+Current working directory: C:\ai\Groqqle
+Current sys.path: ['C:\\ai\\Groqqle', 'C:\\Users\\j\\miniconda3\\envs\\groqqle\\python311.zip', 'C:\\Users\\j\\miniconda3\\envs\\groqqle\\DLLs', 'C:\\Users\\j\\miniconda3\\envs\\groqqle\\Lib', 'C:\\Users\\j\\miniconda3\\envs\\groqqle', 'C:\\Users\\j\\AppData\\Roaming\\Python\\Python311\\site-packages', 'C:\\Users\\j\\miniconda3\\envs\\groqqle\\Lib\\site-packages', 'C:\\ai\\Groqqle', 'C:\\ai\\Groqqle', 'C:\\ai\\Groqqle']
+Updated sys.path: ['C:\\ai\\Groqqle', 'C:\\Users\\j\\miniconda3\\envs\\groqqle\\python311.zip', 'C:\\Users\\j\\miniconda3\\envs\\groqqle\\DLLs', 'C:\\Users\\j\\miniconda3\\envs\\groqqle\\Lib', 'C:\\Users\\j\\miniconda3\\envs\\groqqle', 'C:\\Users\\j\\AppData\\Roaming\\Python\\Python311\\site-packages', 'C:\\Users\\j\\miniconda3\\envs\\groqqle\\Lib\\site-packages', 'C:\\ai\\Groqqle', 'C:\\ai\\Groqqle', 'C:\\ai\\Groqqle']
+Attempting to import ProviderFactory
+Entering provider_factory.py
+Current working directory: C:\ai\Groqqle
+Current sys.path: ['C:\\ai\\Groqqle', 'C:\\Users\\j\\miniconda3\\envs\\groqqle\\python311.zip', 'C:\\Users\\j\\miniconda3\\envs\\groqqle\\DLLs', 'C:\\Users\\j\\miniconda3\\envs\\groqqle\\Lib', 'C:\\Users\\j\\miniconda3\\envs\\groqqle', 'C:\\Users\\j\\AppData\\Roaming\\Python\\Python311\\site-packages', 'C:\\Users\\j\\miniconda3\\envs\\groqqle\\Lib\\site-packages', 'C:\\ai\\Groqqle', 'C:\\ai\\Groqqle', 'C:\\ai\\Groqqle']
+Exiting provider_factory.py
+ProviderFactory imported successfully
+Current working directory: C:\ai\Groqqle
+Current sys.path: ['C:\\ai\\Groqqle', 'C:\\Users\\j\\miniconda3\\envs\\groqqle\\python311.zip', 'C:\\Users\\j\\miniconda3\\envs\\groqqle\\DLLs', 'C:\\Users\\j\\miniconda3\\envs\\groqqle\\Lib', 'C:\\Users\\j\\miniconda3\\envs\\groqqle', 'C:\\Users\\j\\AppData\\Roaming\\Python\\Python311\\site-packages', 'C:\\Users\\j\\miniconda3\\envs\\groqqle\\Lib\\site-packages', 'C:\\ai\\Groqqle', 'C:\\ai\\Groqqle', 'C:\\ai\\Groqqle']
+Current working directory: C:\ai\Groqqle
+Current sys.path: ['C:\\ai\\Groqqle', 'C:\\Users\\j\\miniconda3\\envs\\groqqle\\python311.zip', 'C:\\Users\\j\\miniconda3\\envs\\groqqle\\DLLs', 'C:\\Users\\j\\miniconda3\\envs\\groqqle\\Lib', 'C:\\Users\\j\\miniconda3\\envs\\groqqle', 'C:\\Users\\j\\AppData\\Roaming\\Python\\Python311\\site-packages', 'C:\\Users\\j\\miniconda3\\envs\\groqqle\\Lib\\site-packages', 'C:\\ai\\Groqqle', 'C:\\ai\\Groqqle', 'C:\\ai\\Groqqle']
+Updated sys.path: ['C:\\ai\\Groqqle', 'C:\\Users\\j\\miniconda3\\envs\\groqqle\\python311.zip', 'C:\\Users\\j\\miniconda3\\envs\\groqqle\\DLLs', 'C:\\Users\\j\\miniconda3\\envs\\groqqle\\Lib', 'C:\\Users\\j\\miniconda3\\envs\\groqqle', 'C:\\Users\\j\\AppData\\Roaming\\Python\\Python311\\site-packages', 'C:\\Users\\j\\miniconda3\\envs\\groqqle\\Lib\\site-packages', 'C:\\ai\\Groqqle', 'C:\\ai\\Groqqle', 'C:\\ai\\Groqqle']
+Attempting to import ProviderFactory
+Entering provider_factory.py
+Current working directory: C:\ai\Groqqle
+Current sys.path: ['C:\\ai\\Groqqle', 'C:\\Users\\j\\miniconda3\\envs\\groqqle\\python311.zip', 'C:\\Users\\j\\miniconda3\\envs\\groqqle\\DLLs', 'C:\\Users\\j\\miniconda3\\envs\\groqqle\\Lib', 'C:\\Users\\j\\miniconda3\\envs\\groqqle', 'C:\\Users\\j\\AppData\\Roaming\\Python\\Python311\\site-packages', 'C:\\Users\\j\\miniconda3\\envs\\groqqle\\Lib\\site-packages', 'C:\\ai\\Groqqle', 'C:\\ai\\Groqqle', 'C:\\ai\\Groqqle']
+Exiting provider_factory.py
+ProviderFactory imported successfully
+Current working directory: C:\ai\Groqqle
+Current sys.path: ['C:\\ai\\Groqqle', 'C:\\Users\\j\\miniconda3\\envs\\groqqle\\python311.zip', 'C:\\Users\\j\\miniconda3\\envs\\groqqle\\DLLs', 'C:\\Users\\j\\miniconda3\\envs\\groqqle\\Lib', 'C:\\Users\\j\\miniconda3\\envs\\groqqle', 'C:\\Users\\j\\AppData\\Roaming\\Python\\Python311\\site-packages', 'C:\\Users\\j\\miniconda3\\envs\\groqqle\\Lib\\site-packages', 'C:\\ai\\Groqqle', 'C:\\ai\\Groqqle', 'C:\\ai\\Groqqle']
+Current working directory: C:\ai\Groqqle
+Current sys.path: ['C:\\ai\\Groqqle', 'C:\\Users\\j\\miniconda3\\envs\\groqqle\\python311.zip', 'C:\\Users\\j\\miniconda3\\envs\\groqqle\\DLLs', 'C:\\Users\\j\\miniconda3\\envs\\groqqle\\Lib', 'C:\\Users\\j\\miniconda3\\envs\\groqqle', 'C:\\Users\\j\\AppData\\Roaming\\Python\\Python311\\site-packages', 'C:\\Users\\j\\miniconda3\\envs\\groqqle\\Lib\\site-packages', 'C:\\ai\\Groqqle', 'C:\\ai\\Groqqle', 'C:\\ai\\Groqqle']
+Updated sys.path: ['C:\\ai\\Groqqle', 'C:\\Users\\j\\miniconda3\\envs\\groqqle\\python311.zip', 'C:\\Users\\j\\miniconda3\\envs\\groqqle\\DLLs', 'C:\\Users\\j\\miniconda3\\envs\\groqqle\\Lib', 'C:\\Users\\j\\miniconda3\\envs\\groqqle', 'C:\\Users\\j\\AppData\\Roaming\\Python\\Python311\\site-packages', 'C:\\Users\\j\\miniconda3\\envs\\groqqle\\Lib\\site-packages', 'C:\\ai\\Groqqle', 'C:\\ai\\Groqqle', 'C:\\ai\\Groqqle']
+Attempting to import ProviderFactory
+Entering provider_factory.py
+Current working directory: C:\ai\Groqqle
+Current sys.path: ['C:\\ai\\Groqqle', 'C:\\Users\\j\\miniconda3\\envs\\groqqle\\python311.zip', 'C:\\Users\\j\\miniconda3\\envs\\groqqle\\DLLs', 'C:\\Users\\j\\miniconda3\\envs\\groqqle\\Lib', 'C:\\Users\\j\\miniconda3\\envs\\groqqle', 'C:\\Users\\j\\AppData\\Roaming\\Python\\Python311\\site-packages', 'C:\\Users\\j\\miniconda3\\envs\\groqqle\\Lib\\site-packages', 'C:\\ai\\Groqqle', 'C:\\ai\\Groqqle', 'C:\\ai\\Groqqle']
+Exiting provider_factory.py
+ProviderFactory imported successfully
+Current working directory: C:\ai\Groqqle
+Current sys.path: ['C:\\ai\\Groqqle', 'C:\\Users\\j\\miniconda3\\envs\\groqqle\\python311.zip', 'C:\\Users\\j\\miniconda3\\envs\\groqqle\\DLLs', 'C:\\Users\\j\\miniconda3\\envs\\groqqle\\Lib', 'C:\\Users\\j\\miniconda3\\envs\\groqqle', 'C:\\Users\\j\\AppData\\Roaming\\Python\\Python311\\site-packages', 'C:\\Users\\j\\miniconda3\\envs\\groqqle\\Lib\\site-packages', 'C:\\ai\\Groqqle', 'C:\\ai\\Groqqle', 'C:\\ai\\Groqqle']
+Initializing Web_Agent with provider_name: groq, num_results: 10, max_tokens: 4096
+Attempting to get provider with API key: gsk_p...
+get_provider called with provider_name: groq
+Creating groq instance with API key
+Provider obtained successfully
+Attempting to get model
+get_model called, returning: mixtral-8x7b-32768
+Model obtained successfully
+Initializing tools
+Tools initialized successfully
+Processing request: What is artificial intelligence?
+Calling _process_web_search
+Entering _process_web_search
+Performing web search with query: What is artificial intelligence?
+Web search completed successfully. Number of results: 20
+Web search completed. Number of results: 20
+Results filtered. Number of filtered results: 20
+Results deduplicated. Number of final results: 10
+_process_web_search completed. Number of results: 10
+Current working directory: C:\ai\Groqqle
+Current sys.path: ['C:\\ai\\Groqqle', 'C:\\Users\\j\\miniconda3\\envs\\groqqle\\python311.zip', 'C:\\Users\\j\\miniconda3\\envs\\groqqle\\DLLs', 'C:\\Users\\j\\miniconda3\\envs\\groqqle\\Lib', 'C:\\Users\\j\\miniconda3\\envs\\groqqle', 'C:\\Users\\j\\AppData\\Roaming\\Python\\Python311\\site-packages', 'C:\\Users\\j\\miniconda3\\envs\\groqqle\\Lib\\site-packages', 'C:\\ai\\Groqqle', 'C:\\ai\\Groqqle', 'C:\\ai\\Groqqle']
+Updated sys.path: ['C:\\ai\\Groqqle', 'C:\\Users\\j\\miniconda3\\envs\\groqqle\\python311.zip', 'C:\\Users\\j\\miniconda3\\envs\\groqqle\\DLLs', 'C:\\Users\\j\\miniconda3\\envs\\groqqle\\Lib', 'C:\\Users\\j\\miniconda3\\envs\\groqqle', 'C:\\Users\\j\\AppData\\Roaming\\Python\\Python311\\site-packages', 'C:\\Users\\j\\miniconda3\\envs\\groqqle\\Lib\\site-packages', 'C:\\ai\\Groqqle', 'C:\\ai\\Groqqle', 'C:\\ai\\Groqqle']
+Attempting to import ProviderFactory
+Entering provider_factory.py
+Current working directory: C:\ai\Groqqle
+Current sys.path: ['C:\\ai\\Groqqle', 'C:\\Users\\j\\miniconda3\\envs\\groqqle\\python311.zip', 'C:\\Users\\j\\miniconda3\\envs\\groqqle\\DLLs', 'C:\\Users\\j\\miniconda3\\envs\\groqqle\\Lib', 'C:\\Users\\j\\miniconda3\\envs\\groqqle', 'C:\\Users\\j\\AppData\\Roaming\\Python\\Python311\\site-packages', 'C:\\Users\\j\\miniconda3\\envs\\groqqle\\Lib\\site-packages', 'C:\\ai\\Groqqle', 'C:\\ai\\Groqqle', 'C:\\ai\\Groqqle']
+Exiting provider_factory.py
+ProviderFactory imported successfully
+Current working directory: C:\ai\Groqqle
+Current sys.path: ['C:\\ai\\Groqqle', 'C:\\Users\\j\\miniconda3\\envs\\groqqle\\python311.zip', 'C:\\Users\\j\\miniconda3\\envs\\groqqle\\DLLs', 'C:\\Users\\j\\miniconda3\\envs\\groqqle\\Lib', 'C:\\Users\\j\\miniconda3\\envs\\groqqle', 'C:\\Users\\j\\AppData\\Roaming\\Python\\Python311\\site-packages', 'C:\\Users\\j\\miniconda3\\envs\\groqqle\\Lib\\site-packages', 'C:\\ai\\Groqqle', 'C:\\ai\\Groqqle', 'C:\\ai\\Groqqle']
+Current working directory: C:\ai\Groqqle
+Current sys.path: ['C:\\ai\\Groqqle', 'C:\\Users\\j\\miniconda3\\envs\\groqqle\\python311.zip', 'C:\\Users\\j\\miniconda3\\envs\\groqqle\\DLLs', 'C:\\Users\\j\\miniconda3\\envs\\groqqle\\Lib', 'C:\\Users\\j\\miniconda3\\envs\\groqqle', 'C:\\Users\\j\\AppData\\Roaming\\Python\\Python311\\site-packages', 'C:\\Users\\j\\miniconda3\\envs\\groqqle\\Lib\\site-packages', 'C:\\ai\\Groqqle', 'C:\\ai\\Groqqle', 'C:\\ai\\Groqqle']
+Updated sys.path: ['C:\\ai\\Groqqle', 'C:\\Users\\j\\miniconda3\\envs\\groqqle\\python311.zip', 'C:\\Users\\j\\miniconda3\\envs\\groqqle\\DLLs', 'C:\\Users\\j\\miniconda3\\envs\\groqqle\\Lib', 'C:\\Users\\j\\miniconda3\\envs\\groqqle', 'C:\\Users\\j\\AppData\\Roaming\\Python\\Python311\\site-packages', 'C:\\Users\\j\\miniconda3\\envs\\groqqle\\Lib\\site-packages', 'C:\\ai\\Groqqle', 'C:\\ai\\Groqqle', 'C:\\ai\\Groqqle']
+Attempting to import ProviderFactory
+Entering provider_factory.py
+Current working directory: C:\ai\Groqqle
+Current sys.path: ['C:\\ai\\Groqqle', 'C:\\Users\\j\\miniconda3\\envs\\groqqle\\python311.zip', 'C:\\Users\\j\\miniconda3\\envs\\groqqle\\DLLs', 'C:\\Users\\j\\miniconda3\\envs\\groqqle\\Lib', 'C:\\Users\\j\\miniconda3\\envs\\groqqle', 'C:\\Users\\j\\AppData\\Roaming\\Python\\Python311\\site-packages', 'C:\\Users\\j\\miniconda3\\envs\\groqqle\\Lib\\site-packages', 'C:\\ai\\Groqqle', 'C:\\ai\\Groqqle', 'C:\\ai\\Groqqle']
+Exiting provider_factory.py
+ProviderFactory imported successfully
+Current working directory: C:\ai\Groqqle
+Current sys.path: ['C:\\ai\\Groqqle', 'C:\\Users\\j\\miniconda3\\envs\\groqqle\\python311.zip', 'C:\\Users\\j\\miniconda3\\envs\\groqqle\\DLLs', 'C:\\Users\\j\\miniconda3\\envs\\groqqle\\Lib', 'C:\\Users\\j\\miniconda3\\envs\\groqqle', 'C:\\Users\\j\\AppData\\Roaming\\Python\\Python311\\site-packages', 'C:\\Users\\j\\miniconda3\\envs\\groqqle\\Lib\\site-packages', 'C:\\ai\\Groqqle', 'C:\\ai\\Groqqle', 'C:\\ai\\Groqqle']
+Current working directory: C:\ai\Groqqle
+Current sys.path: ['C:\\ai\\Groqqle', 'C:\\Users\\j\\miniconda3\\envs\\groqqle\\python311.zip', 'C:\\Users\\j\\miniconda3\\envs\\groqqle\\DLLs', 'C:\\Users\\j\\miniconda3\\envs\\groqqle\\Lib', 'C:\\Users\\j\\miniconda3\\envs\\groqqle', 'C:\\Users\\j\\AppData\\Roaming\\Python\\Python311\\site-packages', 'C:\\Users\\j\\miniconda3\\envs\\groqqle\\Lib\\site-packages', 'C:\\ai\\Groqqle', 'C:\\ai\\Groqqle', 'C:\\ai\\Groqqle']
+Updated sys.path: ['C:\\ai\\Groqqle', 'C:\\Users\\j\\miniconda3\\envs\\groqqle\\python311.zip', 'C:\\Users\\j\\miniconda3\\envs\\groqqle\\DLLs', 'C:\\Users\\j\\miniconda3\\envs\\groqqle\\Lib', 'C:\\Users\\j\\miniconda3\\envs\\groqqle', 'C:\\Users\\j\\AppData\\Roaming\\Python\\Python311\\site-packages', 'C:\\Users\\j\\miniconda3\\envs\\groqqle\\Lib\\site-packages', 'C:\\ai\\Groqqle', 'C:\\ai\\Groqqle', 'C:\\ai\\Groqqle']
+Attempting to import ProviderFactory
+Entering provider_factory.py
+Current working directory: C:\ai\Groqqle
+Current sys.path: ['C:\\ai\\Groqqle', 'C:\\Users\\j\\miniconda3\\envs\\groqqle\\python311.zip', 'C:\\Users\\j\\miniconda3\\envs\\groqqle\\DLLs', 'C:\\Users\\j\\miniconda3\\envs\\groqqle\\Lib', 'C:\\Users\\j\\miniconda3\\envs\\groqqle', 'C:\\Users\\j\\AppData\\Roaming\\Python\\Python311\\site-packages', 'C:\\Users\\j\\miniconda3\\envs\\groqqle\\Lib\\site-packages', 'C:\\ai\\Groqqle', 'C:\\ai\\Groqqle', 'C:\\ai\\Groqqle']
+Exiting provider_factory.py
+ProviderFactory imported successfully
+Current working directory: C:\ai\Groqqle
+Current sys.path: ['C:\\ai\\Groqqle', 'C:\\Users\\j\\miniconda3\\envs\\groqqle\\python311.zip', 'C:\\Users\\j\\miniconda3\\envs\\groqqle\\DLLs', 'C:\\Users\\j\\miniconda3\\envs\\groqqle\\Lib', 'C:\\Users\\j\\miniconda3\\envs\\groqqle', 'C:\\Users\\j\\AppData\\Roaming\\Python\\Python311\\site-packages', 'C:\\Users\\j\\miniconda3\\envs\\groqqle\\Lib\\site-packages', 'C:\\ai\\Groqqle', 'C:\\ai\\Groqqle', 'C:\\ai\\Groqqle']
+Initializing Web_Agent with provider_name: groq, num_results: 20, max_tokens: 4096
+Attempting to get provider with API key: gsk_p...
+get_provider called with provider_name: groq
+Creating groq instance with API key
+Provider obtained successfully
+Attempting to get model
+get_model called, returning: mixtral-8x7b-32768
+Model obtained successfully
+Initializing tools
+Tools initialized successfully
+Processing request: What is artificial intelligence?
+Calling _process_web_search with num_results: 20
+Entering _process_web_search with num_results: 20
+Performing web search with query: What is artificial intelligence? and num_results: 20
+Error in _perform_web_search: name 'log_debug' is not defined
+Traceback:
+Traceback (most recent call last):
+  File "C:\ai\Groqqle\agents\Web_Agent.py", line 103, in _perform_web_search
+    results = self.tools["WebSearch_Tool"](query, self.num_results * 2)  # Request more results to account for filtering
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\ai\Groqqle\tools\web_tools\WebSearch_Tool.py", line 21, in WebSearch_Tool
+    log_debug(f"Search URL: {search_url}")
+    ^^^^^^^^^
+NameError: name 'log_debug' is not defined
+
+Error in process_request: name 'log_debug' is not defined
+Traceback:
+Traceback (most recent call last):
+  File "C:\ai\Groqqle\agents\Web_Agent.py", line 65, in process_request
+    results = self._process_web_search(user_request)
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\ai\Groqqle\agents\Web_Agent.py", line 77, in _process_web_search
+    search_results = self._perform_web_search(user_request)
+                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\ai\Groqqle\agents\Web_Agent.py", line 103, in _perform_web_search
+    results = self.tools["WebSearch_Tool"](query, self.num_results * 2)  # Request more results to account for filtering
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\ai\Groqqle\tools\web_tools\WebSearch_Tool.py", line 21, in WebSearch_Tool
+    log_debug(f"Search URL: {search_url}")
+    ^^^^^^^^^
+NameError: name 'log_debug' is not defined
+
+Current working directory: C:\ai\Groqqle
+Current sys.path: ['C:\\ai\\Groqqle', 'C:\\Users\\j\\miniconda3\\envs\\groqqle\\python311.zip', 'C:\\Users\\j\\miniconda3\\envs\\groqqle\\DLLs', 'C:\\Users\\j\\miniconda3\\envs\\groqqle\\Lib', 'C:\\Users\\j\\miniconda3\\envs\\groqqle', 'C:\\Users\\j\\AppData\\Roaming\\Python\\Python311\\site-packages', 'C:\\Users\\j\\miniconda3\\envs\\groqqle\\Lib\\site-packages', 'C:\\ai\\Groqqle', 'C:\\ai\\Groqqle', 'C:\\ai\\Groqqle']
+Updated sys.path: ['C:\\ai\\Groqqle', 'C:\\Users\\j\\miniconda3\\envs\\groqqle\\python311.zip', 'C:\\Users\\j\\miniconda3\\envs\\groqqle\\DLLs', 'C:\\Users\\j\\miniconda3\\envs\\groqqle\\Lib', 'C:\\Users\\j\\miniconda3\\envs\\groqqle', 'C:\\Users\\j\\AppData\\Roaming\\Python\\Python311\\site-packages', 'C:\\Users\\j\\miniconda3\\envs\\groqqle\\Lib\\site-packages', 'C:\\ai\\Groqqle', 'C:\\ai\\Groqqle', 'C:\\ai\\Groqqle']
+Attempting to import ProviderFactory
+Entering provider_factory.py
+Current working directory: C:\ai\Groqqle
+Current sys.path: ['C:\\ai\\Groqqle', 'C:\\Users\\j\\miniconda3\\envs\\groqqle\\python311.zip', 'C:\\Users\\j\\miniconda3\\envs\\groqqle\\DLLs', 'C:\\Users\\j\\miniconda3\\envs\\groqqle\\Lib', 'C:\\Users\\j\\miniconda3\\envs\\groqqle', 'C:\\Users\\j\\AppData\\Roaming\\Python\\Python311\\site-packages', 'C:\\Users\\j\\miniconda3\\envs\\groqqle\\Lib\\site-packages', 'C:\\ai\\Groqqle', 'C:\\ai\\Groqqle', 'C:\\ai\\Groqqle']
+Exiting provider_factory.py
+ProviderFactory imported successfully
+Current working directory: C:\ai\Groqqle
+Current sys.path: ['C:\\ai\\Groqqle', 'C:\\Users\\j\\miniconda3\\envs\\groqqle\\python311.zip', 'C:\\Users\\j\\miniconda3\\envs\\groqqle\\DLLs', 'C:\\Users\\j\\miniconda3\\envs\\groqqle\\Lib', 'C:\\Users\\j\\miniconda3\\envs\\groqqle', 'C:\\Users\\j\\AppData\\Roaming\\Python\\Python311\\site-packages', 'C:\\Users\\j\\miniconda3\\envs\\groqqle\\Lib\\site-packages', 'C:\\ai\\Groqqle', 'C:\\ai\\Groqqle', 'C:\\ai\\Groqqle']
+Current working directory: C:\ai\Groqqle
+Current sys.path: ['C:\\ai\\Groqqle', 'C:\\Users\\j\\miniconda3\\envs\\groqqle\\python311.zip', 'C:\\Users\\j\\miniconda3\\envs\\groqqle\\DLLs', 'C:\\Users\\j\\miniconda3\\envs\\groqqle\\Lib', 'C:\\Users\\j\\miniconda3\\envs\\groqqle', 'C:\\Users\\j\\AppData\\Roaming\\Python\\Python311\\site-packages', 'C:\\Users\\j\\miniconda3\\envs\\groqqle\\Lib\\site-packages', 'C:\\ai\\Groqqle', 'C:\\ai\\Groqqle', 'C:\\ai\\Groqqle']
+Updated sys.path: ['C:\\ai\\Groqqle', 'C:\\Users\\j\\miniconda3\\envs\\groqqle\\python311.zip', 'C:\\Users\\j\\miniconda3\\envs\\groqqle\\DLLs', 'C:\\Users\\j\\miniconda3\\envs\\groqqle\\Lib', 'C:\\Users\\j\\miniconda3\\envs\\groqqle', 'C:\\Users\\j\\AppData\\Roaming\\Python\\Python311\\site-packages', 'C:\\Users\\j\\miniconda3\\envs\\groqqle\\Lib\\site-packages', 'C:\\ai\\Groqqle', 'C:\\ai\\Groqqle', 'C:\\ai\\Groqqle']
+Attempting to import ProviderFactory
+Entering provider_factory.py
+Current working directory: C:\ai\Groqqle
+Current sys.path: ['C:\\ai\\Groqqle', 'C:\\Users\\j\\miniconda3\\envs\\groqqle\\python311.zip', 'C:\\Users\\j\\miniconda3\\envs\\groqqle\\DLLs', 'C:\\Users\\j\\miniconda3\\envs\\groqqle\\Lib', 'C:\\Users\\j\\miniconda3\\envs\\groqqle', 'C:\\Users\\j\\AppData\\Roaming\\Python\\Python311\\site-packages', 'C:\\Users\\j\\miniconda3\\envs\\groqqle\\Lib\\site-packages', 'C:\\ai\\Groqqle', 'C:\\ai\\Groqqle', 'C:\\ai\\Groqqle']
+Exiting provider_factory.py
+ProviderFactory imported successfully
+Current working directory: C:\ai\Groqqle
+Current sys.path: ['C:\\ai\\Groqqle', 'C:\\Users\\j\\miniconda3\\envs\\groqqle\\python311.zip', 'C:\\Users\\j\\miniconda3\\envs\\groqqle\\DLLs', 'C:\\Users\\j\\miniconda3\\envs\\groqqle\\Lib', 'C:\\Users\\j\\miniconda3\\envs\\groqqle', 'C:\\Users\\j\\AppData\\Roaming\\Python\\Python311\\site-packages', 'C:\\Users\\j\\miniconda3\\envs\\groqqle\\Lib\\site-packages', 'C:\\ai\\Groqqle', 'C:\\ai\\Groqqle', 'C:\\ai\\Groqqle']
+Initializing Web_Agent with provider_name: groq, num_results: 20, max_tokens: 4096
+Attempting to get provider with API key: gsk_p...
+get_provider called with provider_name: groq
+Creating groq instance with API key
+Provider obtained successfully
+Attempting to get model
+get_model called, returning: mixtral-8x7b-32768
+Model obtained successfully
+Initializing tools
+Tools initialized successfully
+Processing request: What is artificial intelligence?
+Calling _process_web_search with num_results: 20
+Entering _process_web_search with num_results: 20
+Performing web search with query: What is artificial intelligence? and num_results: 20
+Error in _perform_web_search: name 'log_debug' is not defined
+Traceback:
+Traceback (most recent call last):
+  File "C:\ai\Groqqle\agents\Web_Agent.py", line 103, in _perform_web_search
+    results = self.tools["WebSearch_Tool"](query, self.num_results * 2)  # Request more results to account for filtering
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\ai\Groqqle\tools\web_tools\WebSearch_Tool.py", line 21, in WebSearch_Tool
+    log_debug(f"Search URL: {search_url}")
+    ^^^^^^^^^
+NameError: name 'log_debug' is not defined
+
+Error in process_request: name 'log_debug' is not defined
+Traceback:
+Traceback (most recent call last):
+  File "C:\ai\Groqqle\agents\Web_Agent.py", line 65, in process_request
+    results = self._process_web_search(user_request)
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\ai\Groqqle\agents\Web_Agent.py", line 77, in _process_web_search
+    search_results = self._perform_web_search(user_request)
+                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\ai\Groqqle\agents\Web_Agent.py", line 103, in _perform_web_search
+    results = self.tools["WebSearch_Tool"](query, self.num_results * 2)  # Request more results to account for filtering
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\ai\Groqqle\tools\web_tools\WebSearch_Tool.py", line 21, in WebSearch_Tool
+    log_debug(f"Search URL: {search_url}")
+    ^^^^^^^^^
+NameError: name 'log_debug' is not defined
+
+Current working directory: C:\ai\Groqqle
+Current sys.path: ['C:\\ai\\Groqqle', 'C:\\Users\\j\\miniconda3\\envs\\groqqle\\python311.zip', 'C:\\Users\\j\\miniconda3\\envs\\groqqle\\DLLs', 'C:\\Users\\j\\miniconda3\\envs\\groqqle\\Lib', 'C:\\Users\\j\\miniconda3\\envs\\groqqle', 'C:\\Users\\j\\AppData\\Roaming\\Python\\Python311\\site-packages', 'C:\\Users\\j\\miniconda3\\envs\\groqqle\\Lib\\site-packages', 'C:\\ai\\Groqqle', 'C:\\ai\\Groqqle', 'C:\\ai\\Groqqle']
+Updated sys.path: ['C:\\ai\\Groqqle', 'C:\\Users\\j\\miniconda3\\envs\\groqqle\\python311.zip', 'C:\\Users\\j\\miniconda3\\envs\\groqqle\\DLLs', 'C:\\Users\\j\\miniconda3\\envs\\groqqle\\Lib', 'C:\\Users\\j\\miniconda3\\envs\\groqqle', 'C:\\Users\\j\\AppData\\Roaming\\Python\\Python311\\site-packages', 'C:\\Users\\j\\miniconda3\\envs\\groqqle\\Lib\\site-packages', 'C:\\ai\\Groqqle', 'C:\\ai\\Groqqle', 'C:\\ai\\Groqqle']
+Attempting to import ProviderFactory
+Entering provider_factory.py
+Current working directory: C:\ai\Groqqle
+Current sys.path: ['C:\\ai\\Groqqle', 'C:\\Users\\j\\miniconda3\\envs\\groqqle\\python311.zip', 'C:\\Users\\j\\miniconda3\\envs\\groqqle\\DLLs', 'C:\\Users\\j\\miniconda3\\envs\\groqqle\\Lib', 'C:\\Users\\j\\miniconda3\\envs\\groqqle', 'C:\\Users\\j\\AppData\\Roaming\\Python\\Python311\\site-packages', 'C:\\Users\\j\\miniconda3\\envs\\groqqle\\Lib\\site-packages', 'C:\\ai\\Groqqle', 'C:\\ai\\Groqqle', 'C:\\ai\\Groqqle']
+Exiting provider_factory.py
+ProviderFactory imported successfully
+Current working directory: C:\ai\Groqqle
+Current sys.path: ['C:\\ai\\Groqqle', 'C:\\Users\\j\\miniconda3\\envs\\groqqle\\python311.zip', 'C:\\Users\\j\\miniconda3\\envs\\groqqle\\DLLs', 'C:\\Users\\j\\miniconda3\\envs\\groqqle\\Lib', 'C:\\Users\\j\\miniconda3\\envs\\groqqle', 'C:\\Users\\j\\AppData\\Roaming\\Python\\Python311\\site-packages', 'C:\\Users\\j\\miniconda3\\envs\\groqqle\\Lib\\site-packages', 'C:\\ai\\Groqqle', 'C:\\ai\\Groqqle', 'C:\\ai\\Groqqle']
+Current working directory: C:\ai\Groqqle
+Current sys.path: ['C:\\ai\\Groqqle', 'C:\\Users\\j\\miniconda3\\envs\\groqqle\\python311.zip', 'C:\\Users\\j\\miniconda3\\envs\\groqqle\\DLLs', 'C:\\Users\\j\\miniconda3\\envs\\groqqle\\Lib', 'C:\\Users\\j\\miniconda3\\envs\\groqqle', 'C:\\Users\\j\\AppData\\Roaming\\Python\\Python311\\site-packages', 'C:\\Users\\j\\miniconda3\\envs\\groqqle\\Lib\\site-packages', 'C:\\ai\\Groqqle', 'C:\\ai\\Groqqle', 'C:\\ai\\Groqqle']
+Updated sys.path: ['C:\\ai\\Groqqle', 'C:\\Users\\j\\miniconda3\\envs\\groqqle\\python311.zip', 'C:\\Users\\j\\miniconda3\\envs\\groqqle\\DLLs', 'C:\\Users\\j\\miniconda3\\envs\\groqqle\\Lib', 'C:\\Users\\j\\miniconda3\\envs\\groqqle', 'C:\\Users\\j\\AppData\\Roaming\\Python\\Python311\\site-packages', 'C:\\Users\\j\\miniconda3\\envs\\groqqle\\Lib\\site-packages', 'C:\\ai\\Groqqle', 'C:\\ai\\Groqqle', 'C:\\ai\\Groqqle']
+Attempting to import ProviderFactory
+Entering provider_factory.py
+Current working directory: C:\ai\Groqqle
+Current sys.path: ['C:\\ai\\Groqqle', 'C:\\Users\\j\\miniconda3\\envs\\groqqle\\python311.zip', 'C:\\Users\\j\\miniconda3\\envs\\groqqle\\DLLs', 'C:\\Users\\j\\miniconda3\\envs\\groqqle\\Lib', 'C:\\Users\\j\\miniconda3\\envs\\groqqle', 'C:\\Users\\j\\AppData\\Roaming\\Python\\Python311\\site-packages', 'C:\\Users\\j\\miniconda3\\envs\\groqqle\\Lib\\site-packages', 'C:\\ai\\Groqqle', 'C:\\ai\\Groqqle', 'C:\\ai\\Groqqle']
+Exiting provider_factory.py
+ProviderFactory imported successfully
+Current working directory: C:\ai\Groqqle
+Current sys.path: ['C:\\ai\\Groqqle', 'C:\\Users\\j\\miniconda3\\envs\\groqqle\\python311.zip', 'C:\\Users\\j\\miniconda3\\envs\\groqqle\\DLLs', 'C:\\Users\\j\\miniconda3\\envs\\groqqle\\Lib', 'C:\\Users\\j\\miniconda3\\envs\\groqqle', 'C:\\Users\\j\\AppData\\Roaming\\Python\\Python311\\site-packages', 'C:\\Users\\j\\miniconda3\\envs\\groqqle\\Lib\\site-packages', 'C:\\ai\\Groqqle', 'C:\\ai\\Groqqle', 'C:\\ai\\Groqqle']
+Current working directory: C:\ai\Groqqle
+Current sys.path: ['C:\\ai\\Groqqle', 'C:\\Users\\j\\miniconda3\\envs\\groqqle\\python311.zip', 'C:\\Users\\j\\miniconda3\\envs\\groqqle\\DLLs', 'C:\\Users\\j\\miniconda3\\envs\\groqqle\\Lib', 'C:\\Users\\j\\miniconda3\\envs\\groqqle', 'C:\\Users\\j\\AppData\\Roaming\\Python\\Python311\\site-packages', 'C:\\Users\\j\\miniconda3\\envs\\groqqle\\Lib\\site-packages', 'C:\\ai\\Groqqle', 'C:\\ai\\Groqqle', 'C:\\ai\\Groqqle']
+Updated sys.path: ['C:\\ai\\Groqqle', 'C:\\Users\\j\\miniconda3\\envs\\groqqle\\python311.zip', 'C:\\Users\\j\\miniconda3\\envs\\groqqle\\DLLs', 'C:\\Users\\j\\miniconda3\\envs\\groqqle\\Lib', 'C:\\Users\\j\\miniconda3\\envs\\groqqle', 'C:\\Users\\j\\AppData\\Roaming\\Python\\Python311\\site-packages', 'C:\\Users\\j\\miniconda3\\envs\\groqqle\\Lib\\site-packages', 'C:\\ai\\Groqqle', 'C:\\ai\\Groqqle', 'C:\\ai\\Groqqle']
+Attempting to import ProviderFactory
+Entering provider_factory.py
+Current working directory: C:\ai\Groqqle
+Current sys.path: ['C:\\ai\\Groqqle', 'C:\\Users\\j\\miniconda3\\envs\\groqqle\\python311.zip', 'C:\\Users\\j\\miniconda3\\envs\\groqqle\\DLLs', 'C:\\Users\\j\\miniconda3\\envs\\groqqle\\Lib', 'C:\\Users\\j\\miniconda3\\envs\\groqqle', 'C:\\Users\\j\\AppData\\Roaming\\Python\\Python311\\site-packages', 'C:\\Users\\j\\miniconda3\\envs\\groqqle\\Lib\\site-packages', 'C:\\ai\\Groqqle', 'C:\\ai\\Groqqle', 'C:\\ai\\Groqqle']
+Exiting provider_factory.py
+ProviderFactory imported successfully
+Current working directory: C:\ai\Groqqle
+Current sys.path: ['C:\\ai\\Groqqle', 'C:\\Users\\j\\miniconda3\\envs\\groqqle\\python311.zip', 'C:\\Users\\j\\miniconda3\\envs\\groqqle\\DLLs', 'C:\\Users\\j\\miniconda3\\envs\\groqqle\\Lib', 'C:\\Users\\j\\miniconda3\\envs\\groqqle', 'C:\\Users\\j\\AppData\\Roaming\\Python\\Python311\\site-packages', 'C:\\Users\\j\\miniconda3\\envs\\groqqle\\Lib\\site-packages', 'C:\\ai\\Groqqle', 'C:\\ai\\Groqqle', 'C:\\ai\\Groqqle']
+Initializing Web_Agent with provider_name: groq, num_results: 20, max_tokens: 4096
+Attempting to get provider with API key: gsk_p...
+get_provider called with provider_name: groq
+Creating groq instance with API key
+Provider obtained successfully
+Attempting to get model
+get_model called, returning: mixtral-8x7b-32768
+Model obtained successfully
+Initializing tools
+Tools initialized successfully
+Processing request: What is artificial intelligence?
+Calling _process_web_search with num_results: 20
+Entering _process_web_search with num_results: 20
+Performing web search with query: What is artificial intelligence? and num_results: 20
+Web search completed successfully. Number of results: 40
+Web search completed. Number of results: 40
+Results filtered. Number of filtered results: 40
+Results deduplicated. Number of final results: 20
+_process_web_search completed. Number of results: 20
+Current working directory: C:\ai\Groqqle
+Current sys.path: ['C:\\ai\\Groqqle', 'C:\\Users\\j\\miniconda3\\envs\\groqqle\\python311.zip', 'C:\\Users\\j\\miniconda3\\envs\\groqqle\\DLLs', 'C:\\Users\\j\\miniconda3\\envs\\groqqle\\Lib', 'C:\\Users\\j\\miniconda3\\envs\\groqqle', 'C:\\Users\\j\\AppData\\Roaming\\Python\\Python311\\site-packages', 'C:\\Users\\j\\miniconda3\\envs\\groqqle\\Lib\\site-packages', 'C:\\ai\\Groqqle', 'C:\\ai\\Groqqle', 'C:\\ai\\Groqqle']
+Updated sys.path: ['C:\\ai\\Groqqle', 'C:\\Users\\j\\miniconda3\\envs\\groqqle\\python311.zip', 'C:\\Users\\j\\miniconda3\\envs\\groqqle\\DLLs', 'C:\\Users\\j\\miniconda3\\envs\\groqqle\\Lib', 'C:\\Users\\j\\miniconda3\\envs\\groqqle', 'C:\\Users\\j\\AppData\\Roaming\\Python\\Python311\\site-packages', 'C:\\Users\\j\\miniconda3\\envs\\groqqle\\Lib\\site-packages', 'C:\\ai\\Groqqle', 'C:\\ai\\Groqqle', 'C:\\ai\\Groqqle']
+Attempting to import ProviderFactory
+Entering provider_factory.py
+Current working directory: C:\ai\Groqqle
+Current sys.path: ['C:\\ai\\Groqqle', 'C:\\Users\\j\\miniconda3\\envs\\groqqle\\python311.zip', 'C:\\Users\\j\\miniconda3\\envs\\groqqle\\DLLs', 'C:\\Users\\j\\miniconda3\\envs\\groqqle\\Lib', 'C:\\Users\\j\\miniconda3\\envs\\groqqle', 'C:\\Users\\j\\AppData\\Roaming\\Python\\Python311\\site-packages', 'C:\\Users\\j\\miniconda3\\envs\\groqqle\\Lib\\site-packages', 'C:\\ai\\Groqqle', 'C:\\ai\\Groqqle', 'C:\\ai\\Groqqle']
+Exiting provider_factory.py
+ProviderFactory imported successfully
+Current working directory: C:\ai\Groqqle
+Current sys.path: ['C:\\ai\\Groqqle', 'C:\\Users\\j\\miniconda3\\envs\\groqqle\\python311.zip', 'C:\\Users\\j\\miniconda3\\envs\\groqqle\\DLLs', 'C:\\Users\\j\\miniconda3\\envs\\groqqle\\Lib', 'C:\\Users\\j\\miniconda3\\envs\\groqqle', 'C:\\Users\\j\\AppData\\Roaming\\Python\\Python311\\site-packages', 'C:\\Users\\j\\miniconda3\\envs\\groqqle\\Lib\\site-packages', 'C:\\ai\\Groqqle', 'C:\\ai\\Groqqle', 'C:\\ai\\Groqqle']
+Current working directory: C:\ai\Groqqle
+Current sys.path: ['C:\\ai\\Groqqle', 'C:\\Users\\j\\miniconda3\\envs\\groqqle\\python311.zip', 'C:\\Users\\j\\miniconda3\\envs\\groqqle\\DLLs', 'C:\\Users\\j\\miniconda3\\envs\\groqqle\\Lib', 'C:\\Users\\j\\miniconda3\\envs\\groqqle', 'C:\\Users\\j\\AppData\\Roaming\\Python\\Python311\\site-packages', 'C:\\Users\\j\\miniconda3\\envs\\groqqle\\Lib\\site-packages', 'C:\\ai\\Groqqle', 'C:\\ai\\Groqqle', 'C:\\ai\\Groqqle']
+Updated sys.path: ['C:\\ai\\Groqqle', 'C:\\Users\\j\\miniconda3\\envs\\groqqle\\python311.zip', 'C:\\Users\\j\\miniconda3\\envs\\groqqle\\DLLs', 'C:\\Users\\j\\miniconda3\\envs\\groqqle\\Lib', 'C:\\Users\\j\\miniconda3\\envs\\groqqle', 'C:\\Users\\j\\AppData\\Roaming\\Python\\Python311\\site-packages', 'C:\\Users\\j\\miniconda3\\envs\\groqqle\\Lib\\site-packages', 'C:\\ai\\Groqqle', 'C:\\ai\\Groqqle', 'C:\\ai\\Groqqle']
+Attempting to import ProviderFactory
+Entering provider_factory.py
+Current working directory: C:\ai\Groqqle
+Current sys.path: ['C:\\ai\\Groqqle', 'C:\\Users\\j\\miniconda3\\envs\\groqqle\\python311.zip', 'C:\\Users\\j\\miniconda3\\envs\\groqqle\\DLLs', 'C:\\Users\\j\\miniconda3\\envs\\groqqle\\Lib', 'C:\\Users\\j\\miniconda3\\envs\\groqqle', 'C:\\Users\\j\\AppData\\Roaming\\Python\\Python311\\site-packages', 'C:\\Users\\j\\miniconda3\\envs\\groqqle\\Lib\\site-packages', 'C:\\ai\\Groqqle', 'C:\\ai\\Groqqle', 'C:\\ai\\Groqqle']
+Exiting provider_factory.py
+ProviderFactory imported successfully
+Current working directory: C:\ai\Groqqle
+Current sys.path: ['C:\\ai\\Groqqle', 'C:\\Users\\j\\miniconda3\\envs\\groqqle\\python311.zip', 'C:\\Users\\j\\miniconda3\\envs\\groqqle\\DLLs', 'C:\\Users\\j\\miniconda3\\envs\\groqqle\\Lib', 'C:\\Users\\j\\miniconda3\\envs\\groqqle', 'C:\\Users\\j\\AppData\\Roaming\\Python\\Python311\\site-packages', 'C:\\Users\\j\\miniconda3\\envs\\groqqle\\Lib\\site-packages', 'C:\\ai\\Groqqle', 'C:\\ai\\Groqqle', 'C:\\ai\\Groqqle']
+Current working directory: C:\ai\Groqqle
+Current sys.path: ['C:\\ai\\Groqqle', 'C:\\Users\\j\\miniconda3\\envs\\groqqle\\python311.zip', 'C:\\Users\\j\\miniconda3\\envs\\groqqle\\DLLs', 'C:\\Users\\j\\miniconda3\\envs\\groqqle\\Lib', 'C:\\Users\\j\\miniconda3\\envs\\groqqle', 'C:\\Users\\j\\AppData\\Roaming\\Python\\Python311\\site-packages', 'C:\\Users\\j\\miniconda3\\envs\\groqqle\\Lib\\site-packages', 'C:\\ai\\Groqqle', 'C:\\ai\\Groqqle', 'C:\\ai\\Groqqle']
+Updated sys.path: ['C:\\ai\\Groqqle', 'C:\\Users\\j\\miniconda3\\envs\\groqqle\\python311.zip', 'C:\\Users\\j\\miniconda3\\envs\\groqqle\\DLLs', 'C:\\Users\\j\\miniconda3\\envs\\groqqle\\Lib', 'C:\\Users\\j\\miniconda3\\envs\\groqqle', 'C:\\Users\\j\\AppData\\Roaming\\Python\\Python311\\site-packages', 'C:\\Users\\j\\miniconda3\\envs\\groqqle\\Lib\\site-packages', 'C:\\ai\\Groqqle', 'C:\\ai\\Groqqle', 'C:\\ai\\Groqqle']
+Attempting to import ProviderFactory
+Entering provider_factory.py
+Current working directory: C:\ai\Groqqle
+Current sys.path: ['C:\\ai\\Groqqle', 'C:\\Users\\j\\miniconda3\\envs\\groqqle\\python311.zip', 'C:\\Users\\j\\miniconda3\\envs\\groqqle\\DLLs', 'C:\\Users\\j\\miniconda3\\envs\\groqqle\\Lib', 'C:\\Users\\j\\miniconda3\\envs\\groqqle', 'C:\\Users\\j\\AppData\\Roaming\\Python\\Python311\\site-packages', 'C:\\Users\\j\\miniconda3\\envs\\groqqle\\Lib\\site-packages', 'C:\\ai\\Groqqle', 'C:\\ai\\Groqqle', 'C:\\ai\\Groqqle']
+Exiting provider_factory.py
+ProviderFactory imported successfully
+Current working directory: C:\ai\Groqqle
+Current sys.path: ['C:\\ai\\Groqqle', 'C:\\Users\\j\\miniconda3\\envs\\groqqle\\python311.zip', 'C:\\Users\\j\\miniconda3\\envs\\groqqle\\DLLs', 'C:\\Users\\j\\miniconda3\\envs\\groqqle\\Lib', 'C:\\Users\\j\\miniconda3\\envs\\groqqle', 'C:\\Users\\j\\AppData\\Roaming\\Python\\Python311\\site-packages', 'C:\\Users\\j\\miniconda3\\envs\\groqqle\\Lib\\site-packages', 'C:\\ai\\Groqqle', 'C:\\ai\\Groqqle', 'C:\\ai\\Groqqle']
+Current working directory: C:\ai\Groqqle
+Current sys.path: ['Groqqle.py', '', 'C:\\Users\\j\\miniconda3\\envs\\groqqle\\Scripts\\streamlit.exe', 'C:\\Users\\j\\miniconda3\\envs\\groqqle\\python311.zip', 'C:\\Users\\j\\miniconda3\\envs\\groqqle\\DLLs', 'C:\\Users\\j\\miniconda3\\envs\\groqqle\\Lib', 'C:\\Users\\j\\miniconda3\\envs\\groqqle', 'C:\\Users\\j\\AppData\\Roaming\\Python\\Python311\\site-packages', 'C:\\Users\\j\\miniconda3\\envs\\groqqle\\Lib\\site-packages', 'C:\\ai\\Groqqle', 'C:\\ai\\Groqqle', 'C:\\ai\\Groqqle', 'C:\\ai\\Groqqle']
+Updated sys.path: ['Groqqle.py', '', 'C:\\Users\\j\\miniconda3\\envs\\groqqle\\Scripts\\streamlit.exe', 'C:\\Users\\j\\miniconda3\\envs\\groqqle\\python311.zip', 'C:\\Users\\j\\miniconda3\\envs\\groqqle\\DLLs', 'C:\\Users\\j\\miniconda3\\envs\\groqqle\\Lib', 'C:\\Users\\j\\miniconda3\\envs\\groqqle', 'C:\\Users\\j\\AppData\\Roaming\\Python\\Python311\\site-packages', 'C:\\Users\\j\\miniconda3\\envs\\groqqle\\Lib\\site-packages', 'C:\\ai\\Groqqle', 'C:\\ai\\Groqqle', 'C:\\ai\\Groqqle', 'C:\\ai\\Groqqle']
+Attempting to import ProviderFactory
+Entering provider_factory.py
+Current working directory: C:\ai\Groqqle
+Current sys.path: ['Groqqle.py', '', 'C:\\Users\\j\\miniconda3\\envs\\groqqle\\Scripts\\streamlit.exe', 'C:\\Users\\j\\miniconda3\\envs\\groqqle\\python311.zip', 'C:\\Users\\j\\miniconda3\\envs\\groqqle\\DLLs', 'C:\\Users\\j\\miniconda3\\envs\\groqqle\\Lib', 'C:\\Users\\j\\miniconda3\\envs\\groqqle', 'C:\\Users\\j\\AppData\\Roaming\\Python\\Python311\\site-packages', 'C:\\Users\\j\\miniconda3\\envs\\groqqle\\Lib\\site-packages', 'C:\\ai\\Groqqle', 'C:\\ai\\Groqqle', 'C:\\ai\\Groqqle', 'C:\\ai\\Groqqle']
+Exiting provider_factory.py
+ProviderFactory imported successfully
+Current working directory: C:\ai\Groqqle
+Current sys.path: ['Groqqle.py', '', 'C:\\Users\\j\\miniconda3\\envs\\groqqle\\Scripts\\streamlit.exe', 'C:\\Users\\j\\miniconda3\\envs\\groqqle\\python311.zip', 'C:\\Users\\j\\miniconda3\\envs\\groqqle\\DLLs', 'C:\\Users\\j\\miniconda3\\envs\\groqqle\\Lib', 'C:\\Users\\j\\miniconda3\\envs\\groqqle', 'C:\\Users\\j\\AppData\\Roaming\\Python\\Python311\\site-packages', 'C:\\Users\\j\\miniconda3\\envs\\groqqle\\Lib\\site-packages', 'C:\\ai\\Groqqle', 'C:\\ai\\Groqqle', 'C:\\ai\\Groqqle', 'C:\\ai\\Groqqle']
+Current working directory: C:\ai\Groqqle
+Current sys.path: ['C:\\ai\\Groqqle', 'C:\\Users\\j\\miniconda3\\envs\\groqqle\\python311.zip', 'C:\\Users\\j\\miniconda3\\envs\\groqqle\\DLLs', 'C:\\Users\\j\\miniconda3\\envs\\groqqle\\Lib', 'C:\\Users\\j\\miniconda3\\envs\\groqqle', 'C:\\Users\\j\\AppData\\Roaming\\Python\\Python311\\site-packages', 'C:\\Users\\j\\miniconda3\\envs\\groqqle\\Lib\\site-packages', 'C:\\ai\\Groqqle', 'C:\\ai\\Groqqle', 'C:\\ai\\Groqqle']
+Updated sys.path: ['C:\\ai\\Groqqle', 'C:\\Users\\j\\miniconda3\\envs\\groqqle\\python311.zip', 'C:\\Users\\j\\miniconda3\\envs\\groqqle\\DLLs', 'C:\\Users\\j\\miniconda3\\envs\\groqqle\\Lib', 'C:\\Users\\j\\miniconda3\\envs\\groqqle', 'C:\\Users\\j\\AppData\\Roaming\\Python\\Python311\\site-packages', 'C:\\Users\\j\\miniconda3\\envs\\groqqle\\Lib\\site-packages', 'C:\\ai\\Groqqle', 'C:\\ai\\Groqqle', 'C:\\ai\\Groqqle']
+Attempting to import ProviderFactory
+Entering provider_factory.py
+Current working directory: C:\ai\Groqqle
+Current sys.path: ['C:\\ai\\Groqqle', 'C:\\Users\\j\\miniconda3\\envs\\groqqle\\python311.zip', 'C:\\Users\\j\\miniconda3\\envs\\groqqle\\DLLs', 'C:\\Users\\j\\miniconda3\\envs\\groqqle\\Lib', 'C:\\Users\\j\\miniconda3\\envs\\groqqle', 'C:\\Users\\j\\AppData\\Roaming\\Python\\Python311\\site-packages', 'C:\\Users\\j\\miniconda3\\envs\\groqqle\\Lib\\site-packages', 'C:\\ai\\Groqqle', 'C:\\ai\\Groqqle', 'C:\\ai\\Groqqle']
+Exiting provider_factory.py
+ProviderFactory imported successfully
+Current working directory: C:\ai\Groqqle
+Current sys.path: ['C:\\ai\\Groqqle', 'C:\\Users\\j\\miniconda3\\envs\\groqqle\\python311.zip', 'C:\\Users\\j\\miniconda3\\envs\\groqqle\\DLLs', 'C:\\Users\\j\\miniconda3\\envs\\groqqle\\Lib', 'C:\\Users\\j\\miniconda3\\envs\\groqqle', 'C:\\Users\\j\\AppData\\Roaming\\Python\\Python311\\site-packages', 'C:\\Users\\j\\miniconda3\\envs\\groqqle\\Lib\\site-packages', 'C:\\ai\\Groqqle', 'C:\\ai\\Groqqle', 'C:\\ai\\Groqqle']
+Current working directory: C:\ai\Groqqle
+Current sys.path: ['C:\\ai\\Groqqle', 'C:\\Users\\j\\miniconda3\\envs\\groqqle\\python311.zip', 'C:\\Users\\j\\miniconda3\\envs\\groqqle\\DLLs', 'C:\\Users\\j\\miniconda3\\envs\\groqqle\\Lib', 'C:\\Users\\j\\miniconda3\\envs\\groqqle', 'C:\\Users\\j\\AppData\\Roaming\\Python\\Python311\\site-packages', 'C:\\Users\\j\\miniconda3\\envs\\groqqle\\Lib\\site-packages', 'C:\\ai\\Groqqle', 'C:\\ai\\Groqqle', 'C:\\ai\\Groqqle']
+Updated sys.path: ['C:\\ai\\Groqqle', 'C:\\Users\\j\\miniconda3\\envs\\groqqle\\python311.zip', 'C:\\Users\\j\\miniconda3\\envs\\groqqle\\DLLs', 'C:\\Users\\j\\miniconda3\\envs\\groqqle\\Lib', 'C:\\Users\\j\\miniconda3\\envs\\groqqle', 'C:\\Users\\j\\AppData\\Roaming\\Python\\Python311\\site-packages', 'C:\\Users\\j\\miniconda3\\envs\\groqqle\\Lib\\site-packages', 'C:\\ai\\Groqqle', 'C:\\ai\\Groqqle', 'C:\\ai\\Groqqle']
+Attempting to import ProviderFactory
+Entering provider_factory.py
+Current working directory: C:\ai\Groqqle
+Current sys.path: ['C:\\ai\\Groqqle', 'C:\\Users\\j\\miniconda3\\envs\\groqqle\\python311.zip', 'C:\\Users\\j\\miniconda3\\envs\\groqqle\\DLLs', 'C:\\Users\\j\\miniconda3\\envs\\groqqle\\Lib', 'C:\\Users\\j\\miniconda3\\envs\\groqqle', 'C:\\Users\\j\\AppData\\Roaming\\Python\\Python311\\site-packages', 'C:\\Users\\j\\miniconda3\\envs\\groqqle\\Lib\\site-packages', 'C:\\ai\\Groqqle', 'C:\\ai\\Groqqle', 'C:\\ai\\Groqqle']
+Exiting provider_factory.py
+ProviderFactory imported successfully
+Current working directory: C:\ai\Groqqle
+Current sys.path: ['C:\\ai\\Groqqle', 'C:\\Users\\j\\miniconda3\\envs\\groqqle\\python311.zip', 'C:\\Users\\j\\miniconda3\\envs\\groqqle\\DLLs', 'C:\\Users\\j\\miniconda3\\envs\\groqqle\\Lib', 'C:\\Users\\j\\miniconda3\\envs\\groqqle', 'C:\\Users\\j\\AppData\\Roaming\\Python\\Python311\\site-packages', 'C:\\Users\\j\\miniconda3\\envs\\groqqle\\Lib\\site-packages', 'C:\\ai\\Groqqle', 'C:\\ai\\Groqqle', 'C:\\ai\\Groqqle']
+GROQ_API_KEY from environment: Found
+API key from environment stored in session state
+Attempting to initialize Web_Agent with API key: [REDACTED]
+Initializing Web_Agent with provider_name: groq, num_results: 10, max_tokens: 4096
+Attempting to get provider with API key: gsk_p...
+get_provider called with provider_name: groq
+Creating groq instance with API key
+Provider obtained successfully
+Attempting to get model
+get_model called, returning: mixtral-8x7b-32768
+Model obtained successfully
+Initializing tools
+Tools initialized successfully
+Web_Agent initialized successfully
+Current working directory: C:\ai\Groqqle
+Current sys.path: ['Groqqle.py', '', 'C:\\Users\\j\\miniconda3\\envs\\groqqle\\Scripts\\streamlit.exe', 'C:\\Users\\j\\miniconda3\\envs\\groqqle\\python311.zip', 'C:\\Users\\j\\miniconda3\\envs\\groqqle\\DLLs', 'C:\\Users\\j\\miniconda3\\envs\\groqqle\\Lib', 'C:\\Users\\j\\miniconda3\\envs\\groqqle', 'C:\\Users\\j\\AppData\\Roaming\\Python\\Python311\\site-packages', 'C:\\Users\\j\\miniconda3\\envs\\groqqle\\Lib\\site-packages', 'C:\\ai\\Groqqle', 'C:\\ai\\Groqqle', 'C:\\ai\\Groqqle', 'C:\\ai\\Groqqle']
+Updated sys.path: ['Groqqle.py', '', 'C:\\Users\\j\\miniconda3\\envs\\groqqle\\Scripts\\streamlit.exe', 'C:\\Users\\j\\miniconda3\\envs\\groqqle\\python311.zip', 'C:\\Users\\j\\miniconda3\\envs\\groqqle\\DLLs', 'C:\\Users\\j\\miniconda3\\envs\\groqqle\\Lib', 'C:\\Users\\j\\miniconda3\\envs\\groqqle', 'C:\\Users\\j\\AppData\\Roaming\\Python\\Python311\\site-packages', 'C:\\Users\\j\\miniconda3\\envs\\groqqle\\Lib\\site-packages', 'C:\\ai\\Groqqle', 'C:\\ai\\Groqqle', 'C:\\ai\\Groqqle', 'C:\\ai\\Groqqle']
+Attempting to import ProviderFactory
+Entering provider_factory.py
+Current working directory: C:\ai\Groqqle
+Current sys.path: ['Groqqle.py', '', 'C:\\Users\\j\\miniconda3\\envs\\groqqle\\Scripts\\streamlit.exe', 'C:\\Users\\j\\miniconda3\\envs\\groqqle\\python311.zip', 'C:\\Users\\j\\miniconda3\\envs\\groqqle\\DLLs', 'C:\\Users\\j\\miniconda3\\envs\\groqqle\\Lib', 'C:\\Users\\j\\miniconda3\\envs\\groqqle', 'C:\\Users\\j\\AppData\\Roaming\\Python\\Python311\\site-packages', 'C:\\Users\\j\\miniconda3\\envs\\groqqle\\Lib\\site-packages', 'C:\\ai\\Groqqle', 'C:\\ai\\Groqqle', 'C:\\ai\\Groqqle', 'C:\\ai\\Groqqle']
+Exiting provider_factory.py
+ProviderFactory imported successfully
+Current working directory: C:\ai\Groqqle
+Current sys.path: ['Groqqle.py', '', 'C:\\Users\\j\\miniconda3\\envs\\groqqle\\Scripts\\streamlit.exe', 'C:\\Users\\j\\miniconda3\\envs\\groqqle\\python311.zip', 'C:\\Users\\j\\miniconda3\\envs\\groqqle\\DLLs', 'C:\\Users\\j\\miniconda3\\envs\\groqqle\\Lib', 'C:\\Users\\j\\miniconda3\\envs\\groqqle', 'C:\\Users\\j\\AppData\\Roaming\\Python\\Python311\\site-packages', 'C:\\Users\\j\\miniconda3\\envs\\groqqle\\Lib\\site-packages', 'C:\\ai\\Groqqle', 'C:\\ai\\Groqqle', 'C:\\ai\\Groqqle', 'C:\\ai\\Groqqle']
+GROQ_API_KEY from environment: Found
+API key from environment stored in session state
+Attempting to initialize Web_Agent with API key: [REDACTED]
+Initializing Web_Agent with provider_name: groq, num_results: 10, max_tokens: 4096
+Attempting to get provider with API key: gsk_p...
+get_provider called with provider_name: groq
+Creating groq instance with API key
+Provider obtained successfully
+Attempting to get model
+get_model called, returning: mixtral-8x7b-32768
+Model obtained successfully
+Initializing tools
+Tools initialized successfully
+Web_Agent initialized successfully
+Performing search with query: Test
+Initializing Web_Agent with provider_name: groq, num_results: 10, max_tokens: 4096
+Attempting to get provider with API key: gsk_p...
+get_provider called with provider_name: groq
+Creating groq instance with API key
+Provider obtained successfully
+Attempting to get model
+get_model called, returning: mixtral-8x7b-32768
+Model obtained successfully
+Initializing tools
+Tools initialized successfully
+Processing request: Test
+Calling _process_web_search with num_results: 10
+Entering _process_web_search with num_results: 10
+Performing web search with query: Test and num_results: 10
+Web search completed successfully. Number of results: 19
+Web search completed. Number of results: 19
+Results filtered. Number of filtered results: 19
+Results deduplicated. Number of final results: 10
+_process_web_search completed. Number of results: 10
+Search completed. Number of results: 10
+Current working directory: C:\ai\Groqqle
+Current sys.path: ['Groqqle.py', '', 'C:\\Users\\j\\miniconda3\\envs\\groqqle\\Scripts\\streamlit.exe', 'C:\\Users\\j\\miniconda3\\envs\\groqqle\\python311.zip', 'C:\\Users\\j\\miniconda3\\envs\\groqqle\\DLLs', 'C:\\Users\\j\\miniconda3\\envs\\groqqle\\Lib', 'C:\\Users\\j\\miniconda3\\envs\\groqqle', 'C:\\Users\\j\\AppData\\Roaming\\Python\\Python311\\site-packages', 'C:\\Users\\j\\miniconda3\\envs\\groqqle\\Lib\\site-packages', 'C:\\ai\\Groqqle', 'C:\\ai\\Groqqle', 'C:\\ai\\Groqqle', 'C:\\ai\\Groqqle']
+GROQ_API_KEY from environment: Found
+API key from environment stored in session state
+Attempting to initialize Web_Agent with API key: [REDACTED]
+Initializing Web_Agent with provider_name: groq, num_results: 10, max_tokens: 4096
+Attempting to get provider with API key: gsk_p...
+get_provider called with provider_name: groq
+Creating groq instance with API key
+Provider obtained successfully
+Attempting to get model
+get_model called, returning: mixtral-8x7b-32768
+Model obtained successfully
+Initializing tools
+Tools initialized successfully
+Web_Agent initialized successfully
+Current working directory: C:\ai\Groqqle
+Current sys.path: ['Groqqle.py', '', 'C:\\Users\\j\\miniconda3\\envs\\groqqle\\Scripts\\streamlit.exe', 'C:\\Users\\j\\miniconda3\\envs\\groqqle\\python311.zip', 'C:\\Users\\j\\miniconda3\\envs\\groqqle\\DLLs', 'C:\\Users\\j\\miniconda3\\envs\\groqqle\\Lib', 'C:\\Users\\j\\miniconda3\\envs\\groqqle', 'C:\\Users\\j\\AppData\\Roaming\\Python\\Python311\\site-packages', 'C:\\Users\\j\\miniconda3\\envs\\groqqle\\Lib\\site-packages', 'C:\\ai\\Groqqle', 'C:\\ai\\Groqqle', 'C:\\ai\\Groqqle', 'C:\\ai\\Groqqle']
+Updated sys.path: ['Groqqle.py', '', 'C:\\Users\\j\\miniconda3\\envs\\groqqle\\Scripts\\streamlit.exe', 'C:\\Users\\j\\miniconda3\\envs\\groqqle\\python311.zip', 'C:\\Users\\j\\miniconda3\\envs\\groqqle\\DLLs', 'C:\\Users\\j\\miniconda3\\envs\\groqqle\\Lib', 'C:\\Users\\j\\miniconda3\\envs\\groqqle', 'C:\\Users\\j\\AppData\\Roaming\\Python\\Python311\\site-packages', 'C:\\Users\\j\\miniconda3\\envs\\groqqle\\Lib\\site-packages', 'C:\\ai\\Groqqle', 'C:\\ai\\Groqqle', 'C:\\ai\\Groqqle', 'C:\\ai\\Groqqle']
+Attempting to import ProviderFactory
+Entering provider_factory.py
+Current working directory: C:\ai\Groqqle
+Current sys.path: ['Groqqle.py', '', 'C:\\Users\\j\\miniconda3\\envs\\groqqle\\Scripts\\streamlit.exe', 'C:\\Users\\j\\miniconda3\\envs\\groqqle\\python311.zip', 'C:\\Users\\j\\miniconda3\\envs\\groqqle\\DLLs', 'C:\\Users\\j\\miniconda3\\envs\\groqqle\\Lib', 'C:\\Users\\j\\miniconda3\\envs\\groqqle', 'C:\\Users\\j\\AppData\\Roaming\\Python\\Python311\\site-packages', 'C:\\Users\\j\\miniconda3\\envs\\groqqle\\Lib\\site-packages', 'C:\\ai\\Groqqle', 'C:\\ai\\Groqqle', 'C:\\ai\\Groqqle', 'C:\\ai\\Groqqle']
+Exiting provider_factory.py
+ProviderFactory imported successfully
+Current working directory: C:\ai\Groqqle
+Current sys.path: ['Groqqle.py', '', 'C:\\Users\\j\\miniconda3\\envs\\groqqle\\Scripts\\streamlit.exe', 'C:\\Users\\j\\miniconda3\\envs\\groqqle\\python311.zip', 'C:\\Users\\j\\miniconda3\\envs\\groqqle\\DLLs', 'C:\\Users\\j\\miniconda3\\envs\\groqqle\\Lib', 'C:\\Users\\j\\miniconda3\\envs\\groqqle', 'C:\\Users\\j\\AppData\\Roaming\\Python\\Python311\\site-packages', 'C:\\Users\\j\\miniconda3\\envs\\groqqle\\Lib\\site-packages', 'C:\\ai\\Groqqle', 'C:\\ai\\Groqqle', 'C:\\ai\\Groqqle', 'C:\\ai\\Groqqle']
+Running in app mode
+GROQ_API_KEY from environment: Found
+API key from environment stored in session state
+Attempting to initialize Web_Agent with API key: [REDACTED]
+Initializing Web_Agent with provider_name: groq, num_results: 10, max_tokens: 4096
+Attempting to get provider with API key: gsk_p...
+get_provider called with provider_name: groq
+Creating groq instance with API key
+Provider obtained successfully
+Attempting to get model
+get_model called, returning: mixtral-8x7b-32768
+Model obtained successfully
+Initializing tools
+Tools initialized successfully
+Web_Agent initialized successfully
+Performing search with query: Manitowoc
+Initializing Web_Agent with provider_name: groq, num_results: 10, max_tokens: 4096
+Attempting to get provider with API key: gsk_p...
+get_provider called with provider_name: groq
+Creating groq instance with API key
+Provider obtained successfully
+Attempting to get model
+get_model called, returning: mixtral-8x7b-32768
+Model obtained successfully
+Initializing tools
+Tools initialized successfully
+Processing request: Manitowoc
+Calling _process_web_search with num_results: 10
+Entering _process_web_search with num_results: 10
+Performing web search with query: Manitowoc and num_results: 10
+Web search completed successfully. Number of results: 19
+Web search completed. Number of results: 19
+Results filtered. Number of filtered results: 19
+Results deduplicated. Number of final results: 10
+_process_web_search completed. Number of results: 10
+Search completed. Number of results: 10
+Current working directory: C:\ai\Groqqle
+Current sys.path: ['Groqqle.py', '', 'C:\\Users\\j\\miniconda3\\envs\\groqqle\\Scripts\\streamlit.exe', 'C:\\Users\\j\\miniconda3\\envs\\groqqle\\python311.zip', 'C:\\Users\\j\\miniconda3\\envs\\groqqle\\DLLs', 'C:\\Users\\j\\miniconda3\\envs\\groqqle\\Lib', 'C:\\Users\\j\\miniconda3\\envs\\groqqle', 'C:\\Users\\j\\AppData\\Roaming\\Python\\Python311\\site-packages', 'C:\\Users\\j\\miniconda3\\envs\\groqqle\\Lib\\site-packages', 'C:\\ai\\Groqqle', 'C:\\ai\\Groqqle', 'C:\\ai\\Groqqle', 'C:\\ai\\Groqqle']
+Running in app mode
+GROQ_API_KEY from environment: Found
+API key from environment stored in session state
+Attempting to initialize Web_Agent with API key: [REDACTED]
+Initializing Web_Agent with provider_name: groq, num_results: 10, max_tokens: 4096
+Attempting to get provider with API key: gsk_p...
+get_provider called with provider_name: groq
+Creating groq instance with API key
+Provider obtained successfully
+Attempting to get model
+get_model called, returning: mixtral-8x7b-32768
+Model obtained successfully
+Initializing tools
+Tools initialized successfully
+Web_Agent initialized successfully
+Current working directory: C:\ai\Groqqle
+Current sys.path: ['Groqqle.py', '', 'C:\\Users\\j\\miniconda3\\envs\\groqqle\\Scripts\\streamlit.exe', 'C:\\Users\\j\\miniconda3\\envs\\groqqle\\python311.zip', 'C:\\Users\\j\\miniconda3\\envs\\groqqle\\DLLs', 'C:\\Users\\j\\miniconda3\\envs\\groqqle\\Lib', 'C:\\Users\\j\\miniconda3\\envs\\groqqle', 'C:\\Users\\j\\AppData\\Roaming\\Python\\Python311\\site-packages', 'C:\\Users\\j\\miniconda3\\envs\\groqqle\\Lib\\site-packages', 'C:\\ai\\Groqqle', 'C:\\ai\\Groqqle', 'C:\\ai\\Groqqle', 'C:\\ai\\Groqqle']
+Running in app mode
+GROQ_API_KEY from environment: Found
+API key from environment stored in session state
+Attempting to initialize Web_Agent with API key: [REDACTED]
+Initializing Web_Agent with provider_name: groq, num_results: 10, max_tokens: 4096
+Attempting to get provider with API key: gsk_p...
+get_provider called with provider_name: groq
+Creating groq instance with API key
+Provider obtained successfully
+Attempting to get model
+get_model called, returning: mixtral-8x7b-32768
+Model obtained successfully
+Initializing tools
+Tools initialized successfully
+Web_Agent initialized successfully
+Current working directory: C:\ai\Groqqle
+Current sys.path: ['Groqqle.py', '', 'C:\\Users\\j\\miniconda3\\envs\\groqqle\\Scripts\\streamlit.exe', 'C:\\Users\\j\\miniconda3\\envs\\groqqle\\python311.zip', 'C:\\Users\\j\\miniconda3\\envs\\groqqle\\DLLs', 'C:\\Users\\j\\miniconda3\\envs\\groqqle\\Lib', 'C:\\Users\\j\\miniconda3\\envs\\groqqle', 'C:\\Users\\j\\AppData\\Roaming\\Python\\Python311\\site-packages', 'C:\\Users\\j\\miniconda3\\envs\\groqqle\\Lib\\site-packages', 'C:\\ai\\Groqqle', 'C:\\ai\\Groqqle', 'C:\\ai\\Groqqle', 'C:\\ai\\Groqqle']
+Updated sys.path: ['Groqqle.py', '', 'C:\\Users\\j\\miniconda3\\envs\\groqqle\\Scripts\\streamlit.exe', 'C:\\Users\\j\\miniconda3\\envs\\groqqle\\python311.zip', 'C:\\Users\\j\\miniconda3\\envs\\groqqle\\DLLs', 'C:\\Users\\j\\miniconda3\\envs\\groqqle\\Lib', 'C:\\Users\\j\\miniconda3\\envs\\groqqle', 'C:\\Users\\j\\AppData\\Roaming\\Python\\Python311\\site-packages', 'C:\\Users\\j\\miniconda3\\envs\\groqqle\\Lib\\site-packages', 'C:\\ai\\Groqqle', 'C:\\ai\\Groqqle', 'C:\\ai\\Groqqle', 'C:\\ai\\Groqqle']
+Attempting to import ProviderFactory
+Entering provider_factory.py
+Current working directory: C:\ai\Groqqle
+Current sys.path: ['Groqqle.py', '', 'C:\\Users\\j\\miniconda3\\envs\\groqqle\\Scripts\\streamlit.exe', 'C:\\Users\\j\\miniconda3\\envs\\groqqle\\python311.zip', 'C:\\Users\\j\\miniconda3\\envs\\groqqle\\DLLs', 'C:\\Users\\j\\miniconda3\\envs\\groqqle\\Lib', 'C:\\Users\\j\\miniconda3\\envs\\groqqle', 'C:\\Users\\j\\AppData\\Roaming\\Python\\Python311\\site-packages', 'C:\\Users\\j\\miniconda3\\envs\\groqqle\\Lib\\site-packages', 'C:\\ai\\Groqqle', 'C:\\ai\\Groqqle', 'C:\\ai\\Groqqle', 'C:\\ai\\Groqqle']
+Exiting provider_factory.py
+ProviderFactory imported successfully
+Current working directory: C:\ai\Groqqle
+Current sys.path: ['Groqqle.py', '', 'C:\\Users\\j\\miniconda3\\envs\\groqqle\\Scripts\\streamlit.exe', 'C:\\Users\\j\\miniconda3\\envs\\groqqle\\python311.zip', 'C:\\Users\\j\\miniconda3\\envs\\groqqle\\DLLs', 'C:\\Users\\j\\miniconda3\\envs\\groqqle\\Lib', 'C:\\Users\\j\\miniconda3\\envs\\groqqle', 'C:\\Users\\j\\AppData\\Roaming\\Python\\Python311\\site-packages', 'C:\\Users\\j\\miniconda3\\envs\\groqqle\\Lib\\site-packages', 'C:\\ai\\Groqqle', 'C:\\ai\\Groqqle', 'C:\\ai\\Groqqle', 'C:\\ai\\Groqqle']
+Running in app mode
+GROQ_API_KEY from environment: Found
+API key from environment stored in session state
+Attempting to initialize Web_Agent with API key: [REDACTED]
+Initializing Web_Agent with provider_name: groq, num_results: 10, max_tokens: 4096
+Attempting to get provider with API key: gsk_p...
+get_provider called with provider_name: groq
+Creating groq instance with API key
+Provider obtained successfully
+Attempting to get model
+get_model called, returning: mixtral-8x7b-32768
+Model obtained successfully
+Initializing tools
+Tools initialized successfully
+Web_Agent initialized successfully
+Performing search with query: test
+Initializing Web_Agent with provider_name: groq, num_results: 10, max_tokens: 4096
+Attempting to get provider with API key: gsk_p...
+get_provider called with provider_name: groq
+Creating groq instance with API key
+Provider obtained successfully
+Attempting to get model
+get_model called, returning: mixtral-8x7b-32768
+Model obtained successfully
+Initializing tools
+Tools initialized successfully
+Processing request: test
+Calling _process_web_search with num_results: 10
+Entering _process_web_search with num_results: 10
+Performing web search with query: test and num_results: 10
+Web search completed successfully. Number of results: 19
+Web search completed. Number of results: 19
+Results filtered. Number of filtered results: 19
+Results deduplicated. Number of final results: 10
+_process_web_search completed. Number of results: 10
+Search completed. Number of results: 10
+Current working directory: C:\ai\Groqqle
+Current sys.path: ['Groqqle.py', '', 'C:\\Users\\j\\miniconda3\\envs\\groqqle\\Scripts\\streamlit.exe', 'C:\\Users\\j\\miniconda3\\envs\\groqqle\\python311.zip', 'C:\\Users\\j\\miniconda3\\envs\\groqqle\\DLLs', 'C:\\Users\\j\\miniconda3\\envs\\groqqle\\Lib', 'C:\\Users\\j\\miniconda3\\envs\\groqqle', 'C:\\Users\\j\\AppData\\Roaming\\Python\\Python311\\site-packages', 'C:\\Users\\j\\miniconda3\\envs\\groqqle\\Lib\\site-packages', 'C:\\ai\\Groqqle', 'C:\\ai\\Groqqle', 'C:\\ai\\Groqqle', 'C:\\ai\\Groqqle']
+Running in app mode
+GROQ_API_KEY from environment: Found
+API key from environment stored in session state
+Attempting to initialize Web_Agent with API key: [REDACTED]
+Initializing Web_Agent with provider_name: groq, num_results: 10, max_tokens: 4096
+Attempting to get provider with API key: gsk_p...
+get_provider called with provider_name: groq
+Creating groq instance with API key
+Provider obtained successfully
+Attempting to get model
+get_model called, returning: mixtral-8x7b-32768
+Model obtained successfully
+Initializing tools
+Tools initialized successfully
+Web_Agent initialized successfully
+Current working directory: C:\ai\Groqqle
+Current sys.path: ['Groqqle.py', '', 'C:\\Users\\j\\miniconda3\\envs\\groqqle\\Scripts\\streamlit.exe', 'C:\\Users\\j\\miniconda3\\envs\\groqqle\\python311.zip', 'C:\\Users\\j\\miniconda3\\envs\\groqqle\\DLLs', 'C:\\Users\\j\\miniconda3\\envs\\groqqle\\Lib', 'C:\\Users\\j\\miniconda3\\envs\\groqqle', 'C:\\Users\\j\\AppData\\Roaming\\Python\\Python311\\site-packages', 'C:\\Users\\j\\miniconda3\\envs\\groqqle\\Lib\\site-packages', 'C:\\ai\\Groqqle', 'C:\\ai\\Groqqle', 'C:\\ai\\Groqqle', 'C:\\ai\\Groqqle']
+Updated sys.path: ['Groqqle.py', '', 'C:\\Users\\j\\miniconda3\\envs\\groqqle\\Scripts\\streamlit.exe', 'C:\\Users\\j\\miniconda3\\envs\\groqqle\\python311.zip', 'C:\\Users\\j\\miniconda3\\envs\\groqqle\\DLLs', 'C:\\Users\\j\\miniconda3\\envs\\groqqle\\Lib', 'C:\\Users\\j\\miniconda3\\envs\\groqqle', 'C:\\Users\\j\\AppData\\Roaming\\Python\\Python311\\site-packages', 'C:\\Users\\j\\miniconda3\\envs\\groqqle\\Lib\\site-packages', 'C:\\ai\\Groqqle', 'C:\\ai\\Groqqle', 'C:\\ai\\Groqqle', 'C:\\ai\\Groqqle']
+Attempting to import ProviderFactory
+Entering provider_factory.py
+Current working directory: C:\ai\Groqqle
+Current sys.path: ['Groqqle.py', '', 'C:\\Users\\j\\miniconda3\\envs\\groqqle\\Scripts\\streamlit.exe', 'C:\\Users\\j\\miniconda3\\envs\\groqqle\\python311.zip', 'C:\\Users\\j\\miniconda3\\envs\\groqqle\\DLLs', 'C:\\Users\\j\\miniconda3\\envs\\groqqle\\Lib', 'C:\\Users\\j\\miniconda3\\envs\\groqqle', 'C:\\Users\\j\\AppData\\Roaming\\Python\\Python311\\site-packages', 'C:\\Users\\j\\miniconda3\\envs\\groqqle\\Lib\\site-packages', 'C:\\ai\\Groqqle', 'C:\\ai\\Groqqle', 'C:\\ai\\Groqqle', 'C:\\ai\\Groqqle']
+Exiting provider_factory.py
+ProviderFactory imported successfully
+Current working directory: C:\ai\Groqqle
+Current sys.path: ['Groqqle.py', '', 'C:\\Users\\j\\miniconda3\\envs\\groqqle\\Scripts\\streamlit.exe', 'C:\\Users\\j\\miniconda3\\envs\\groqqle\\python311.zip', 'C:\\Users\\j\\miniconda3\\envs\\groqqle\\DLLs', 'C:\\Users\\j\\miniconda3\\envs\\groqqle\\Lib', 'C:\\Users\\j\\miniconda3\\envs\\groqqle', 'C:\\Users\\j\\AppData\\Roaming\\Python\\Python311\\site-packages', 'C:\\Users\\j\\miniconda3\\envs\\groqqle\\Lib\\site-packages', 'C:\\ai\\Groqqle', 'C:\\ai\\Groqqle', 'C:\\ai\\Groqqle', 'C:\\ai\\Groqqle']
+Running in app mode
+GROQ_API_KEY from environment: Found
+API key from environment stored in session state
+Attempting to initialize Web_Agent with API key: [REDACTED]
+Initializing Web_Agent with provider_name: groq, num_results: 10, max_tokens: 4096
+Attempting to get provider with API key: gsk_p...
+get_provider called with provider_name: groq
+Creating groq instance with API key
+Provider obtained successfully
+Attempting to get model
+get_model called, returning: mixtral-8x7b-32768
+Model obtained successfully
+Initializing tools
+Tools initialized successfully
+Web_Agent initialized successfully
+Performing search with query: test
+Initializing Web_Agent with provider_name: groq, num_results: 10, max_tokens: 4096
+Attempting to get provider with API key: gsk_p...
+get_provider called with provider_name: groq
+Creating groq instance with API key
+Provider obtained successfully
+Attempting to get model
+get_model called, returning: mixtral-8x7b-32768
+Model obtained successfully
+Initializing tools
+Tools initialized successfully
+Processing request: test
+Calling _process_web_search with num_results: 10
+Entering _process_web_search with num_results: 10
+Performing web search with query: test and num_results: 10
+Web search completed successfully. Number of results: 19
+Web search completed. Number of results: 19
+Results filtered. Number of filtered results: 19
+Results deduplicated. Number of final results: 10
+_process_web_search completed. Number of results: 10
+Search completed. Number of results: 10
+Current working directory: C:\ai\Groqqle
+Current sys.path: ['Groqqle.py', '', 'C:\\Users\\j\\miniconda3\\envs\\groqqle\\Scripts\\streamlit.exe', 'C:\\Users\\j\\miniconda3\\envs\\groqqle\\python311.zip', 'C:\\Users\\j\\miniconda3\\envs\\groqqle\\DLLs', 'C:\\Users\\j\\miniconda3\\envs\\groqqle\\Lib', 'C:\\Users\\j\\miniconda3\\envs\\groqqle', 'C:\\Users\\j\\AppData\\Roaming\\Python\\Python311\\site-packages', 'C:\\Users\\j\\miniconda3\\envs\\groqqle\\Lib\\site-packages', 'C:\\ai\\Groqqle', 'C:\\ai\\Groqqle', 'C:\\ai\\Groqqle', 'C:\\ai\\Groqqle']
+Running in app mode
+GROQ_API_KEY from environment: Found
+API key from environment stored in session state
+Attempting to initialize Web_Agent with API key: [REDACTED]
+Initializing Web_Agent with provider_name: groq, num_results: 10, max_tokens: 4096
+Attempting to get provider with API key: gsk_p...
+get_provider called with provider_name: groq
+Creating groq instance with API key
+Provider obtained successfully
+Attempting to get model
+get_model called, returning: mixtral-8x7b-32768
+Model obtained successfully
+Initializing tools
+Tools initialized successfully
+Web_Agent initialized successfully
+Current working directory: C:\ai\Groqqle
+Current sys.path: ['C:\\ai\\Groqqle', 'C:\\Users\\j\\miniconda3\\envs\\groqqle\\python311.zip', 'C:\\Users\\j\\miniconda3\\envs\\groqqle\\DLLs', 'C:\\Users\\j\\miniconda3\\envs\\groqqle\\Lib', 'C:\\Users\\j\\miniconda3\\envs\\groqqle', 'C:\\Users\\j\\AppData\\Roaming\\Python\\Python311\\site-packages', 'C:\\Users\\j\\miniconda3\\envs\\groqqle\\Lib\\site-packages', 'C:\\ai\\Groqqle', 'C:\\ai\\Groqqle', 'C:\\ai\\Groqqle']
+Updated sys.path: ['C:\\ai\\Groqqle', 'C:\\Users\\j\\miniconda3\\envs\\groqqle\\python311.zip', 'C:\\Users\\j\\miniconda3\\envs\\groqqle\\DLLs', 'C:\\Users\\j\\miniconda3\\envs\\groqqle\\Lib', 'C:\\Users\\j\\miniconda3\\envs\\groqqle', 'C:\\Users\\j\\AppData\\Roaming\\Python\\Python311\\site-packages', 'C:\\Users\\j\\miniconda3\\envs\\groqqle\\Lib\\site-packages', 'C:\\ai\\Groqqle', 'C:\\ai\\Groqqle', 'C:\\ai\\Groqqle']
+Attempting to import ProviderFactory
+Entering provider_factory.py
+Current working directory: C:\ai\Groqqle
+Current sys.path: ['C:\\ai\\Groqqle', 'C:\\Users\\j\\miniconda3\\envs\\groqqle\\python311.zip', 'C:\\Users\\j\\miniconda3\\envs\\groqqle\\DLLs', 'C:\\Users\\j\\miniconda3\\envs\\groqqle\\Lib', 'C:\\Users\\j\\miniconda3\\envs\\groqqle', 'C:\\Users\\j\\AppData\\Roaming\\Python\\Python311\\site-packages', 'C:\\Users\\j\\miniconda3\\envs\\groqqle\\Lib\\site-packages', 'C:\\ai\\Groqqle', 'C:\\ai\\Groqqle', 'C:\\ai\\Groqqle']
+Exiting provider_factory.py
+ProviderFactory imported successfully
+Current working directory: C:\ai\Groqqle
+Current sys.path: ['C:\\ai\\Groqqle', 'C:\\Users\\j\\miniconda3\\envs\\groqqle\\python311.zip', 'C:\\Users\\j\\miniconda3\\envs\\groqqle\\DLLs', 'C:\\Users\\j\\miniconda3\\envs\\groqqle\\Lib', 'C:\\Users\\j\\miniconda3\\envs\\groqqle', 'C:\\Users\\j\\AppData\\Roaming\\Python\\Python311\\site-packages', 'C:\\Users\\j\\miniconda3\\envs\\groqqle\\Lib\\site-packages', 'C:\\ai\\Groqqle', 'C:\\ai\\Groqqle', 'C:\\ai\\Groqqle']
+Running in API mode on port 5000
+Current working directory: C:\ai\Groqqle
+Current sys.path: ['C:\\ai\\Groqqle', 'C:\\Users\\j\\miniconda3\\envs\\groqqle\\python311.zip', 'C:\\Users\\j\\miniconda3\\envs\\groqqle\\DLLs', 'C:\\Users\\j\\miniconda3\\envs\\groqqle\\Lib', 'C:\\Users\\j\\miniconda3\\envs\\groqqle', 'C:\\Users\\j\\AppData\\Roaming\\Python\\Python311\\site-packages', 'C:\\Users\\j\\miniconda3\\envs\\groqqle\\Lib\\site-packages', 'C:\\ai\\Groqqle', 'C:\\ai\\Groqqle', 'C:\\ai\\Groqqle']
+Updated sys.path: ['C:\\ai\\Groqqle', 'C:\\Users\\j\\miniconda3\\envs\\groqqle\\python311.zip', 'C:\\Users\\j\\miniconda3\\envs\\groqqle\\DLLs', 'C:\\Users\\j\\miniconda3\\envs\\groqqle\\Lib', 'C:\\Users\\j\\miniconda3\\envs\\groqqle', 'C:\\Users\\j\\AppData\\Roaming\\Python\\Python311\\site-packages', 'C:\\Users\\j\\miniconda3\\envs\\groqqle\\Lib\\site-packages', 'C:\\ai\\Groqqle', 'C:\\ai\\Groqqle', 'C:\\ai\\Groqqle']
+Attempting to import ProviderFactory
+Entering provider_factory.py
+Current working directory: C:\ai\Groqqle
+Current sys.path: ['C:\\ai\\Groqqle', 'C:\\Users\\j\\miniconda3\\envs\\groqqle\\python311.zip', 'C:\\Users\\j\\miniconda3\\envs\\groqqle\\DLLs', 'C:\\Users\\j\\miniconda3\\envs\\groqqle\\Lib', 'C:\\Users\\j\\miniconda3\\envs\\groqqle', 'C:\\Users\\j\\AppData\\Roaming\\Python\\Python311\\site-packages', 'C:\\Users\\j\\miniconda3\\envs\\groqqle\\Lib\\site-packages', 'C:\\ai\\Groqqle', 'C:\\ai\\Groqqle', 'C:\\ai\\Groqqle']
+Exiting provider_factory.py
+ProviderFactory imported successfully
+Current working directory: C:\ai\Groqqle
+Current sys.path: ['C:\\ai\\Groqqle', 'C:\\Users\\j\\miniconda3\\envs\\groqqle\\python311.zip', 'C:\\Users\\j\\miniconda3\\envs\\groqqle\\DLLs', 'C:\\Users\\j\\miniconda3\\envs\\groqqle\\Lib', 'C:\\Users\\j\\miniconda3\\envs\\groqqle', 'C:\\Users\\j\\AppData\\Roaming\\Python\\Python311\\site-packages', 'C:\\Users\\j\\miniconda3\\envs\\groqqle\\Lib\\site-packages', 'C:\\ai\\Groqqle', 'C:\\ai\\Groqqle', 'C:\\ai\\Groqqle']
+Running in API mode on port 5000
+API search endpoint hit with query: What is artificial intelligence? and num_results: 20
+Initializing Web_Agent with provider_name: groq, num_results: 20, max_tokens: 4096
+Attempting to get provider with API key: gsk_p...
+get_provider called with provider_name: groq
+Creating groq instance with API key
+Provider obtained successfully
+Attempting to get model
+get_model called, returning: mixtral-8x7b-32768
+Model obtained successfully
+Initializing tools
+Tools initialized successfully
+Processing request: What is artificial intelligence?
+Calling _process_web_search with num_results: 20
+Entering _process_web_search with num_results: 20
+Performing web search with query: What is artificial intelligence? and num_results: 20
+Web search completed successfully. Number of results: 40
+Web search completed. Number of results: 40
+Results filtered. Number of filtered results: 40
+Results deduplicated. Number of final results: 20
+_process_web_search completed. Number of results: 20
+Current working directory: C:\ai\Groqqle
+Current sys.path: ['C:\\ai\\Groqqle', 'C:\\Users\\j\\miniconda3\\envs\\groqqle\\python311.zip', 'C:\\Users\\j\\miniconda3\\envs\\groqqle\\DLLs', 'C:\\Users\\j\\miniconda3\\envs\\groqqle\\Lib', 'C:\\Users\\j\\miniconda3\\envs\\groqqle', 'C:\\Users\\j\\AppData\\Roaming\\Python\\Python311\\site-packages', 'C:\\Users\\j\\miniconda3\\envs\\groqqle\\Lib\\site-packages', 'C:\\ai\\Groqqle', 'C:\\ai\\Groqqle', 'C:\\ai\\Groqqle']
+Updated sys.path: ['C:\\ai\\Groqqle', 'C:\\Users\\j\\miniconda3\\envs\\groqqle\\python311.zip', 'C:\\Users\\j\\miniconda3\\envs\\groqqle\\DLLs', 'C:\\Users\\j\\miniconda3\\envs\\groqqle\\Lib', 'C:\\Users\\j\\miniconda3\\envs\\groqqle', 'C:\\Users\\j\\AppData\\Roaming\\Python\\Python311\\site-packages', 'C:\\Users\\j\\miniconda3\\envs\\groqqle\\Lib\\site-packages', 'C:\\ai\\Groqqle', 'C:\\ai\\Groqqle', 'C:\\ai\\Groqqle']
+Attempting to import ProviderFactory
+Entering provider_factory.py
+Current working directory: C:\ai\Groqqle
+Current sys.path: ['C:\\ai\\Groqqle', 'C:\\Users\\j\\miniconda3\\envs\\groqqle\\python311.zip', 'C:\\Users\\j\\miniconda3\\envs\\groqqle\\DLLs', 'C:\\Users\\j\\miniconda3\\envs\\groqqle\\Lib', 'C:\\Users\\j\\miniconda3\\envs\\groqqle', 'C:\\Users\\j\\AppData\\Roaming\\Python\\Python311\\site-packages', 'C:\\Users\\j\\miniconda3\\envs\\groqqle\\Lib\\site-packages', 'C:\\ai\\Groqqle', 'C:\\ai\\Groqqle', 'C:\\ai\\Groqqle']
+Exiting provider_factory.py
+ProviderFactory imported successfully
+Current working directory: C:\ai\Groqqle
+Current sys.path: ['C:\\ai\\Groqqle', 'C:\\Users\\j\\miniconda3\\envs\\groqqle\\python311.zip', 'C:\\Users\\j\\miniconda3\\envs\\groqqle\\DLLs', 'C:\\Users\\j\\miniconda3\\envs\\groqqle\\Lib', 'C:\\Users\\j\\miniconda3\\envs\\groqqle', 'C:\\Users\\j\\AppData\\Roaming\\Python\\Python311\\site-packages', 'C:\\Users\\j\\miniconda3\\envs\\groqqle\\Lib\\site-packages', 'C:\\ai\\Groqqle', 'C:\\ai\\Groqqle', 'C:\\ai\\Groqqle']
+Running in API mode on port 5000
+Current working directory: C:\ai\Groqqle
+Current sys.path: ['C:\\ai\\Groqqle', 'C:\\Users\\j\\miniconda3\\envs\\groqqle\\python311.zip', 'C:\\Users\\j\\miniconda3\\envs\\groqqle\\DLLs', 'C:\\Users\\j\\miniconda3\\envs\\groqqle\\Lib', 'C:\\Users\\j\\miniconda3\\envs\\groqqle', 'C:\\Users\\j\\AppData\\Roaming\\Python\\Python311\\site-packages', 'C:\\Users\\j\\miniconda3\\envs\\groqqle\\Lib\\site-packages', 'C:\\ai\\Groqqle', 'C:\\ai\\Groqqle', 'C:\\ai\\Groqqle']
+Updated sys.path: ['C:\\ai\\Groqqle', 'C:\\Users\\j\\miniconda3\\envs\\groqqle\\python311.zip', 'C:\\Users\\j\\miniconda3\\envs\\groqqle\\DLLs', 'C:\\Users\\j\\miniconda3\\envs\\groqqle\\Lib', 'C:\\Users\\j\\miniconda3\\envs\\groqqle', 'C:\\Users\\j\\AppData\\Roaming\\Python\\Python311\\site-packages', 'C:\\Users\\j\\miniconda3\\envs\\groqqle\\Lib\\site-packages', 'C:\\ai\\Groqqle', 'C:\\ai\\Groqqle', 'C:\\ai\\Groqqle']
+Attempting to import ProviderFactory
+Entering provider_factory.py
+Current working directory: C:\ai\Groqqle
+Current sys.path: ['C:\\ai\\Groqqle', 'C:\\Users\\j\\miniconda3\\envs\\groqqle\\python311.zip', 'C:\\Users\\j\\miniconda3\\envs\\groqqle\\DLLs', 'C:\\Users\\j\\miniconda3\\envs\\groqqle\\Lib', 'C:\\Users\\j\\miniconda3\\envs\\groqqle', 'C:\\Users\\j\\AppData\\Roaming\\Python\\Python311\\site-packages', 'C:\\Users\\j\\miniconda3\\envs\\groqqle\\Lib\\site-packages', 'C:\\ai\\Groqqle', 'C:\\ai\\Groqqle', 'C:\\ai\\Groqqle']
+Exiting provider_factory.py
+ProviderFactory imported successfully
+Current working directory: C:\ai\Groqqle
+Current sys.path: ['C:\\ai\\Groqqle', 'C:\\Users\\j\\miniconda3\\envs\\groqqle\\python311.zip', 'C:\\Users\\j\\miniconda3\\envs\\groqqle\\DLLs', 'C:\\Users\\j\\miniconda3\\envs\\groqqle\\Lib', 'C:\\Users\\j\\miniconda3\\envs\\groqqle', 'C:\\Users\\j\\AppData\\Roaming\\Python\\Python311\\site-packages', 'C:\\Users\\j\\miniconda3\\envs\\groqqle\\Lib\\site-packages', 'C:\\ai\\Groqqle', 'C:\\ai\\Groqqle', 'C:\\ai\\Groqqle']
+Running in API mode on port 5000
+Current working directory: C:\ai\Groqqle
+Current sys.path: ['C:\\ai\\Groqqle', 'C:\\Users\\j\\miniconda3\\envs\\groqqle\\python311.zip', 'C:\\Users\\j\\miniconda3\\envs\\groqqle\\DLLs', 'C:\\Users\\j\\miniconda3\\envs\\groqqle\\Lib', 'C:\\Users\\j\\miniconda3\\envs\\groqqle', 'C:\\Users\\j\\AppData\\Roaming\\Python\\Python311\\site-packages', 'C:\\Users\\j\\miniconda3\\envs\\groqqle\\Lib\\site-packages', 'C:\\ai\\Groqqle', 'C:\\ai\\Groqqle', 'C:\\ai\\Groqqle']
+Updated sys.path: ['C:\\ai\\Groqqle', 'C:\\Users\\j\\miniconda3\\envs\\groqqle\\python311.zip', 'C:\\Users\\j\\miniconda3\\envs\\groqqle\\DLLs', 'C:\\Users\\j\\miniconda3\\envs\\groqqle\\Lib', 'C:\\Users\\j\\miniconda3\\envs\\groqqle', 'C:\\Users\\j\\AppData\\Roaming\\Python\\Python311\\site-packages', 'C:\\Users\\j\\miniconda3\\envs\\groqqle\\Lib\\site-packages', 'C:\\ai\\Groqqle', 'C:\\ai\\Groqqle', 'C:\\ai\\Groqqle']
+Attempting to import ProviderFactory
+Entering provider_factory.py
+Current working directory: C:\ai\Groqqle
+Current sys.path: ['C:\\ai\\Groqqle', 'C:\\Users\\j\\miniconda3\\envs\\groqqle\\python311.zip', 'C:\\Users\\j\\miniconda3\\envs\\groqqle\\DLLs', 'C:\\Users\\j\\miniconda3\\envs\\groqqle\\Lib', 'C:\\Users\\j\\miniconda3\\envs\\groqqle', 'C:\\Users\\j\\AppData\\Roaming\\Python\\Python311\\site-packages', 'C:\\Users\\j\\miniconda3\\envs\\groqqle\\Lib\\site-packages', 'C:\\ai\\Groqqle', 'C:\\ai\\Groqqle', 'C:\\ai\\Groqqle']
+Exiting provider_factory.py
+ProviderFactory imported successfully
+Current working directory: C:\ai\Groqqle
+Current sys.path: ['C:\\ai\\Groqqle', 'C:\\Users\\j\\miniconda3\\envs\\groqqle\\python311.zip', 'C:\\Users\\j\\miniconda3\\envs\\groqqle\\DLLs', 'C:\\Users\\j\\miniconda3\\envs\\groqqle\\Lib', 'C:\\Users\\j\\miniconda3\\envs\\groqqle', 'C:\\Users\\j\\AppData\\Roaming\\Python\\Python311\\site-packages', 'C:\\Users\\j\\miniconda3\\envs\\groqqle\\Lib\\site-packages', 'C:\\ai\\Groqqle', 'C:\\ai\\Groqqle', 'C:\\ai\\Groqqle']
+Running in API mode on port 5000
+Current working directory: C:\ai\Groqqle
+Current sys.path: ['C:\\ai\\Groqqle', 'C:\\Users\\j\\miniconda3\\envs\\groqqle\\python311.zip', 'C:\\Users\\j\\miniconda3\\envs\\groqqle\\DLLs', 'C:\\Users\\j\\miniconda3\\envs\\groqqle\\Lib', 'C:\\Users\\j\\miniconda3\\envs\\groqqle', 'C:\\Users\\j\\AppData\\Roaming\\Python\\Python311\\site-packages', 'C:\\Users\\j\\miniconda3\\envs\\groqqle\\Lib\\site-packages', 'C:\\ai\\Groqqle', 'C:\\ai\\Groqqle', 'C:\\ai\\Groqqle']
+Updated sys.path: ['C:\\ai\\Groqqle', 'C:\\Users\\j\\miniconda3\\envs\\groqqle\\python311.zip', 'C:\\Users\\j\\miniconda3\\envs\\groqqle\\DLLs', 'C:\\Users\\j\\miniconda3\\envs\\groqqle\\Lib', 'C:\\Users\\j\\miniconda3\\envs\\groqqle', 'C:\\Users\\j\\AppData\\Roaming\\Python\\Python311\\site-packages', 'C:\\Users\\j\\miniconda3\\envs\\groqqle\\Lib\\site-packages', 'C:\\ai\\Groqqle', 'C:\\ai\\Groqqle', 'C:\\ai\\Groqqle']
+Attempting to import ProviderFactory
+Entering provider_factory.py
+Current working directory: C:\ai\Groqqle
+Current sys.path: ['C:\\ai\\Groqqle', 'C:\\Users\\j\\miniconda3\\envs\\groqqle\\python311.zip', 'C:\\Users\\j\\miniconda3\\envs\\groqqle\\DLLs', 'C:\\Users\\j\\miniconda3\\envs\\groqqle\\Lib', 'C:\\Users\\j\\miniconda3\\envs\\groqqle', 'C:\\Users\\j\\AppData\\Roaming\\Python\\Python311\\site-packages', 'C:\\Users\\j\\miniconda3\\envs\\groqqle\\Lib\\site-packages', 'C:\\ai\\Groqqle', 'C:\\ai\\Groqqle', 'C:\\ai\\Groqqle']
+Exiting provider_factory.py
+ProviderFactory imported successfully
+Current working directory: C:\ai\Groqqle
+Current sys.path: ['C:\\ai\\Groqqle', 'C:\\Users\\j\\miniconda3\\envs\\groqqle\\python311.zip', 'C:\\Users\\j\\miniconda3\\envs\\groqqle\\DLLs', 'C:\\Users\\j\\miniconda3\\envs\\groqqle\\Lib', 'C:\\Users\\j\\miniconda3\\envs\\groqqle', 'C:\\Users\\j\\AppData\\Roaming\\Python\\Python311\\site-packages', 'C:\\Users\\j\\miniconda3\\envs\\groqqle\\Lib\\site-packages', 'C:\\ai\\Groqqle', 'C:\\ai\\Groqqle', 'C:\\ai\\Groqqle']
+Running in API mode on port 5000
+Current working directory: C:\ai\Groqqle
+Current sys.path: ['C:\\ai\\Groqqle', 'C:\\Users\\j\\miniconda3\\envs\\groqqle\\python311.zip', 'C:\\Users\\j\\miniconda3\\envs\\groqqle\\DLLs', 'C:\\Users\\j\\miniconda3\\envs\\groqqle\\Lib', 'C:\\Users\\j\\miniconda3\\envs\\groqqle', 'C:\\Users\\j\\AppData\\Roaming\\Python\\Python311\\site-packages', 'C:\\Users\\j\\miniconda3\\envs\\groqqle\\Lib\\site-packages', 'C:\\ai\\Groqqle', 'C:\\ai\\Groqqle', 'C:\\ai\\Groqqle']
+Updated sys.path: ['C:\\ai\\Groqqle', 'C:\\Users\\j\\miniconda3\\envs\\groqqle\\python311.zip', 'C:\\Users\\j\\miniconda3\\envs\\groqqle\\DLLs', 'C:\\Users\\j\\miniconda3\\envs\\groqqle\\Lib', 'C:\\Users\\j\\miniconda3\\envs\\groqqle', 'C:\\Users\\j\\AppData\\Roaming\\Python\\Python311\\site-packages', 'C:\\Users\\j\\miniconda3\\envs\\groqqle\\Lib\\site-packages', 'C:\\ai\\Groqqle', 'C:\\ai\\Groqqle', 'C:\\ai\\Groqqle']
+Attempting to import ProviderFactory
+Entering provider_factory.py
+Current working directory: C:\ai\Groqqle
+Current sys.path: ['C:\\ai\\Groqqle', 'C:\\Users\\j\\miniconda3\\envs\\groqqle\\python311.zip', 'C:\\Users\\j\\miniconda3\\envs\\groqqle\\DLLs', 'C:\\Users\\j\\miniconda3\\envs\\groqqle\\Lib', 'C:\\Users\\j\\miniconda3\\envs\\groqqle', 'C:\\Users\\j\\AppData\\Roaming\\Python\\Python311\\site-packages', 'C:\\Users\\j\\miniconda3\\envs\\groqqle\\Lib\\site-packages', 'C:\\ai\\Groqqle', 'C:\\ai\\Groqqle', 'C:\\ai\\Groqqle']
+Exiting provider_factory.py
+ProviderFactory imported successfully
+Current working directory: C:\ai\Groqqle
+Current sys.path: ['C:\\ai\\Groqqle', 'C:\\Users\\j\\miniconda3\\envs\\groqqle\\python311.zip', 'C:\\Users\\j\\miniconda3\\envs\\groqqle\\DLLs', 'C:\\Users\\j\\miniconda3\\envs\\groqqle\\Lib', 'C:\\Users\\j\\miniconda3\\envs\\groqqle', 'C:\\Users\\j\\AppData\\Roaming\\Python\\Python311\\site-packages', 'C:\\Users\\j\\miniconda3\\envs\\groqqle\\Lib\\site-packages', 'C:\\ai\\Groqqle', 'C:\\ai\\Groqqle', 'C:\\ai\\Groqqle']
+Running in API mode on port 5000
+Current working directory: C:\ai\Groqqle
+Current sys.path: ['C:\\ai\\Groqqle', 'C:\\Users\\j\\miniconda3\\envs\\groqqle\\python311.zip', 'C:\\Users\\j\\miniconda3\\envs\\groqqle\\DLLs', 'C:\\Users\\j\\miniconda3\\envs\\groqqle\\Lib', 'C:\\Users\\j\\miniconda3\\envs\\groqqle', 'C:\\Users\\j\\AppData\\Roaming\\Python\\Python311\\site-packages', 'C:\\Users\\j\\miniconda3\\envs\\groqqle\\Lib\\site-packages', 'C:\\ai\\Groqqle', 'C:\\ai\\Groqqle', 'C:\\ai\\Groqqle']
+Updated sys.path: ['C:\\ai\\Groqqle', 'C:\\Users\\j\\miniconda3\\envs\\groqqle\\python311.zip', 'C:\\Users\\j\\miniconda3\\envs\\groqqle\\DLLs', 'C:\\Users\\j\\miniconda3\\envs\\groqqle\\Lib', 'C:\\Users\\j\\miniconda3\\envs\\groqqle', 'C:\\Users\\j\\AppData\\Roaming\\Python\\Python311\\site-packages', 'C:\\Users\\j\\miniconda3\\envs\\groqqle\\Lib\\site-packages', 'C:\\ai\\Groqqle', 'C:\\ai\\Groqqle', 'C:\\ai\\Groqqle']
+Attempting to import ProviderFactory
+Entering provider_factory.py
+Current working directory: C:\ai\Groqqle
+Current sys.path: ['C:\\ai\\Groqqle', 'C:\\Users\\j\\miniconda3\\envs\\groqqle\\python311.zip', 'C:\\Users\\j\\miniconda3\\envs\\groqqle\\DLLs', 'C:\\Users\\j\\miniconda3\\envs\\groqqle\\Lib', 'C:\\Users\\j\\miniconda3\\envs\\groqqle', 'C:\\Users\\j\\AppData\\Roaming\\Python\\Python311\\site-packages', 'C:\\Users\\j\\miniconda3\\envs\\groqqle\\Lib\\site-packages', 'C:\\ai\\Groqqle', 'C:\\ai\\Groqqle', 'C:\\ai\\Groqqle']
+Exiting provider_factory.py
+ProviderFactory imported successfully
+Current working directory: C:\ai\Groqqle
+Current sys.path: ['C:\\ai\\Groqqle', 'C:\\Users\\j\\miniconda3\\envs\\groqqle\\python311.zip', 'C:\\Users\\j\\miniconda3\\envs\\groqqle\\DLLs', 'C:\\Users\\j\\miniconda3\\envs\\groqqle\\Lib', 'C:\\Users\\j\\miniconda3\\envs\\groqqle', 'C:\\Users\\j\\AppData\\Roaming\\Python\\Python311\\site-packages', 'C:\\Users\\j\\miniconda3\\envs\\groqqle\\Lib\\site-packages', 'C:\\ai\\Groqqle', 'C:\\ai\\Groqqle', 'C:\\ai\\Groqqle']
+Running in API mode on port 5000
+API search endpoint hit with query: What is artificial intelligence? and num_results: 20
+Initializing Web_Agent with provider_name: groq, num_results: 20, max_tokens: 4096
+Attempting to get provider with API key: gsk_p...
+get_provider called with provider_name: groq
+Creating groq instance with API key
+Provider obtained successfully
+Attempting to get model
+get_model called, returning: mixtral-8x7b-32768
+Model obtained successfully
+Initializing tools
+Tools initialized successfully
+Processing request: What is artificial intelligence?
+Calling _process_web_search with num_results: 20
+Entering _process_web_search with num_results: 20
+Performing web search with query: What is artificial intelligence? and num_results: 20
+Web search completed successfully. Number of results: 40
+Web search completed. Number of results: 40
+Results filtered. Number of filtered results: 40
+Results deduplicated. Number of final results: 20
+_process_web_search completed. Number of results: 20
+Current working directory: C:\ai\Groqqle
+Current sys.path: ['C:\\ai\\Groqqle', 'C:\\Users\\j\\miniconda3\\envs\\groqqle\\python311.zip', 'C:\\Users\\j\\miniconda3\\envs\\groqqle\\DLLs', 'C:\\Users\\j\\miniconda3\\envs\\groqqle\\Lib', 'C:\\Users\\j\\miniconda3\\envs\\groqqle', 'C:\\Users\\j\\AppData\\Roaming\\Python\\Python311\\site-packages', 'C:\\Users\\j\\miniconda3\\envs\\groqqle\\Lib\\site-packages', 'C:\\ai\\Groqqle', 'C:\\ai\\Groqqle', 'C:\\ai\\Groqqle']
+Updated sys.path: ['C:\\ai\\Groqqle', 'C:\\Users\\j\\miniconda3\\envs\\groqqle\\python311.zip', 'C:\\Users\\j\\miniconda3\\envs\\groqqle\\DLLs', 'C:\\Users\\j\\miniconda3\\envs\\groqqle\\Lib', 'C:\\Users\\j\\miniconda3\\envs\\groqqle', 'C:\\Users\\j\\AppData\\Roaming\\Python\\Python311\\site-packages', 'C:\\Users\\j\\miniconda3\\envs\\groqqle\\Lib\\site-packages', 'C:\\ai\\Groqqle', 'C:\\ai\\Groqqle', 'C:\\ai\\Groqqle']
+Attempting to import ProviderFactory
+Entering provider_factory.py
+Current working directory: C:\ai\Groqqle
+Current sys.path: ['C:\\ai\\Groqqle', 'C:\\Users\\j\\miniconda3\\envs\\groqqle\\python311.zip', 'C:\\Users\\j\\miniconda3\\envs\\groqqle\\DLLs', 'C:\\Users\\j\\miniconda3\\envs\\groqqle\\Lib', 'C:\\Users\\j\\miniconda3\\envs\\groqqle', 'C:\\Users\\j\\AppData\\Roaming\\Python\\Python311\\site-packages', 'C:\\Users\\j\\miniconda3\\envs\\groqqle\\Lib\\site-packages', 'C:\\ai\\Groqqle', 'C:\\ai\\Groqqle', 'C:\\ai\\Groqqle']
+Exiting provider_factory.py
+ProviderFactory imported successfully
+Current working directory: C:\ai\Groqqle
+Current sys.path: ['C:\\ai\\Groqqle', 'C:\\Users\\j\\miniconda3\\envs\\groqqle\\python311.zip', 'C:\\Users\\j\\miniconda3\\envs\\groqqle\\DLLs', 'C:\\Users\\j\\miniconda3\\envs\\groqqle\\Lib', 'C:\\Users\\j\\miniconda3\\envs\\groqqle', 'C:\\Users\\j\\AppData\\Roaming\\Python\\Python311\\site-packages', 'C:\\Users\\j\\miniconda3\\envs\\groqqle\\Lib\\site-packages', 'C:\\ai\\Groqqle', 'C:\\ai\\Groqqle', 'C:\\ai\\Groqqle']
+Running in API mode on port 5000
+API search endpoint hit with query: What is artificial intelligence? and num_results: 20
+Initializing Web_Agent with provider_name: groq, num_results: 20, max_tokens: 4096
+Attempting to get provider with API key: gsk_p...
+get_provider called with provider_name: groq
+Creating groq instance with API key
+Provider obtained successfully
+Attempting to get model
+get_model called, returning: mixtral-8x7b-32768
+Model obtained successfully
+Initializing tools
+Tools initialized successfully
+Processing request: What is artificial intelligence?
+Calling _process_web_search with num_results: 20
+Entering _process_web_search with num_results: 20
+Performing web search with query: What is artificial intelligence? and num_results: 20
+Web search completed successfully. Number of results: 40
+Web search completed. Number of results: 40
+Results filtered. Number of filtered results: 40
+Results deduplicated. Number of final results: 20
+_process_web_search completed. Number of results: 20
+Current working directory: C:\ai\Groqqle
+Current sys.path: ['C:\\ai\\Groqqle', 'C:\\Users\\j\\miniconda3\\envs\\groqqle\\python311.zip', 'C:\\Users\\j\\miniconda3\\envs\\groqqle\\DLLs', 'C:\\Users\\j\\miniconda3\\envs\\groqqle\\Lib', 'C:\\Users\\j\\miniconda3\\envs\\groqqle', 'C:\\Users\\j\\AppData\\Roaming\\Python\\Python311\\site-packages', 'C:\\Users\\j\\miniconda3\\envs\\groqqle\\Lib\\site-packages', 'C:\\ai\\Groqqle', 'C:\\ai\\Groqqle', 'C:\\ai\\Groqqle']
+Updated sys.path: ['C:\\ai\\Groqqle', 'C:\\Users\\j\\miniconda3\\envs\\groqqle\\python311.zip', 'C:\\Users\\j\\miniconda3\\envs\\groqqle\\DLLs', 'C:\\Users\\j\\miniconda3\\envs\\groqqle\\Lib', 'C:\\Users\\j\\miniconda3\\envs\\groqqle', 'C:\\Users\\j\\AppData\\Roaming\\Python\\Python311\\site-packages', 'C:\\Users\\j\\miniconda3\\envs\\groqqle\\Lib\\site-packages', 'C:\\ai\\Groqqle', 'C:\\ai\\Groqqle', 'C:\\ai\\Groqqle']
+Attempting to import ProviderFactory
+Entering provider_factory.py
+Current working directory: C:\ai\Groqqle
+Current sys.path: ['C:\\ai\\Groqqle', 'C:\\Users\\j\\miniconda3\\envs\\groqqle\\python311.zip', 'C:\\Users\\j\\miniconda3\\envs\\groqqle\\DLLs', 'C:\\Users\\j\\miniconda3\\envs\\groqqle\\Lib', 'C:\\Users\\j\\miniconda3\\envs\\groqqle', 'C:\\Users\\j\\AppData\\Roaming\\Python\\Python311\\site-packages', 'C:\\Users\\j\\miniconda3\\envs\\groqqle\\Lib\\site-packages', 'C:\\ai\\Groqqle', 'C:\\ai\\Groqqle', 'C:\\ai\\Groqqle']
+Exiting provider_factory.py
+ProviderFactory imported successfully
+Current working directory: C:\ai\Groqqle
+Current sys.path: ['C:\\ai\\Groqqle', 'C:\\Users\\j\\miniconda3\\envs\\groqqle\\python311.zip', 'C:\\Users\\j\\miniconda3\\envs\\groqqle\\DLLs', 'C:\\Users\\j\\miniconda3\\envs\\groqqle\\Lib', 'C:\\Users\\j\\miniconda3\\envs\\groqqle', 'C:\\Users\\j\\AppData\\Roaming\\Python\\Python311\\site-packages', 'C:\\Users\\j\\miniconda3\\envs\\groqqle\\Lib\\site-packages', 'C:\\ai\\Groqqle', 'C:\\ai\\Groqqle', 'C:\\ai\\Groqqle']
+Running in API mode on port 5000
+Current working directory: C:\ai\Groqqle
+Current sys.path: ['C:\\ai\\Groqqle', 'C:\\Users\\j\\miniconda3\\envs\\groqqle\\python311.zip', 'C:\\Users\\j\\miniconda3\\envs\\groqqle\\DLLs', 'C:\\Users\\j\\miniconda3\\envs\\groqqle\\Lib', 'C:\\Users\\j\\miniconda3\\envs\\groqqle', 'C:\\Users\\j\\AppData\\Roaming\\Python\\Python311\\site-packages', 'C:\\Users\\j\\miniconda3\\envs\\groqqle\\Lib\\site-packages', 'C:\\ai\\Groqqle', 'C:\\ai\\Groqqle', 'C:\\ai\\Groqqle']
+Updated sys.path: ['C:\\ai\\Groqqle', 'C:\\Users\\j\\miniconda3\\envs\\groqqle\\python311.zip', 'C:\\Users\\j\\miniconda3\\envs\\groqqle\\DLLs', 'C:\\Users\\j\\miniconda3\\envs\\groqqle\\Lib', 'C:\\Users\\j\\miniconda3\\envs\\groqqle', 'C:\\Users\\j\\AppData\\Roaming\\Python\\Python311\\site-packages', 'C:\\Users\\j\\miniconda3\\envs\\groqqle\\Lib\\site-packages', 'C:\\ai\\Groqqle', 'C:\\ai\\Groqqle', 'C:\\ai\\Groqqle']
+Attempting to import ProviderFactory
+Entering provider_factory.py
+Current working directory: C:\ai\Groqqle
+Current sys.path: ['C:\\ai\\Groqqle', 'C:\\Users\\j\\miniconda3\\envs\\groqqle\\python311.zip', 'C:\\Users\\j\\miniconda3\\envs\\groqqle\\DLLs', 'C:\\Users\\j\\miniconda3\\envs\\groqqle\\Lib', 'C:\\Users\\j\\miniconda3\\envs\\groqqle', 'C:\\Users\\j\\AppData\\Roaming\\Python\\Python311\\site-packages', 'C:\\Users\\j\\miniconda3\\envs\\groqqle\\Lib\\site-packages', 'C:\\ai\\Groqqle', 'C:\\ai\\Groqqle', 'C:\\ai\\Groqqle']
+Exiting provider_factory.py
+ProviderFactory imported successfully
+Current working directory: C:\ai\Groqqle
+Current sys.path: ['C:\\ai\\Groqqle', 'C:\\Users\\j\\miniconda3\\envs\\groqqle\\python311.zip', 'C:\\Users\\j\\miniconda3\\envs\\groqqle\\DLLs', 'C:\\Users\\j\\miniconda3\\envs\\groqqle\\Lib', 'C:\\Users\\j\\miniconda3\\envs\\groqqle', 'C:\\Users\\j\\AppData\\Roaming\\Python\\Python311\\site-packages', 'C:\\Users\\j\\miniconda3\\envs\\groqqle\\Lib\\site-packages', 'C:\\ai\\Groqqle', 'C:\\ai\\Groqqle', 'C:\\ai\\Groqqle']
+Running in API mode on port 5000
+API search endpoint hit with query: What is artificial intelligence? and num_results: 20
+Initializing Web_Agent with provider_name: groq, num_results: 20, max_tokens: 4096
+Attempting to get provider with API key: gsk_p...
+get_provider called with provider_name: groq
+Creating groq instance with API key
+Provider obtained successfully
+Attempting to get model
+get_model called, returning: mixtral-8x7b-32768
+Model obtained successfully
+Initializing tools
+Tools initialized successfully
+Processing request: What is artificial intelligence?
+Calling _process_web_search with num_results: 20
+Entering _process_web_search with num_results: 20
+Performing web search with query: What is artificial intelligence? and num_results: 20
+Web search completed successfully. Number of results: 40
+Web search completed. Number of results: 40
+Results filtered. Number of filtered results: 40
+Results deduplicated. Number of final results: 20
+_process_web_search completed. Number of results: 20

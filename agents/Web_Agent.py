@@ -30,14 +30,19 @@ except ImportError as e:
     ProviderFactory = None
 
 class Web_Agent(Base_Agent):
-    def __init__(self, api_key, provider_name='groq'):
-        log_debug(f"Initializing Web_Agent with provider_name: {provider_name}")
+    def __init__(self, api_key, provider_name='groq', num_results=10, max_tokens=4096):
+        log_debug(f"Initializing Web_Agent with provider_name: {provider_name}, num_results: {num_results}, max_tokens: {max_tokens}")
         if not api_key:
             log_debug("API key is missing or empty")
             raise ValueError("API key is required")
         if ProviderFactory is None:
             log_debug("ProviderFactory is None. Raising ImportError.")
             raise ImportError("ProviderFactory is not available. Please check your project structure.")
+        
+        self.api_key = api_key
+        self.num_results = num_results
+        self.max_tokens = max_tokens
+
         try:
             log_debug(f"Attempting to get provider with API key: {api_key[:5]}...")
             self.provider = ProviderFactory.get_provider(provider_name, api_key)
@@ -56,7 +61,7 @@ class Web_Agent(Base_Agent):
     def process_request(self, user_request: str) -> list:
         log_debug(f"Processing request: {user_request}")
         try:
-            log_debug("Calling _process_web_search")
+            log_debug(f"Calling _process_web_search with num_results: {self.num_results}")
             results = self._process_web_search(user_request)
             log_debug(f"_process_web_search completed. Number of results: {len(results)}")
             return results
@@ -68,7 +73,7 @@ class Web_Agent(Base_Agent):
             return [{"title": "Error", "url": "", "description": f"An error occurred while processing your request: {str(e)}"}]
 
     def _process_web_search(self, user_request: str) -> list:
-        log_debug("Entering _process_web_search")
+        log_debug(f"Entering _process_web_search with num_results: {self.num_results}")
         search_results = self._perform_web_search(user_request)
         log_debug(f"Web search completed. Number of results: {len(search_results)}")
         if not search_results:
@@ -82,8 +87,8 @@ class Web_Agent(Base_Agent):
             return [{"title": "No Results", "url": "", "description": "I found some results, but they were all from domains I've been instructed to skip. Could you try rephrasing your request?"}]
 
         deduplicated_results = self._remove_duplicates(filtered_results)
-        log_debug(f"Results deduplicated. Number of final results: {len(deduplicated_results[:10])}")
-        return deduplicated_results[:10]  # Return top 10 unique results
+        log_debug(f"Results deduplicated. Number of final results: {len(deduplicated_results[:self.num_results])}")
+        return deduplicated_results[:self.num_results]  # Return top num_results unique results
 
     def _initialize_tools(self):
         return {
@@ -93,9 +98,9 @@ class Web_Agent(Base_Agent):
         }
 
     def _perform_web_search(self, query: str):
-        log_debug(f"Performing web search with query: {query}")
+        log_debug(f"Performing web search with query: {query} and num_results: {self.num_results}")
         try:
-            results = self.tools["WebSearch_Tool"](query, 20)  # Request 20 results to account for filtering
+            results = self.tools["WebSearch_Tool"](query, self.num_results * 2)  # Request more results to account for filtering
             log_debug(f"Web search completed successfully. Number of results: {len(results)}")
             return results
         except Exception as e:
@@ -116,7 +121,7 @@ class Web_Agent(Base_Agent):
 
     def _summarize_web_content(self, content: str, user_request: str, url: str, description: str) -> str:
         summary_prompt = self._create_summary_prompt(content, user_request, url, description)
-        return self.provider.generate(summary_prompt)
+        return self.provider.generate(summary_prompt, max_tokens=self.max_tokens)
 
     def _create_summary_prompt(self, content: str, user_request: str, url: str, description: str) -> str:
         return f"""
@@ -140,4 +145,4 @@ class Web_Agent(Base_Agent):
         Provide a concise, coherent response that addresses the user's request using the information from the summaries.
         Focus on the most relevant and important points, and present the information in a clear and organized manner.
         """
-        return self.provider.generate(combined_prompt)
+        return self.provider.generate(combined_prompt, max_tokens=self.max_tokens)

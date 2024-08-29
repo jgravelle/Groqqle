@@ -1,5 +1,6 @@
 import os
 import sys
+import argparse
 import streamlit as st
 from PIL import Image
 from dotenv import load_dotenv
@@ -21,8 +22,8 @@ def log_debug(message):
 log_debug(f"Current working directory: {os.getcwd()}")
 log_debug(f"Current sys.path: {sys.path}")
 
-def get_groq_api_key():
-    api_key = os.getenv('GROQ_API_KEY')
+def get_groq_api_key(api_key_arg: str = None) -> str:
+    api_key = api_key_arg or os.getenv('GROQ_API_KEY')
     log_debug(f"GROQ_API_KEY from environment: {'Found' if api_key else 'Not found'}")
     
     if not api_key:
@@ -41,7 +42,7 @@ def get_groq_api_key():
     
     return api_key
 
-def main():
+def main(api_key_arg: str = None, num_results: int = 10, max_tokens: int = 4096):
     st.set_page_config(page_title="Groqqle", layout="wide")
 
     st.markdown(""" 
@@ -101,7 +102,7 @@ def main():
     </style>
     """, unsafe_allow_html=True)
 
-    api_key = get_groq_api_key()
+    api_key = get_groq_api_key(api_key_arg)
 
     if not api_key:
         st.error("Please provide a valid Groq API Key to use the application.")
@@ -109,7 +110,7 @@ def main():
 
     log_debug(f"Attempting to initialize Web_Agent with API key: {'[REDACTED]' if api_key else 'None'}")
     try:
-        agent = Web_Agent(api_key)
+        agent = Web_Agent(api_key, num_results=num_results, max_tokens=max_tokens)
         log_debug("Web_Agent initialized successfully")
     except Exception as e:
         log_debug(f"Error initializing Web_Agent: {str(e)}")
@@ -137,10 +138,13 @@ def main():
 def perform_search():
     query = st.session_state.search_bar
     api_key = st.session_state.get('groq_api_key')
+    num_results = st.session_state.get('num_results', 10)
+    max_tokens = st.session_state.get('max_tokens', 4096)
     if query and api_key:
         with st.spinner('Searching...'):
             log_debug(f"Performing search with query: {query}")
-            results = Web_Agent(api_key).process_request(query)
+            agent = Web_Agent(api_key, num_results=num_results, max_tokens=max_tokens)
+            results = agent.process_request(query)
             log_debug(f"Search completed. Number of results: {len(results)}")
         st.session_state.search_results = results
     else:
@@ -172,25 +176,43 @@ def display_results(results, json_format=False):
     else:
         st.markdown("No results found.")
 
-def create_api_app():
+def create_api_app(api_key_arg: str = None, num_results: int = 10, max_tokens: int = 4096):
     app = Flask(__name__)
 
     @app.route('/search', methods=['POST'])
     def api_search():
         data = request.json
         query = data.get('query')
+        num_results = data.get('num_results', 10)
+        max_tokens = data.get('max_tokens', 4096)
+        
         if not query:
             return jsonify({"error": "No query provided"}), 400
 
-        api_key = os.getenv('GROQ_API_KEY')
+        api_key = api_key_arg or os.getenv('GROQ_API_KEY')
         if not api_key:
             return jsonify({"error": "Groq API Key not set"}), 500
 
-        agent = Web_Agent(api_key)
+        log_debug(f"API search endpoint hit with query: {query} and num_results: {num_results}")
+        agent = Web_Agent(api_key, num_results=num_results, max_tokens=max_tokens)
         results = agent.process_request(query)
         return jsonify(results)
 
     return app
 
 if __name__ == "__main__":
-    main()
+    parser = argparse.ArgumentParser(description="Run Groqqle application.")
+    parser.add_argument('mode', nargs='?', default='app', choices=['app', 'api'], help='Run mode: "app" for Streamlit app, "api" for Flask API server')
+    parser.add_argument('--api_key', type=str, help='The API key for Groq.')
+    parser.add_argument('--num_results', type=int, default=10, help='Number of results to return.')
+    parser.add_argument('--max_tokens', type=int, default=4096, help='Maximum number of tokens for the response.')
+    parser.add_argument('--port', type=int, default=5000, help='Port number for the API server (only used in API mode).')
+    args = parser.parse_args()
+
+    if args.mode == 'app':
+        log_debug("Running in app mode")
+        main(args.api_key, args.num_results, args.max_tokens)
+    elif args.mode == 'api':
+        log_debug(f"Running in API mode on port {args.port}")
+        app = create_api_app(args.api_key, args.num_results, args.max_tokens)
+        app.run(debug=True, port=args.port)

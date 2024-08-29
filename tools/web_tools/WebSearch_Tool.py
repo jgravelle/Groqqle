@@ -1,80 +1,75 @@
+import os
 import requests
-from bs4 import BeautifulSoup
 import sys
-import json
-import traceback
+from bs4 import BeautifulSoup
+
+sys.path.append(os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__)))))
+DEBUG = os.environ.get('DEBUG') == 'True'
 
 def log_debug(message):
-    with open('debug_info.txt', 'a') as f:
-        f.write(f"WebSearch_Tool: {message}\n")
+    if DEBUG:
+        print(message)
 
-def WebSearch_Tool(query, num_results=10):
-    log_debug(f"Starting search for query: {query}, num_results: {num_results}")
-    url = f"https://www.google.com/search?q={query}&num={num_results}"
+def WebSearch_Tool(query: str, num_results: int = 10):
     headers = {
-        'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36'
+        'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36',
+        'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,/;q=0.8',
+        'Accept-Language': 'en-US,en;q=0.5',
+        'Referer': 'https://www.google.com/',
+        'DNT': '1',
+        'Connection': 'keep-alive',
+        'Upgrade-Insecure-Requests': '1',
     }
-    
+
+    search_url = f"https://www.google.com/search?q={query}&num={num_results}"
+    log_debug(f"Search URL: {search_url}")
+
     try:
-        log_debug("Sending request to Google")
-        response = requests.get(url, headers=headers)
+        response = requests.get(search_url, headers=headers, timeout=10)
         response.raise_for_status()
-        log_debug(f"Request successful. Status code: {response.status_code}")
-        
+
         soup = BeautifulSoup(response.text, 'html.parser')
-        search_results = soup.find_all('div', class_='g')
-        log_debug(f"Found {len(search_results)} raw search results")
-        
-        results = []
-        for result in search_results:
-            item = {}
+
+        search_results = []
+        for g in soup.find_all('div', class_='g'):
+            title = g.find('h3').text if g.find('h3') else 'No title'
+            url = g.find('a')['href'] if g.find('a') else 'No URL'
             
-            # Extract the title
-            title_element = result.find('h3', class_='LC20lb')
-            if title_element:
-                item['title'] = title_element.get_text(strip=True)
-            else:
-                log_debug("Skipping result due to missing title")
-                continue  # Skip this result if there's no title
-            
-            # Extract the URL
-            link_element = result.find('a')
-            if link_element:
-                item['url'] = link_element['href']
-            else:
-                log_debug("Skipping result due to missing URL")
-                continue  # Skip this result if there's no URL
-            
-            # Extract the description
-            desc_element = result.find('div', class_='VwiC3b')
-            if desc_element:
-                item['description'] = desc_element.get_text(strip=True)
-            else:
-                item['description'] = "No description available"
-                log_debug("No description found for a result")
-            
-            results.append(item)
-        
-        log_debug(f"Returning {len(results)} processed results")
-        return results[:num_results]  # Ensure we don't return more than requested
-    
+            # Extracting the description
+            description = ''
+            # Try different possible classes for the description
+            description_div = g.find('div', class_='VwiC3b')
+            if description_div:
+                description = description_div.get_text()
+
+            search_results.append({
+                'title': title,
+                'description': description,
+                'url': url
+            })
+
+        if DEBUG:
+            print(f"Successfully retrieved {len(search_results)} search results for query: {query}")
+            print(f"Search results preview: {search_results[:5]}")
+
+        return search_results
+
     except requests.RequestException as e:
-        log_debug(f"Request exception occurred: {str(e)}")
-        return {"error": str(e)}
-    except Exception as e:
-        log_debug(f"Unexpected error occurred: {str(e)}")
-        log_debug(f"Traceback: {traceback.format_exc()}")
-        return {"error": f"An unexpected error occurred: {str(e)}"}
+        error_message = f"Error performing search for query '{query}': {str(e)}"
+        if DEBUG:
+            print(error_message)
+        return []
 
 if __name__ == "__main__":
     if len(sys.argv) < 2:
-        print("Usage: WebSearch_Tool.py <search_query> [num_results]")
+        print("Usage: WebSearch_Tool.py <query> [num_results]")
         sys.exit(1)
-    
+
     query = sys.argv[1]
     num_results = int(sys.argv[2]) if len(sys.argv) > 2 else 10
-    
     results = WebSearch_Tool(query, num_results)
-    
-    # Convert the results to JSON and print
-    print(json.dumps(results, indent=2))
+    if results:
+        for result in results:
+            print(result)
+    else:
+        print("Failed to retrieve search results")
