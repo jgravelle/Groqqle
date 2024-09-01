@@ -5,8 +5,27 @@ import streamlit as st
 from PIL import Image
 from dotenv import load_dotenv
 from flask import Flask, request, jsonify
+import requests
+import logging
 
 load_dotenv()
+
+# Set up logging with UTF-8 encoding
+logging.basicConfig(filename='debug_info.txt', level=logging.DEBUG, format='%(asctime)s - %(levelname)s - %(message)s', encoding='utf-8', force=True)
+
+# Function to sanitize messages
+def sanitize_message(message):
+    try:
+        return message.encode("utf-8").decode("utf-8")
+    except UnicodeEncodeError:
+        return message.encode("ascii", "ignore").decode("ascii")
+
+def log_debug(message):
+    sanitized_message = sanitize_message(message)
+    logging.debug(sanitized_message)
+
+log_debug(f"Current working directory: {os.getcwd()}")
+log_debug(f"Current sys.path: {sys.path}")
 
 # Add the parent directory to sys.path
 parent_dir = os.path.dirname(os.path.abspath(__file__))
@@ -15,12 +34,25 @@ if parent_dir not in sys.path:
 
 from agents.Web_Agent import Web_Agent
 
-def log_debug(message):
-    with open('debug_info.txt', 'a') as f:
-        f.write(f"{message}\n")
-
-log_debug(f"Current working directory: {os.getcwd()}")
-log_debug(f"Current sys.path: {sys.path}")
+@st.cache_data
+def fetch_groq_models():
+    api_key = os.environ.get("GROQ_API_KEY")
+    url = "https://api.groq.com/openai/v1/models"
+    headers = {
+        "Authorization": f"Bearer {api_key}",
+        "Content-Type": "application/json"
+    }
+    try:
+        response = requests.get(url, headers=headers)
+        response.raise_for_status()
+        models = response.json()['data']
+        return {model['id']: model for model in models}
+    except Exception as e:
+        log_debug(f"Error fetching Groq models: {str(e)}")
+        return {
+            "mixtral-8x7b-32768": {"id": "mixtral-8x7b-32768", "context_window": 32768},
+            "llama2-70b-4096": {"id": "llama2-70b-4096", "context_window": 4096}
+        }
 
 def get_groq_api_key(api_key_arg: str = None) -> str:
     api_key = api_key_arg or os.getenv('GROQ_API_KEY')
@@ -42,18 +74,95 @@ def get_groq_api_key(api_key_arg: str = None) -> str:
     
     return api_key
 
-def main(api_key_arg: str = None, num_results: int = 10, max_tokens: int = 4096):
-    st.set_page_config(page_title="Groqqle", layout="wide")
+def main(api_key_arg: str = None, num_results: int = 10, max_tokens: int = 4096, default_summary_length: int = 300):
+    st.set_page_config(page_title="Groqqle", layout="centered", initial_sidebar_state="collapsed")
 
+    # Initialize session state
+    if 'num_results' not in st.session_state:
+        st.session_state.num_results = num_results
+    if 'summary_length' not in st.session_state:
+        st.session_state.summary_length = default_summary_length
+    if 'selected_model' not in st.session_state:
+        st.session_state.selected_model = "mixtral-8x7b-32768"
+    if 'temperature' not in st.session_state:
+        st.session_state.temperature = 0.5
+    if 'comprehension_grade' not in st.session_state:
+        st.session_state.comprehension_grade = 8  # Default comprehension grade
+    if 'context_window' not in st.session_state:
+        st.session_state.context_window = max_tokens
+
+    # Fetch models
+    models = fetch_groq_models()
+
+    # Sidebar
+    with st.sidebar:
+        st.title("Settings")
+        st.session_state.num_results = st.slider(
+            "Number of Results", 
+            min_value=1, 
+            max_value=50, 
+            value=st.session_state.num_results, 
+            step=1
+        )
+        st.session_state.summary_length = st.slider(
+            "URL Summary Length (words)", 
+            min_value=50, 
+            max_value=2000, 
+            value=st.session_state.summary_length, 
+            step=10
+        )
+        st.session_state.selected_model = st.selectbox(
+            "Select Model", 
+            list(models.keys()),
+            index=list(models.keys()).index(st.session_state.selected_model) if st.session_state.selected_model in models else 0
+        )
+
+        # Context window slider
+        max_context = models[st.session_state.selected_model]['context_window']
+        st.session_state.context_window = st.slider(
+            "Context Window",
+            min_value=1,
+            max_value=max_context,
+            value=min(st.session_state.context_window, max_context),
+            step=1
+        )
+
+        # Temperature slider
+        st.session_state.temperature = st.slider(
+            "Temperature",
+            min_value=0.0,
+            max_value=1.0,
+            value=st.session_state.temperature,
+            step=0.01
+        )
+
+        # Comprehension Grade slider
+        grade_labels = [
+            "1st Grade", "2nd Grade", "3rd Grade", "4th Grade", "5th Grade",
+            "6th Grade", "7th Grade", "8th Grade", "9th Grade", "10th Grade",
+            "11th Grade", "12th Grade", "Baccalaureate", "Masters", "PhD"
+        ]
+        selected_grade = st.selectbox(
+            "Comprehension Grade",
+            options=grade_labels,
+            index=st.session_state.comprehension_grade - 1  # Adjust index from grade level
+        )
+        log_debug(f"Selected comprehension grade: {selected_grade}")
+        selected_grade_index = grade_labels.index(selected_grade) + 1
+        log_debug(f"Selected comprehension grade index: {selected_grade_index}")
+        st.session_state.comprehension_grade = selected_grade_index
+        log_debug(f"Updated comprehension grade in session state: {st.session_state.comprehension_grade}")
+
+    # Main content
     st.markdown(""" 
     <style>
     .stApp {
         max-width: 100%;
     }
     .main {
-        padding-top: 50px;
-        padding-left: 20%;
-        padding-right: 20%;
+        padding-top: 20px;
+        padding-left: 10%;
+        padding-right: 10%;
     }
     .stButton>button {
         background-color: #f8f9fa;
@@ -70,8 +179,6 @@ def main(api_key_arg: str = None, num_results: int = 10, max_tokens: int = 4096)
         text-align: center;
         cursor: pointer;
         user-select: none;
-        white-space: nowrap;
-        width: 100%;
     }
     .search-container {
         max-width: 600px;
@@ -110,8 +217,15 @@ def main(api_key_arg: str = None, num_results: int = 10, max_tokens: int = 4096)
 
     log_debug(f"Attempting to initialize Web_Agent with API key: {'[REDACTED]' if api_key else 'None'}")
     try:
-        agent = Web_Agent(api_key, num_results=num_results, max_tokens=max_tokens)
-        log_debug("Web_Agent initialized successfully")
+        agent = Web_Agent(
+            api_key,
+            num_results=st.session_state.num_results,
+            max_tokens=st.session_state.context_window,
+            model=st.session_state.selected_model,
+            temperature=st.session_state.temperature,
+            comprehension_grade=st.session_state.comprehension_grade
+        )
+        log_debug(f"Web_Agent initialized successfully with comprehension grade: {st.session_state.comprehension_grade}")
     except Exception as e:
         log_debug(f"Error initializing Web_Agent: {str(e)}")
         st.error(f"Error initializing Web_Agent: {str(e)}")
@@ -121,7 +235,7 @@ def main(api_key_arg: str = None, num_results: int = 10, max_tokens: int = 4096)
     
     st.image("images/logo.png", width=272)
 
-    query = st.text_input("Search query", key="search_bar", on_change=perform_search, label_visibility="collapsed")
+    query = st.text_input("Search query or enter a URL", key="search_bar", on_change=perform_search, label_visibility="collapsed")
 
     col1, col2, col3 = st.columns([2,1,2])
     with col1:
@@ -130,61 +244,119 @@ def main(api_key_arg: str = None, num_results: int = 10, max_tokens: int = 4096)
     with col3:
         json_results = st.checkbox("JSON Results", value=False, key="json_results")
 
-    st.markdown('</div>', unsafe_allow_html=True)
+    if query.startswith('http'):
+        with st.spinner('Summarizing...'):
+            summary = summarize_url(query, api_key, st.session_state.comprehension_grade, st.session_state.temperature)
+            display_results([summary], json_results, api_key)
+    elif st.session_state.get('search_results'):
+        display_results(st.session_state.search_results, json_results, api_key)
 
-    if st.session_state.get('search_results'):
-        display_results(st.session_state.search_results, json_results)
+    st.markdown('</div>', unsafe_allow_html=True)
 
 def perform_search():
     query = st.session_state.search_bar
     api_key = st.session_state.get('groq_api_key')
-    num_results = st.session_state.get('num_results', 10)
-    max_tokens = st.session_state.get('max_tokens', 4096)
+    num_results = st.session_state.num_results
+    summary_length = st.session_state.summary_length
+    selected_model = st.session_state.selected_model
+    context_window = st.session_state.context_window
+    temperature = st.session_state.temperature
+    comprehension_grade = st.session_state.comprehension_grade
+
+    log_debug(f"perform_search: comprehension_grade = {comprehension_grade}, temperature = {temperature}")
+
     if query and api_key:
-        with st.spinner('Searching...'):
-            log_debug(f"Performing search with query: {query}")
-            agent = Web_Agent(api_key, num_results=num_results, max_tokens=max_tokens)
+        with st.spinner('Processing...'):
+            log_debug(f"Processing query: {query}")
+            agent = Web_Agent(
+                api_key,
+                num_results=num_results,
+                max_tokens=context_window,
+                model=selected_model,
+                temperature=temperature,
+                comprehension_grade=comprehension_grade,
+                summary_length=summary_length
+            )
+            log_debug(f"Web_Agent initialized for search with comprehension grade: {comprehension_grade} and temperature: {temperature}")
             results = agent.process_request(query)
-            log_debug(f"Search completed. Number of results: {len(results)}")
+            log_debug(f"Processing completed. Number of results: {len(results)}")
         st.session_state.search_results = results
     else:
         if not api_key:
             st.error("Please provide a valid Groq API Key to perform the search.")
         if not query:
-            st.error("Please enter a search query.")
+            st.error("Please enter a search query or URL.")
 
-def display_results(results, json_format=False):
+def summarize_url(url, api_key, comprehension_grade, temperature):
+    summary_length = st.session_state.summary_length
+    try:
+        agent = Web_Agent(
+            api_key,
+            num_results=1,
+            max_tokens=4096,
+            comprehension_grade=comprehension_grade,
+            temperature=temperature,
+            summary_length=summary_length
+        )
+        log_debug(f"Web_Agent initialized for URL summary with comprehension grade: {comprehension_grade}, temperature: {temperature}, and summary_length: {summary_length}")
+        summary_result = agent.process_request(url)
+        if summary_result and len(summary_result) > 0:
+            return summary_result[0]
+        else:
+            return {"title": "Summary Error", "url": url, "description": "Unable to generate summary."}
+    except Exception as e:
+        log_debug(f"Error in summarize_url: {str(e)}")
+        return {"title": "Summary Error", "url": url, "description": f"Error generating summary: {str(e)}"}
+    
+def display_results(results, json_format=False, api_key=None):
+    log_debug(f"display_results called with {len(results)} results")
+    
     if results:
         st.markdown("---")
-        st.markdown('<div class="search-container">', unsafe_allow_html=True)
         st.markdown("### Search Results")
-        st.markdown('</div>', unsafe_allow_html=True)
         
         if json_format:
             st.json(results)
         else:
-            st.markdown('<div class="search-results">', unsafe_allow_html=True)
-            for result in results:
-                st.markdown(f"""
-                <div class="search-result">
-                    <a href="{result['url']}" class="search-result-title" target="_blank">{result['title']}</a>
-                    <div class="search-result-url">{result['url']}</div>
-                    <div class="search-result-description">{result['description']}</div>
-                </div>
-                """, unsafe_allow_html=True)
-            st.markdown('</div>', unsafe_allow_html=True)
+            for index, result in enumerate(results):
+                log_debug(f"Displaying result {index}: {result['url']}")
+                
+                col1, col2 = st.columns([0.9, 0.1])
+                with col1:
+                    st.markdown(f"### [{result['title']}]({result['url']})")
+                with col2:
+                    summary_button = st.button("📝", key=f"summary_{result['url']}", help="Get summary")
+                
+                st.markdown(f"*Source: {result['url']}*")
+                st.markdown(result['description'])
+                
+                if summary_button:
+                    with st.spinner("Generating summary..."):
+                        summary = summarize_url(result['url'], api_key, st.session_state.comprehension_grade, st.session_state.temperature)
+                        st.markdown("---")
+                        st.markdown(f"## Summary: {summary['title']}")
+                        st.markdown(f"*Source: [{summary['url']}]({summary['url']})*")
+                        st.markdown(summary['description'])
+                        st.markdown("---")
+                
+                st.markdown("---")  # Add a separator between results
+
     else:
         st.markdown("No results found.")
 
-def create_api_app(api_key_arg: str = None, num_results: int = 10, max_tokens: int = 4096):
+def create_api_app(api_key_arg: str = None, default_num_results: int = 10, default_max_tokens: int = 4096, default_summary_length: int = 300):
     app = Flask(__name__)
 
     @app.route('/search', methods=['POST'])
     def api_search():
         data = request.json
         query = data.get('query')
-        num_results = data.get('num_results', 10)
-        max_tokens = data.get('max_tokens', 4096)
+        num_results = data.get('num_results', default_num_results)
+        max_tokens = data.get('max_tokens', default_max_tokens)
+        summary_length = data.get('summary_length', default_summary_length)
+        model = data.get('model', 'mixtral-8x7b-32768')
+        temperature = data.get('temperature', 0.5)
+        comprehension_grade = data.get('comprehension_grade', 8)
         
         if not query:
             return jsonify({"error": "No query provided"}), 400
@@ -193,10 +365,22 @@ def create_api_app(api_key_arg: str = None, num_results: int = 10, max_tokens: i
         if not api_key:
             return jsonify({"error": "Groq API Key not set"}), 500
 
-        log_debug(f"API search endpoint hit with query: {query} and num_results: {num_results}")
-        agent = Web_Agent(api_key, num_results=num_results, max_tokens=max_tokens)
-        results = agent.process_request(query)
-        return jsonify(results)
+        log_debug(f"API search endpoint hit with query: {query}, num_results: {num_results}, summary_length: {summary_length}, model: {model}, max_tokens: {max_tokens}, temperature: {temperature}, comprehension_grade: {comprehension_grade}")
+        
+        try:
+            agent = Web_Agent(
+                api_key, 
+                num_results=num_results, 
+                max_tokens=max_tokens, 
+                model=model,
+                temperature=temperature,
+                comprehension_grade=comprehension_grade
+            )
+            results = agent.process_request(query)
+            return jsonify(results)
+        except Exception as e:
+            log_debug(f"Error in API search: {str(e)}")
+            return jsonify({"error": str(e)}), 500
 
     return app
 
@@ -207,12 +391,42 @@ if __name__ == "__main__":
     parser.add_argument('--num_results', type=int, default=10, help='Number of results to return.')
     parser.add_argument('--max_tokens', type=int, default=4096, help='Maximum number of tokens for the response.')
     parser.add_argument('--port', type=int, default=5000, help='Port number for the API server (only used in API mode).')
+    parser.add_argument('--default_summary_length', type=int, default=300, help='Default summary length in words.')
     args = parser.parse_args()
 
     if args.mode == 'app':
         log_debug("Running in app mode")
-        main(args.api_key, args.num_results, args.max_tokens)
+        main(args.api_key, args.num_results, args.max_tokens, args.default_summary_length)
     elif args.mode == 'api':
         log_debug(f"Running in API mode on port {args.port}")
-        app = create_api_app(args.api_key, args.num_results, args.max_tokens)
-        app.run(debug=True, port=args.port)
+        app = create_api_app(args.api_key, args.num_results, args.max_tokens, args.default_summary_length)
+
+        def print_startup_message():
+            print(f"\nGroqqle API is now running!")
+            print(f"Send POST requests to: http://localhost:{args.port}/search")
+            print("\nExample POST request body (JSON):")
+            print('''// Example 1: Search query
+{
+    "query": "latest developments in AI",
+    "num_results": 5,
+    "max_tokens": 4096,
+    "summary_length": 200,
+    "model": "mixtral-8x7b-32768",
+    "temperature": 0.5,
+    "comprehension_grade": 8
+}
+// Example 2: URL summary
+{
+    "query": "https://www.example.com/article-about-ai",
+    "max_tokens": 8192,
+    "summary_length": 500,
+    "model": "llama2-70b-4096",
+    "temperature": 0.7,
+    "comprehension_grade": 5
+}''')
+
+        # Only print the startup message once
+        print_startup_message()
+
+        # Run the Flask app without debug mode
+        app.run(host='0.0.0.0', port=args.port)
