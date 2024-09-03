@@ -211,6 +211,7 @@ class Web_Agent(Base_Agent):
         - Use vocabulary appropriate for this comprehension level
         - Adjust sentence structure complexity accordingly
         - Explain concepts in a way that would be clear to someone at this educational level
+        - Do not specifically mention the target's age or grade level in the summary response
 
         5. Clearly explain the main topic or discovery being discussed
         6. Highlight key points, findings, or arguments presented in the content

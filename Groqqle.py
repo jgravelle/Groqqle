@@ -121,10 +121,10 @@ def main(api_key_arg: str = None, num_results: int = 10, max_tokens: int = 4096,
         max_context = models[st.session_state.selected_model]['context_window']
         st.session_state.context_window = st.slider(
             "Context Window",
-            min_value=1,
+            min_value=1024,
             max_value=max_context,
             value=min(st.session_state.context_window, max_context),
-            step=1
+            step=1024
         )
 
         # Temperature slider
