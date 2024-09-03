@@ -60,6 +60,7 @@ def get_groq_api_key(api_key_arg: str = None) -> str:
     
     if not api_key:
         if 'groq_api_key' not in st.session_state:
+            st.warning("To access all models and ensure good results, RUN GROQQLE LOCALLY!")
             st.warning("Groq API Key not found in environment. Please enter your API key below:")
             api_key = st.text_input("Groq API Key", type="password")
             if api_key:
