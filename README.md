@@ -1,3 +1,5 @@
+Here's the revised README file with the minimum Python version changed to 3.11 and additional useful use case scenarios and examples for the API:
+
 # Groqqle: Your AI-Powered Search Engine
 
 ![Groqqle Logo](https://github.com/user-attachments/assets/1ff3686d-130f-4b63-ae4d-f0cf7bb6562e)
@@ -5,7 +7,7 @@
 Groqqle is an innovative, AI-powered search engine that combines the power of large language models with web search capabilities. It offers both a user-friendly web interface and a robust API for seamless integration into your projects.
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
-[![Python Version](https://img.shields.io/badge/python-3.8%2B-blue)](https://www.python.org/downloads/)
+[![Python Version](https://img.shields.io/badge/python-3.11%2B-blue)](https://www.python.org/downloads/)
 
 ## 🌟 Features
 
@@ -19,30 +21,30 @@ Groqqle is an innovative, AI-powered search engine that combines the power of la
 - 🔢 Configurable number of search results
 - 🔤 Customizable maximum token limit for responses
 
-![Groqqle Features](image-5.png)    
+![Groqqle Features](image-5.png)
 
 ## 🛠️ Installation
 
 1. Clone the repository:
-   ```
+   ```bash
    git clone https://github.com/jgravelle/Groqqle.git
    cd Groqqle
    ```
 
-2. Set up a virtual environment:
-   ```
-   python -m venv venv
-   source venv/bin/activate  # On Windows, use `venv\Scripts\activate`
+2. Set up a Conda environment:
+   ```bash
+   conda create --name groqqle python=3.11
+   conda activate groqqle
    ```
 
 3. Install the required packages:
-   ```
+   ```bash
    pip install -r requirements.txt
    ```
 
 4. Set up your environment variables:
    Create a `.env` file in the project root and add your Groq API key:
-   ```
+   ```env
    GROQ_API_KEY=your_api_key_here
    ```
 
@@ -50,9 +52,9 @@ Groqqle is an innovative, AI-powered search engine that combines the power of la
 
 ### Web Interface
 
-1. Start the Groqqle application:
-   ```
-   python Groqqle.py
+1. Start the Groqqle application using Streamlit:
+   ```bash
+   streamlit run Groqqle.py
    ```
 
 2. Open your web browser and navigate to the URL provided in the console output (typically `http://localhost:8501`).
@@ -68,7 +70,7 @@ Groqqle is an innovative, AI-powered search engine that combines the power of la
 The Groqqle API allows you to programmatically access search results. Here's how to use it:
 
 1. Start the Groqqle application in API mode:
-   ```
+   ```bash
    python Groqqle.py api --num_results 20 --max_tokens 4096
    ```
 
@@ -106,6 +108,94 @@ print(results)
 Make sure you have set the `GROQ_API_KEY` in your environment variables or `.env` file before starting the API server.
 
 ![Groqqle API Usage](image-3.png)
+
+### Simple and Useful Use Case Scenarios for Groqqle's API Mode
+
+1. **Content Summarization**
+
+   **Scenario:** A news aggregator app needs to summarize articles from various sources.
+
+   ```python
+   import requests
+
+   def summarize_article(url):
+       query = f"Summarize the main points of the article at {url}"
+       response = requests.post("http://127.0.0.1:5000/search", json={"query": query})
+       return response.json()["result"]
+
+   article_url = "https://example.com/article"
+   summary = summarize_article(article_url)
+   print(summary)
+   ```
+
+2. **Competitive Analysis**
+
+   **Scenario:** A business intelligence tool needs to compare a company with its competitors.
+
+   ```python
+   import requests
+
+   def analyze_competitors(company_name, competitors):
+       query = f"Compare {company_name} with its competitors: {', '.join(competitors)}"
+       response = requests.post("http://127.0.0.1:5000/search", json={"query": query})
+       return response.json()["result"]
+
+   company = "TechCorp"
+   competitors = ["RivalTech", "InnovaCo", "TechGiant"]
+   analysis = analyze_competitors(company, competitors)
+   print(analysis)
+   ```
+
+3. **Research Assistant**
+
+   **Scenario:** An educational platform needs to provide comprehensive overviews of various topics.
+
+   ```python
+   import requests
+
+   def research_topic(topic, depth="brief"):
+       query = f"Provide a {depth} overview of {topic}, including key concepts and recent developments"
+       response = requests.post("http://127.0.0.1:5000/search", json={"query": query})
+       return response.json()["result"]
+
+   topic = "Quantum Computing"
+   research_result = research_topic(topic, "comprehensive")
+   print(research_result)
+   ```
+
+4. **Sentiment Analysis of Product Reviews**
+
+   **Scenario:** An e-commerce platform needs to analyze the sentiment of customer reviews.
+
+   ```python
+   import requests
+
+   def analyze_sentiment(review):
+       query = f"Analyze the sentiment of the following review: '{review}'"
+       response = requests.post("http://127.0.0.1:5000/search", json={"query": query})
+       return response.json()["result"]
+
+   review = "The product is excellent and exceeded my expectations!"
+   sentiment_analysis = analyze_sentiment(review)
+   print(sentiment_analysis)
+   ```
+
+5. **Legal Document Summarization**
+
+   **Scenario:** A legal firm needs to summarize lengthy legal documents into key points.
+
+   ```python
+   import requests
+
+   def summarize_legal_document(document_url):
+       query = f"Summarize the main points of the legal document at {document_url}"
+       response = requests.post("http://127.0.0.1:5000/search", json={"query": query})
+       return response.json()["result"]
+
+   document_url = "https://example.com/legal-document"
+   summary = summarize_legal_document(document_url)
+   print(summary)
+   ```
 
 ## 🔄 AI Providers
 
