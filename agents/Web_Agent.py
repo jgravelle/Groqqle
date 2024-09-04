@@ -205,7 +205,7 @@ class Web_Agent(Base_Agent):
 
         return f"""
         Summarize the following web content from {url} for {grade_description}:
-        {content[:6000]}  # Limit content to first 6000 characters
+        {content}
 
         Your task is to provide a comprehensive and informative synopsis of the main subject matter, along with an SEO-optimized headline. Follow these guidelines:
 
@@ -213,8 +213,9 @@ class Web_Agent(Base_Agent):
         - Captures user interest without sensationalism
         - Accurately represents the main topic
         - Uses relevant keywords
-        - Is concise (ideally 50-60 characters)
+        - Is concise
         - Maintains professionalism
+        - Does not begin with anything akin to "Imagine" or "Picture this"
         
         2. Format your headline exactly as follows:
         HEADLINE: [Your SEO-optimized headline here]

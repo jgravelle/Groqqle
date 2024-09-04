@@ -12,6 +12,7 @@ Groqqle is an innovative, AI-powered search engine that combines the power of la
 ## 🌟 Features
 
 - 🔍 Advanced search capabilities powered by AI
+- 📰 Web and News search options
 - 🖥️ Intuitive web interface for easy searching
 - 🚀 Fast and efficient results using Groq's high-speed inference
 - 🔌 RESTful API for programmatic access
@@ -59,15 +60,21 @@ Groqqle is an innovative, AI-powered search engine that combines the power of la
 
 2. Open your web browser and navigate to the URL provided in the console output (typically `http://localhost:8501`).
 
-3. Enter your search query in the search bar and click "Groqqle Search" or press Enter.
+3. Enter your search query in the search bar.
 
-4. View your results! Toggle the "JSON Results" checkbox to see the raw JSON data.
+4. Choose between "Web" and "News" search using the radio buttons.
+
+5. Click "Groqqle Search" or press Enter.
+
+6. View your results! Toggle the "JSON Results" checkbox to see the raw JSON data.
+
+7. For both web and news results, you can click the "📝" button next to each result to get a summary of the article or webpage.
 
 ![Groqqle Web Interface](image-2.png)
 
 ### API
 
-The Groqqle API allows you to programmatically access search results. Here's how to use it:
+The Groqqle API allows you to programmatically access search results for both web and news. Here's how to use it:
 
 1. Start the Groqqle application in API mode:
    ```bash
@@ -81,13 +88,14 @@ The Groqqle API allows you to programmatically access search results. Here's how
    {
      "query": "your search query",
      "num_results": 20,
-     "max_tokens": 4096
+     "max_tokens": 4096,
+     "search_type": "web"  // Use "web" for web search or "news" for news search
    }
    ```
 
    Note: The API key is managed through environment variables, so you don't need to include it in the request.
 
-4. The API will return a JSON response with your search results in the order: title, description, URL.
+4. The API will return a JSON response with your search results in the order: title, description, URL, source, and timestamp (for news results).
 
 Example using Python's `requests` library:
 
@@ -98,7 +106,8 @@ url = "http://127.0.0.1:5000/search"
 data = {
     "query": "Groq",
     "num_results": 20,
-    "max_tokens": 4096
+    "max_tokens": 4096,
+    "search_type": "news"  # Change to "web" for web search
 }
 response = requests.post(url, json=data)
 results = response.json()
@@ -195,6 +204,27 @@ Make sure you have set the `GROQ_API_KEY` in your environment variables or `.env
    document_url = "https://example.com/legal-document"
    summary = summarize_legal_document(document_url)
    print(summary)
+   ```
+
+6. **News Monitoring and Analysis**
+
+   **Scenario:** A media monitoring service needs to track and analyze news about specific topics or companies.
+
+   ```python
+   import requests
+
+   def monitor_news(topic, days=1):
+       query = f"Latest news about {topic} in the past {days} day(s)"
+       response = requests.post("http://127.0.0.1:5000/search", json={
+           "query": query,
+           "search_type": "news",
+           "num_results": 50
+       })
+       return response.json()["result"]
+
+   topic = "Artificial Intelligence"
+   news_analysis = monitor_news(topic, days=7)
+   print(news_analysis)
    ```
 
 ## 🔄 AI Providers

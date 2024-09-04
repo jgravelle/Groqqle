@@ -82,7 +82,7 @@ def get_groq_api_key(api_key_arg: str = None) -> str:
         log_debug("API key from environment stored in session state")
     
     return api_key
-
+    
 
 def update_sidebar(models):
     with st.sidebar:
@@ -734,6 +734,7 @@ class Web_Agent(Base_Agent):
         - Uses relevant keywords
         - Is concise (ideally 50-60 characters)
         - Maintains professionalism
+        - Does not begin with anything akin to "Imagine" or "Picture this"
         
         2. Format your headline exactly as follows:
         HEADLINE: [Your SEO-optimized headline here]

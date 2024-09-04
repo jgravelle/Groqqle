@@ -8,6 +8,7 @@ import requests
 import logging
 
 from agents.Web_Agent import Web_Agent
+from agents.News_Agent import News_Agent  # Import the new News_Agent
 
 # Load environment variables from .env file
 load_dotenv()
@@ -153,7 +154,7 @@ def main(api_key_arg: str = None, num_results: int = 10, max_tokens: int = 4096,
     if 'temperature' not in st.session_state:
         st.session_state.temperature = 0.5
     if 'comprehension_grade' not in st.session_state:
-        st.session_state.comprehension_grade = 8  # Default comprehension grade
+        st.session_state.comprehension_grade = 8
     if 'context_window' not in st.session_state:
         st.session_state.context_window = max_tokens
     if 'models' not in st.session_state:
@@ -161,6 +162,8 @@ def main(api_key_arg: str = None, num_results: int = 10, max_tokens: int = 4096,
             "mixtral-8x7b-32768": {"id": "mixtral-8x7b-32768", "context_window": 32768},
             "llama2-70b-4096": {"id": "llama2-70b-4096", "context_window": 4096}
         }
+    if 'search_type' not in st.session_state:
+        st.session_state.search_type = "Web"  # Default to Web search
 
     api_key = get_groq_api_key(api_key_arg)
 
@@ -233,37 +236,26 @@ def main(api_key_arg: str = None, num_results: int = 10, max_tokens: int = 4096,
         st.error("Please provide a valid Groq API Key to use the application.")
         return
 
-    log_debug(f"Attempting to initialize Web_Agent with API key: {'[REDACTED]' if api_key else 'None'}")
-    try:
-        agent = Web_Agent(
-            api_key,
-            num_results=st.session_state.num_results,
-            max_tokens=st.session_state.context_window,
-            model=st.session_state.selected_model,
-            temperature=st.session_state.temperature,
-            comprehension_grade=st.session_state.comprehension_grade
-        )
-        log_debug(f"Web_Agent initialized successfully with comprehension grade: {st.session_state.comprehension_grade}")
-    except Exception as e:
-        log_debug(f"Error initializing Web_Agent: {str(e)}")
-        st.error(f"Error initializing Web_Agent: {str(e)}")
-        return
-
     st.markdown('<div class="search-container">', unsafe_allow_html=True)
     
     st.image("images/logo.png", width=272)
 
     query = st.text_input("Search query or enter a URL", key="search_bar", on_change=perform_search, label_visibility="collapsed")
 
-    col1, col2, col3 = st.columns([2,1,2])
+    col1, col2, col3, col4 = st.columns([2,1,1,2])
     with col1:
         if st.button("Groqqle Search", key="search_button"):
             perform_search()
-    with col3:
+    with col2:
+        search_type = st.radio("Search Type", ["Web", "News"], index=0, key="search_type")
+        if search_type != st.session_state.search_type:
+            st.session_state.search_type = search_type
+            st.session_state.search_results = None  # Clear previous results when switching search type
+    with col4:
         json_results = st.checkbox("JSON Results", value=False, key="json_results")
 
-    if query.startswith('http'):
-        with st.spinner('Summarizing...'):
+    if query.startswith(('http://', 'https://')):
+        with st.spinner('Summarizing URL...'):
             summary = summarize_url(query, api_key, st.session_state.comprehension_grade, st.session_state.temperature)
             display_results([summary], json_results, api_key)
     elif st.session_state.get('search_results'):
@@ -280,23 +272,46 @@ def perform_search():
     context_window = st.session_state.context_window
     temperature = st.session_state.temperature
     comprehension_grade = st.session_state.comprehension_grade
+    search_type = st.session_state.search_type
 
-    log_debug(f"perform_search: comprehension_grade = {comprehension_grade}, temperature = {temperature}")
+    log_debug(f"perform_search: comprehension_grade = {comprehension_grade}, temperature = {temperature}, search_type = {search_type}")
 
     if query and api_key:
         with st.spinner('Processing...'):
             log_debug(f"Processing query: {query}")
-            agent = Web_Agent(
-                api_key,
-                num_results=num_results,
-                max_tokens=context_window,
-                model=selected_model,
-                temperature=temperature,
-                comprehension_grade=comprehension_grade,
-                summary_length=summary_length
-            )
-            log_debug(f"Web_Agent initialized for search with comprehension grade: {comprehension_grade} and temperature: {temperature}")
-            results = agent.process_request(query)
+            if query.startswith(('http://', 'https://')):
+                agent = Web_Agent(
+                    api_key,
+                    num_results=1,
+                    max_tokens=context_window,
+                    model=selected_model,
+                    temperature=temperature,
+                    comprehension_grade=comprehension_grade,
+                    summary_length=summary_length
+                )
+                results = [summarize_url(query, api_key, comprehension_grade, temperature)]
+            elif search_type == "Web":
+                agent = Web_Agent(
+                    api_key,
+                    num_results=num_results,
+                    max_tokens=context_window,
+                    model=selected_model,
+                    temperature=temperature,
+                    comprehension_grade=comprehension_grade,
+                    summary_length=summary_length
+                )
+                results = agent.process_request(query)
+            else:  # News search
+                agent = News_Agent(
+                    api_key,
+                    num_results=num_results,
+                    max_tokens=context_window,
+                    model=selected_model,
+                    temperature=temperature,
+                    comprehension_grade=comprehension_grade
+                )
+                results = agent.process_request(query)
+            
             log_debug(f"Processing completed. Number of results: {len(results)}")
         st.session_state.search_results = results
     else:
@@ -325,7 +340,8 @@ def summarize_url(url, api_key, comprehension_grade, temperature):
     except Exception as e:
         log_debug(f"Error in summarize_url: {str(e)}")
         return {"title": "Summary Error", "url": url, "description": f"Error generating summary: {str(e)}"}
-    
+
+
 def display_results(results, json_format=False, api_key=None):
     log_debug(f"display_results called with {len(results)} results")
     
@@ -345,7 +361,9 @@ def display_results(results, json_format=False, api_key=None):
                 with col2:
                     summary_button = st.button("📝", key=f"summary_{result['url']}", help="Get summary")
                 
-                st.markdown(f"*Source: {result['url']}*")
+                st.markdown(f"*Source: {result.get('source', 'Unknown')}*")
+                if 'timestamp' in result:
+                    st.markdown(f"*Published: {result['timestamp']}*")
                 st.markdown(result['description'])
                 
                 if summary_button:
@@ -375,6 +393,7 @@ def create_api_app(api_key_arg: str = None, default_num_results: int = 10, defau
         model = data.get('model', 'mixtral-8x7b-32768')
         temperature = data.get('temperature', 0.5)
         comprehension_grade = data.get('comprehension_grade', 8)
+        search_type = data.get('search_type', 'web').lower()  # Default to 'web' if not provided
         
         if not query:
             return jsonify({"error": "No query provided"}), 400
@@ -383,17 +402,31 @@ def create_api_app(api_key_arg: str = None, default_num_results: int = 10, defau
         if not api_key:
             return jsonify({"error": "Groq API Key not set"}), 500
 
-        log_debug(f"API search endpoint hit with query: {query}, num_results: {num_results}, summary_length: {summary_length}, model: {model}, max_tokens: {max_tokens}, temperature: {temperature}, comprehension_grade: {comprehension_grade}")
+        log_debug(f"API search endpoint hit with query: {query}, num_results: {num_results}, summary_length: {summary_length}, model: {model}, max_tokens: {max_tokens}, temperature: {temperature}, comprehension_grade: {comprehension_grade}, search_type: {search_type}")
         
         try:
-            agent = Web_Agent(
-                api_key, 
-                num_results=num_results, 
-                max_tokens=max_tokens, 
-                model=model,
-                temperature=temperature,
-                comprehension_grade=comprehension_grade
-            )
+            if search_type == 'web':
+                agent = Web_Agent(
+                    api_key, 
+                    num_results=num_results, 
+                    max_tokens=max_tokens, 
+                    model=model,
+                    temperature=temperature,
+                    comprehension_grade=comprehension_grade,
+                    summary_length=summary_length
+                )
+            elif search_type == 'news':
+                agent = News_Agent(
+                    api_key, 
+                    num_results=num_results,  # Correctly pass num_results to News_Agent
+                    max_tokens=max_tokens, 
+                    model=model,
+                    temperature=temperature,
+                    comprehension_grade=comprehension_grade
+                )
+            else:
+                return jsonify({"error": "Invalid search type. Use 'web' or 'news'."}), 400
+
             results = agent.process_request(query)
             return jsonify(results)
         except Exception as e:
@@ -423,25 +456,18 @@ if __name__ == "__main__":
             print(f"\nGroqqle API is now running!")
             print(f"Send POST requests to: http://localhost:{args.port}/search")
             print("\nExample POST request body (JSON):")
-            print('''// Example 1: Search query
-{
-    "query": "latest developments in AI",
-    "num_results": 5,
-    "max_tokens": 4096,
-    "summary_length": 200,
-    "model": "mixtral-8x7b-32768",
-    "temperature": 0.5,
-    "comprehension_grade": 8
-}
-// Example 2: URL summary
-{
-    "query": "https://www.example.com/article-about-ai",
-    "max_tokens": 8192,
-    "summary_length": 500,
-    "model": "llama2-70b-4096",
-    "temperature": 0.7,
-    "comprehension_grade": 5
-}''')
+            print('''
+            {
+                "query": "latest developments in AI",
+                "num_results": 5,
+                "max_tokens": 4096,
+                "summary_length": 200,
+                "model": "mixtral-8x7b-32768",
+                "temperature": 0.5,
+                "comprehension_grade": 8,
+                "search_type": "web"  // Use "web" for web search or "news" for news search
+            }
+            ''')
 
         # Only print the startup message once
         print_startup_message()
