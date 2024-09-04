@@ -172,6 +172,7 @@ class News_Agent(Base_Agent):
         7. Provide relevant context or background information that helps understand the topic
         8. Mention any significant implications, applications, or future directions discussed
         9. If applicable, include important quotes or statistics that support the main points
+        10.  Never discuss or reference the reference material, article, video, source, or author in the summary
 
         Your summary should be approximately 200 words long. Use a neutral, journalistic tone, and ensure that you're reporting the facts as presented in the content, not adding personal opinions or speculation.
 
