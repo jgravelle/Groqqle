@@ -32,15 +32,18 @@ def WebSearch_Tool(query: str, num_results: int = 10):
 
         search_results = []
         for g in soup.find_all('div', class_='g'):
+            anchor = g.find('a')
             title = g.find('h3').text if g.find('h3') else 'No title'
-            url = g.find('a')['href'] if g.find('a') else 'No URL'
+            url = anchor.get('href', 'No URL') if anchor else 'No URL'
             
             # Extracting the description
             description = ''
-            # Try different possible classes for the description
-            description_div = g.find('div', class_='VwiC3b')
+            description_div = g.find('div', class_=['VwiC3b', 'yXK7lf']) # Add more classes if needed
             if description_div:
-                description = description_div.get_text()
+                description = description_div.get_text(strip=True)
+            else:
+                # Fallback: try to get any text content if the specific class is not found
+                description = g.get_text(strip=True)
 
             search_results.append({
                 'title': title,

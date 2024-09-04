@@ -2,41 +2,43 @@ import os
 import sys
 import argparse
 import streamlit as st
-from PIL import Image
 from dotenv import load_dotenv
 from flask import Flask, request, jsonify
 import requests
 import logging
 
+from agents.Web_Agent import Web_Agent
+
+# Load environment variables from .env file
 load_dotenv()
 
-# Set up logging with UTF-8 encoding
-logging.basicConfig(filename='debug_info.txt', level=logging.DEBUG, format='%(asctime)s - %(levelname)s - %(message)s', encoding='utf-8', force=True)
+# Set up logging only if DEBUG is True in .env
+DEBUG = os.getenv('DEBUG', 'False').lower() == 'true'
 
-# Function to sanitize messages
+if DEBUG:
+    logging.basicConfig(
+        filename='debug_info.txt',
+        level=logging.DEBUG,
+        format='%(asctime)s - %(levelname)s - %(message)s',
+        encoding='utf-8',
+        force=True
+    )
+else:
+    # Set up a null handler to avoid "No handler found" warnings
+    logging.getLogger().addHandler(logging.NullHandler())
+
+def log_debug(message):
+    if DEBUG:
+        logging.debug(sanitize_message(message))
+
 def sanitize_message(message):
     try:
         return message.encode("utf-8").decode("utf-8")
     except UnicodeEncodeError:
         return message.encode("ascii", "ignore").decode("ascii")
 
-def log_debug(message):
-    sanitized_message = sanitize_message(message)
-    logging.debug(sanitized_message)
-
-log_debug(f"Current working directory: {os.getcwd()}")
-log_debug(f"Current sys.path: {sys.path}")
-
-# Add the parent directory to sys.path
-parent_dir = os.path.dirname(os.path.abspath(__file__))
-if parent_dir not in sys.path:
-    sys.path.append(parent_dir)
-
-from agents.Web_Agent import Web_Agent
-
 @st.cache_data
-def fetch_groq_models():
-    api_key = os.environ.get("GROQ_API_KEY")
+def fetch_groq_models(api_key):
     url = "https://api.groq.com/openai/v1/models"
     headers = {
         "Authorization": f"Bearer {api_key}",
@@ -65,7 +67,9 @@ def get_groq_api_key(api_key_arg: str = None) -> str:
             api_key = st.text_input("Groq API Key", type="password")
             if api_key:
                 st.session_state.groq_api_key = api_key
-                log_debug("API key entered by user and stored in session state")
+                st.session_state.models = fetch_groq_models(api_key)  # Fetch models after API key is entered
+                st.experimental_rerun()  # Rerun the app to update the sidebar
+            log_debug("API key entered by user and stored in session state")
         else:
             api_key = st.session_state.groq_api_key
             log_debug("API key retrieved from session state")
@@ -75,27 +79,7 @@ def get_groq_api_key(api_key_arg: str = None) -> str:
     
     return api_key
 
-def main(api_key_arg: str = None, num_results: int = 10, max_tokens: int = 4096, default_summary_length: int = 300):
-    st.set_page_config(page_title="Groqqle", layout="centered", initial_sidebar_state="collapsed")
-
-    # Initialize session state
-    if 'num_results' not in st.session_state:
-        st.session_state.num_results = num_results
-    if 'summary_length' not in st.session_state:
-        st.session_state.summary_length = default_summary_length
-    if 'selected_model' not in st.session_state:
-        st.session_state.selected_model = "mixtral-8x7b-32768"
-    if 'temperature' not in st.session_state:
-        st.session_state.temperature = 0.5
-    if 'comprehension_grade' not in st.session_state:
-        st.session_state.comprehension_grade = 8  # Default comprehension grade
-    if 'context_window' not in st.session_state:
-        st.session_state.context_window = max_tokens
-
-    # Fetch models
-    models = fetch_groq_models()
-
-    # Sidebar
+def update_sidebar(models):
     with st.sidebar:
         st.title("Settings")
         st.session_state.num_results = st.slider(
@@ -154,6 +138,39 @@ def main(api_key_arg: str = None, num_results: int = 10, max_tokens: int = 4096,
         st.session_state.comprehension_grade = selected_grade_index
         log_debug(f"Updated comprehension grade in session state: {st.session_state.comprehension_grade}")
 
+def main(api_key_arg: str = None, num_results: int = 10, max_tokens: int = 4096, default_summary_length: int = 300):
+    st.set_page_config(page_title="Groqqle", layout="centered", initial_sidebar_state="collapsed")
+
+    # Initialize session state
+    if 'num_results' not in st.session_state:
+        st.session_state.num_results = num_results
+    if 'summary_length' not in st.session_state:
+        st.session_state.summary_length = default_summary_length
+    if 'selected_model' not in st.session_state:
+        st.session_state.selected_model = "mixtral-8x7b-32768"
+    if 'temperature' not in st.session_state:
+        st.session_state.temperature = 0.5
+    if 'comprehension_grade' not in st.session_state:
+        st.session_state.comprehension_grade = 8  # Default comprehension grade
+    if 'context_window' not in st.session_state:
+        st.session_state.context_window = max_tokens
+    if 'models' not in st.session_state:
+        st.session_state.models = {
+            "mixtral-8x7b-32768": {"id": "mixtral-8x7b-32768", "context_window": 32768},
+            "llama2-70b-4096": {"id": "llama2-70b-4096", "context_window": 4096}
+        }
+
+    api_key = get_groq_api_key(api_key_arg)
+
+    if api_key:
+        if 'models' not in st.session_state or st.session_state.models == {
+            "mixtral-8x7b-32768": {"id": "mixtral-8x7b-32768", "context_window": 32768},
+            "llama2-70b-4096": {"id": "llama2-70b-4096", "context_window": 4096}
+        }:
+            st.session_state.models = fetch_groq_models(api_key)
+
+    update_sidebar(st.session_state.models)
+
     # Main content
     st.markdown(""" 
     <style>
@@ -209,8 +226,6 @@ def main(api_key_arg: str = None, num_results: int = 10, max_tokens: int = 4096,
     }
     </style>
     """, unsafe_allow_html=True)
-
-    api_key = get_groq_api_key(api_key_arg)
 
     if not api_key:
         st.error("Please provide a valid Groq API Key to use the application.")

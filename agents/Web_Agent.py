@@ -9,11 +9,23 @@ from agents.Base_Agent import Base_Agent
 
 import logging
 
-# Configure logging
-logging.basicConfig(filename='debug_info.txt', level=logging.DEBUG, format='%(asctime)s - %(levelname)s - %(message)s', encoding='utf-8')
+# Set up logging only if DEBUG is True in .env
+DEBUG = os.getenv('DEBUG', 'False').lower() == 'true'
+
+if DEBUG:
+    logging.basicConfig(
+        filename='debug_info.txt',
+        level=logging.DEBUG,
+        format='%(asctime)s - %(levelname)s - %(message)s',
+        encoding='utf-8'
+    )
+else:
+    # Set up a null handler to avoid "No handler found" warnings
+    logging.getLogger().addHandler(logging.NullHandler())
 
 def log_debug(message):
-    logging.debug(sanitize_message(message))
+    if DEBUG:
+        logging.debug(sanitize_message(message))
 
 def sanitize_message(message):
     try:
@@ -21,23 +33,29 @@ def sanitize_message(message):
     except UnicodeEncodeError:
         return message.encode("ascii", "ignore").decode("ascii")
 
-log_debug(f"Current working directory: {os.getcwd()}")
-log_debug(f"Current sys.path: {sys.path}")
+if DEBUG:
+    log_debug(f"Current working directory: {os.getcwd()}")
+    log_debug(f"Current sys.path: {sys.path}")
 
 # Add the parent directory to sys.path
 parent_dir = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 if parent_dir not in sys.path:
     sys.path.append(parent_dir)
-    log_debug(f"Added parent directory to sys.path: {parent_dir}")
-log_debug(f"Updated sys.path: {sys.path}")
+    if DEBUG:
+        log_debug(f"Added parent directory to sys.path: {parent_dir}")
+if DEBUG:
+    log_debug(f"Updated sys.path: {sys.path}")
 
 try:
-    log_debug("Attempting to import ProviderFactory")
+    if DEBUG:
+        log_debug("Attempting to import ProviderFactory")
     from providers.provider_factory import ProviderFactory
-    log_debug("ProviderFactory imported successfully")
+    if DEBUG:
+        log_debug("ProviderFactory imported successfully")
 except ImportError as e:
-    log_debug(f"Error importing ProviderFactory: {str(e)}")
-    log_debug(f"Traceback:\n{traceback.format_exc()}")
+    if DEBUG:
+        log_debug(f"Error importing ProviderFactory: {str(e)}")
+        log_debug(f"Traceback:\n{traceback.format_exc()}")
     ProviderFactory = None
 
 class Web_Agent(Base_Agent):
