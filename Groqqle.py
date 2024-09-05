@@ -369,13 +369,19 @@ def display_results(results, json_format=False, api_key=None):
                     # For news search, extract root domain from URL
                     ext = tldextract.extract(result['url'])
                     source = f"{ext.domain}.{ext.suffix}"
-                else:
-                    # For web search, use the original source
-                    source = result.get('source', 'Unknown')
-                
-                st.markdown(f"*Source: {source}*")
-                if is_news_search:
+                    st.markdown(f"*Source: {source}*")
                     st.markdown(f"*Published: {result['timestamp']}*")
+                else:
+                    # For web search, use the original source if available
+                    source = result.get('source')
+                    if source and source != 'Unknown':
+                        st.markdown(f"*Source: {source}*")
+                    else:
+                        # Fallback to domain extraction if source is not available or Unknown
+                        ext = tldextract.extract(result['url'])
+                        source = f"{ext.domain}.{ext.suffix}"
+                        st.markdown(f"*Source: {source}*")
+                
                 st.markdown(result['description'])
                 
                 if summary_button:

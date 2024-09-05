@@ -67,7 +67,7 @@ def get_groq_api_key(api_key_arg: str = None) -> str:
     
     if not api_key:
         if 'groq_api_key' not in st.session_state:
-            st.warning("To access all models and ensure good results, RUN GROQQLE LOCALLY!")
+            st.write("To run Groqqle locally, you need to set up a Groq API key. You can get one by signing up at [Groq](https://groq.com/).")
             st.warning("Groq API Key not found in environment. Please enter your API key below:")
             api_key = st.text_input("Groq API Key", type="password", key="api_key_input")
             if api_key:
@@ -372,13 +372,19 @@ def display_results(results, json_format=False, api_key=None):
                     # For news search, extract root domain from URL
                     ext = tldextract.extract(result['url'])
                     source = f"{ext.domain}.{ext.suffix}"
-                else:
-                    # For web search, use the original source
-                    source = result.get('source', 'Unknown')
-                
-                st.markdown(f"*Source: {source}*")
-                if is_news_search:
+                    st.markdown(f"*Source: {source}*")
                     st.markdown(f"*Published: {result['timestamp']}*")
+                else:
+                    # For web search, use the original source if available
+                    source = result.get('source')
+                    if source and source != 'Unknown':
+                        st.markdown(f"*Source: {source}*")
+                    else:
+                        # Fallback to domain extraction if source is not available or Unknown
+                        ext = tldextract.extract(result['url'])
+                        source = f"{ext.domain}.{ext.suffix}"
+                        st.markdown(f"*Source: {source}*")
+                
                 st.markdown(result['description'])
                 
                 if summary_button:
