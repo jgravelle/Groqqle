@@ -9,6 +9,7 @@ import logging
 
 from agents.Web_Agent import Web_Agent
 from agents.News_Agent import News_Agent  # Import the new News_Agent
+from urllib.parse import urlparse
 
 # Load environment variables from .env file
 load_dotenv()
@@ -361,7 +362,13 @@ def display_results(results, json_format=False, api_key=None):
                 with col2:
                     summary_button = st.button("📝", key=f"summary_{result['url']}", help="Get summary")
                 
-                st.markdown(f"*Source: {result.get('source', 'Unknown')}*")
+                source = result.get('source', 'Unknown')
+                if source == 'Unknown':
+                    # Extract domain from URL if source is unknown
+                    parsed_url = urlparse(result['url'])
+                    source = parsed_url.netloc
+                
+                st.markdown(f"*Source: {source}*")
                 if 'timestamp' in result:
                     st.markdown(f"*Published: {result['timestamp']}*")
                 st.markdown(result['description'])
