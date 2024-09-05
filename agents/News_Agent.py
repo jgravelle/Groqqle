@@ -160,6 +160,7 @@ class News_Agent(Base_Agent):
         - Present the most important information first
         - Follow with supporting details and context
         - End with the least essential information
+        - Don't mention the parts of the pyramid. Just follow the structure. No need to say "in conclusion" in the conclusion, for example.
 
         4. Adjust the language complexity strictly targeted to the reading level for {grade_description}. This means:
         - Use vocabulary appropriate for this comprehension level
