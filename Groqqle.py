@@ -1,14 +1,14 @@
-import os
-import sys
 import argparse
-import streamlit as st
-from dotenv import load_dotenv
-from flask import Flask, request, jsonify
-import requests
 import logging
+import os
+import requests
+import streamlit as st
+import tldextract
 
 from agents.Web_Agent import Web_Agent
 from agents.News_Agent import News_Agent  # Import the new News_Agent
+from dotenv import load_dotenv
+from flask import Flask, request, jsonify
 from urllib.parse import urlparse
 
 # Load environment variables from .env file
@@ -362,14 +362,19 @@ def display_results(results, json_format=False, api_key=None):
                 with col2:
                     summary_button = st.button("📝", key=f"summary_{result['url']}", help="Get summary")
                 
-                source = result.get('source', 'Unknown')
-                if source == 'Unknown':
-                    # Extract domain from URL if source is unknown
-                    parsed_url = urlparse(result['url'])
-                    source = parsed_url.netloc
+                # Determine if this is a news search result
+                is_news_search = 'timestamp' in result
+                
+                if is_news_search:
+                    # For news search, extract root domain from URL
+                    ext = tldextract.extract(result['url'])
+                    source = f"{ext.domain}.{ext.suffix}"
+                else:
+                    # For web search, use the original source
+                    source = result.get('source', 'Unknown')
                 
                 st.markdown(f"*Source: {source}*")
-                if 'timestamp' in result:
+                if is_news_search:
                     st.markdown(f"*Published: {result['timestamp']}*")
                 st.markdown(result['description'])
                 

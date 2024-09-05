@@ -1,17 +1,17 @@
 # Groqqle.py
 
 ```python
-import os
-import sys
 import argparse
-import streamlit as st
-from dotenv import load_dotenv
-from flask import Flask, request, jsonify
-import requests
 import logging
+import os
+import requests
+import streamlit as st
+import tldextract
 
 from agents.Web_Agent import Web_Agent
 from agents.News_Agent import News_Agent  # Import the new News_Agent
+from dotenv import load_dotenv
+from flask import Flask, request, jsonify
 from urllib.parse import urlparse
 
 # Load environment variables from .env file
@@ -365,14 +365,19 @@ def display_results(results, json_format=False, api_key=None):
                 with col2:
                     summary_button = st.button("📝", key=f"summary_{result['url']}", help="Get summary")
                 
-                source = result.get('source', 'Unknown')
-                if source == 'Unknown':
-                    # Extract domain from URL if source is unknown
-                    parsed_url = urlparse(result['url'])
-                    source = parsed_url.netloc
+                # Determine if this is a news search result
+                is_news_search = 'timestamp' in result
+                
+                if is_news_search:
+                    # For news search, extract root domain from URL
+                    ext = tldextract.extract(result['url'])
+                    source = f"{ext.domain}.{ext.suffix}"
+                else:
+                    # For web search, use the original source
+                    source = result.get('source', 'Unknown')
                 
                 st.markdown(f"*Source: {source}*")
-                if 'timestamp' in result:
+                if is_news_search:
                     st.markdown(f"*Published: {result['timestamp']}*")
                 st.markdown(result['description'])
                 
@@ -612,7 +617,7 @@ class News_Agent(Base_Agent):
         log_debug(f"Performing news search with query: {query} and num_results: {self.num_results}")
         
         encoded_query = quote_plus(query)
-        base_url = f"https://www.bing.com/news/search?q={encoded_query}"
+        base_url = f'https://www.bing.com/news/search?q={encoded_query}&qft=interval%3d"7"'
         
         headers = {
             'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36',
