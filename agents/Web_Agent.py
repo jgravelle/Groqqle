@@ -174,6 +174,8 @@ class Web_Agent(Base_Agent):
             if result['url'] not in seen_urls:
                 seen_urls.add(result['url'])
                 unique_results.append(result)
+            else:
+                log_debug(f"Duplicate URL found and removed: {result['url']}")
         log_debug(f"Deduplication completed. Number of unique results: {len(unique_results)}")
         return unique_results
 

@@ -348,7 +348,6 @@ def display_results(results, json_format=False, api_key=None):
     
     if results:
         st.markdown("---")
-        st.markdown("### Search Results")
         
         if json_format:
             st.json(results)
@@ -358,9 +357,10 @@ def display_results(results, json_format=False, api_key=None):
                 
                 col1, col2 = st.columns([0.9, 0.1])
                 with col1:
-                    st.markdown(f"### [{result['title']}]({result['url']})")
+                    st.markdown(f"#### [{result['title']}]({result['url']})")
                 with col2:
-                    summary_button = st.button("📝", key=f"summary_{result['url']}", help="Get summary")
+                    # Use a combination of index and URL to create a unique key
+                    summary_button = st.button("📝", key=f"summary_{index}_{result['url']}", help="Get summary")
                 
                 # Determine if this is a news search result
                 is_news_search = 'timestamp' in result
@@ -388,7 +388,7 @@ def display_results(results, json_format=False, api_key=None):
                     with st.spinner("Generating summary..."):
                         summary = summarize_url(result['url'], api_key, st.session_state.comprehension_grade, st.session_state.temperature)
                         st.markdown("---")
-                        st.markdown(f"## Summary: {summary['title']}")
+                        st.markdown(f"##### Summary:<br/>{summary['title']}", unsafe_allow_html=True)
                         st.markdown(f"*Source: [{summary['url']}]({summary['url']})*")
                         st.markdown(summary['description'])
                         st.markdown("---")

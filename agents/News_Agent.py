@@ -175,7 +175,7 @@ class News_Agent(Base_Agent):
         9. If applicable, include important quotes or statistics that support the main points
         10.  Never discuss or reference the reference material, article, video, source, or author in the summary
 
-        Your summary should be approximately 200 words long. Use a neutral, journalistic tone, and ensure that you're reporting the facts as presented in the content, not adding personal opinions or speculation.
+        Use a neutral, journalistic tone, and ensure that you're reporting the facts as presented in the content, not adding personal opinions or speculation.
 
         Format your response as follows:
         HEADLINE: [Your SEO-optimized headline here]
