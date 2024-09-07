@@ -60,7 +60,7 @@ class News_Agent(Base_Agent):
         log_debug(f"Performing news search with query: {query} and num_results: {self.num_results}")
         
         encoded_query = quote_plus(query)
-        base_url = f'https://www.bing.com/news/search?q={encoded_query}&qft=interval%3d"7"'
+        base_url = f'https://www.bing.com/news/search?q={encoded_query}&qft=interval%3d"7"&qft=sortbydate'
         
         headers = {
             'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36',
