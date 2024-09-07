@@ -83,6 +83,15 @@ def get_groq_api_key(api_key_arg: str = None) -> str:
     return api_key
 
 
+def update_search_type():
+    if st.session_state.search_type == 'News':
+        st.session_state.previous_temperature = st.session_state.temperature
+        st.session_state.temperature = 0
+    else:
+        st.session_state.temperature = st.session_state.previous_temperature
+    st.session_state.search_results = None  # Clear previous results when switching search type
+
+
 def update_sidebar(models):
     with st.sidebar:
         st.title("Settings")
@@ -117,13 +126,32 @@ def update_sidebar(models):
         )
 
         # Temperature slider
-        st.session_state.temperature = st.slider(
-            "Temperature",
-            min_value=0.0,
-            max_value=1.0,
-            value=st.session_state.temperature,
-            step=0.01
-        )
+        if 'previous_temperature' not in st.session_state:
+            st.session_state.previous_temperature = 0.0
+
+        is_news_search = st.session_state.get('search_type', 'Web') == 'News'
+        
+        if is_news_search:
+            st.session_state.temperature = 0
+            st.slider(
+                "Temperature",
+                min_value=0.0,
+                max_value=1.0,
+                value=0.0,
+                step=0.01,
+                disabled=True,
+                key="temp_slider"
+            )
+        else:
+            st.session_state.temperature = st.slider(
+                "Temperature",
+                min_value=0.0,
+                max_value=1.0,
+                value=st.session_state.previous_temperature,
+                step=0.01,
+                key="temp_slider"
+            )
+            st.session_state.previous_temperature = st.session_state.temperature
 
         # Comprehension Grade slider
         grade_labels = [
@@ -134,13 +162,9 @@ def update_sidebar(models):
         selected_grade = st.selectbox(
             "Comprehension Grade",
             options=grade_labels,
-            index=st.session_state.comprehension_grade - 1  # Adjust index from grade level
+            index=st.session_state.comprehension_grade - 1
         )
-        log_debug(f"Selected comprehension grade: {selected_grade}")
-        selected_grade_index = grade_labels.index(selected_grade) + 1
-        log_debug(f"Selected comprehension grade index: {selected_grade_index}")
-        st.session_state.comprehension_grade = selected_grade_index
-        log_debug(f"Updated comprehension grade in session state: {st.session_state.comprehension_grade}")
+        st.session_state.comprehension_grade = grade_labels.index(selected_grade) + 1
 
 def main(api_key_arg: str = None, num_results: int = 10, max_tokens: int = 4096, default_summary_length: int = 300):
     st.set_page_config(page_title="Groqqle", layout="centered", initial_sidebar_state="collapsed")
@@ -151,9 +175,9 @@ def main(api_key_arg: str = None, num_results: int = 10, max_tokens: int = 4096,
     if 'summary_length' not in st.session_state:
         st.session_state.summary_length = default_summary_length
     if 'selected_model' not in st.session_state:
-        st.session_state.selected_model = "mixtral-8x7b-32768"
+        st.session_state.selected_model = "llama3-8b-8192"
     if 'temperature' not in st.session_state:
-        st.session_state.temperature = 0.5
+        st.session_state.temperature = 0.0
     if 'comprehension_grade' not in st.session_state:
         st.session_state.comprehension_grade = 8
     if 'context_window' not in st.session_state:
@@ -248,10 +272,7 @@ def main(api_key_arg: str = None, num_results: int = 10, max_tokens: int = 4096,
         if st.button("Groqqle Search", key="search_button"):
             perform_search()
     with col2:
-        search_type = st.radio("Search Type", ["Web", "News"], index=0, key="search_type")
-        if search_type != st.session_state.search_type:
-            st.session_state.search_type = search_type
-            st.session_state.search_results = None  # Clear previous results when switching search type
+        search_type = st.radio("Search Type", ["Web", "News"], index=0, key="search_type", on_change=update_search_type)
     with col4:
         json_results = st.checkbox("JSON Results", value=False, key="json_results")
 
@@ -271,7 +292,7 @@ def perform_search():
     summary_length = st.session_state.summary_length
     selected_model = st.session_state.selected_model
     context_window = st.session_state.context_window
-    temperature = st.session_state.temperature
+    temperature = 0 if st.session_state.search_type == 'News' else st.session_state.temperature
     comprehension_grade = st.session_state.comprehension_grade
     search_type = st.session_state.search_type
 
@@ -409,7 +430,7 @@ def create_api_app(api_key_arg: str = None, default_num_results: int = 10, defau
         max_tokens = data.get('max_tokens', default_max_tokens)
         summary_length = data.get('summary_length', default_summary_length)
         model = data.get('model', 'mixtral-8x7b-32768')
-        temperature = data.get('temperature', 0.5)
+        temperature = data.get('temperature', 0.0)
         comprehension_grade = data.get('comprehension_grade', 8)
         search_type = data.get('search_type', 'web').lower()  # Default to 'web' if not provided
         
@@ -481,7 +502,7 @@ if __name__ == "__main__":
                 "max_tokens": 4096,
                 "summary_length": 200,
                 "model": "mixtral-8x7b-32768",
-                "temperature": 0.5,
+                "temperature": 0.0,
                 "comprehension_grade": 8,
                 "search_type": "web"  // Use "web" for web search or "news" for news search
             }

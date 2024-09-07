@@ -17,7 +17,7 @@ def log_debug(message):
         print(f"Debug: {message}")
 
 class News_Agent(Base_Agent):
-    def __init__(self, api_key, provider_name='groq', num_results=10, max_tokens=4096, model="mixtral-8x7b-32768", temperature=0.5, comprehension_grade=8):
+    def __init__(self, api_key, provider_name='groq', num_results=10, max_tokens=4096, model="mixtral-8x7b-32768", temperature=0.0, comprehension_grade=8):
         log_debug(f"Initializing News_Agent with provider_name: {provider_name}, num_results: {num_results}, max_tokens: {max_tokens}, model: {model}, temperature: {temperature}, comprehension_grade: {comprehension_grade}")
         
         if not api_key:
@@ -60,7 +60,7 @@ class News_Agent(Base_Agent):
         log_debug(f"Performing news search with query: {query} and num_results: {self.num_results}")
         
         encoded_query = quote_plus(query)
-        base_url = f'https://www.bing.com/news/search?q={encoded_query}&qft=interval%3d"7"&qft=sortbydate'
+        base_url = f'https://www.bing.com/news/search?q={encoded_query}&qft=interval%3d"7"&qft=sortbydate%3d"1" '
         
         headers = {
             'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36',
@@ -139,49 +139,50 @@ class News_Agent(Base_Agent):
         log_debug(f"Selected grade description: {grade_description}")
 
         return f"""
-        Summarize the following news content from {url} for {grade_description}:
-        {content[:6000]}  # Limit content to first 6000 characters
+            Summarize the following news content from {url} for {grade_description}:
+            {content} 
 
-        Your task is to provide a comprehensive and informative synopsis of the main subject matter, along with an SEO-optimized headline. Follow these guidelines:
+            Your task is to provide a comprehensive and informative synopsis of the main subject matter, along with an SEO-optimized headline. The summary must stand alone, without mentioning the original source, its authors, or any references to articles, videos, or materials. Follow these guidelines:
 
-        1. Generate an SEO-optimized headline that:
-        - Captures user interest without sensationalism
-        - Accurately represents the main topic
-        - Uses relevant keywords
-        - Is concise (ideally 50-60 characters)
-        - Maintains professionalism
-        - Does not begin with anything akin to "Imagine" or "Picture this"
-        
-        2. Format your headline exactly as follows:
-        HEADLINE: [Your SEO-optimized headline here]
+            1. Generate an SEO-optimized headline that:
+                - Captures user interest without sensationalism
+                - Accurately represents the main topic
+                - Uses relevant keywords
+                - Is concise (ideally 50-60 characters)
+                - Maintains professionalism
+                - Does not begin with anything akin to "Imagine" or "Picture this"
+                    
+            2. Format your headline exactly as follows:
+                HEADLINE: [Your SEO-optimized headline here]
 
-        3. Write your summary using the inverted pyramid style:
-        - Start with a strong lede (opening sentence) that entices readers and summarizes the most crucial information
-        - Present the most important information first
-        - Follow with supporting details and context
-        - End with the least essential information
-        - Don't mention the parts of the pyramid. Just follow the structure. No need to say "in conclusion" in the conclusion, for example.
+            3. Write your summary using the inverted pyramid style:
+                - Start with a strong lede (opening sentence) that entices readers and summarizes the most crucial information
+                - Present the most important information first
+                - Follow with supporting details and context
+                - End with the least essential information
+                - Don't mention the parts of the pyramid. Just follow the structure. No need to say "in conclusion."
 
-        4. Adjust the language complexity strictly targeted to the reading level for {grade_description}. This means:
-        - Use vocabulary appropriate for this comprehension level
-        - Adjust sentence structure complexity accordingly
-        - Explain concepts in a way that would be clear to someone at this educational level
-        - Do not specifically mention the target's age or grade level in the summary response
+            4. Adjust the language complexity strictly targeted to the reading level for {grade_description}. This means:
+                - Use vocabulary appropriate for this comprehension level
+                - Adjust sentence structure complexity accordingly
+                - Explain concepts in a way that would be clear to someone at this educational level
+                - Do not specifically mention the target's age or grade level in the summary response
 
-        5. Clearly explain the main topic or discovery being discussed
-        6. Highlight key points, findings, or arguments presented in the content
-        7. Provide relevant context or background information that helps understand the topic
-        8. Mention any significant implications, applications, or future directions discussed
-        9. If applicable, include important quotes or statistics that support the main points
-        10.  Never discuss or reference the reference material, article, video, source, or author in the summary
+            5. Clearly explain the main topic or discovery being discussed
+            6. Highlight key points, findings, or arguments presented in the content
+            7. Provide relevant context or background information that helps understand the topic
+            8. Mention any significant implications, applications, or future directions discussed
+            9. If applicable, include important quotes or statistics that support the main points
+            10. **Never refer to the original article, source, author, publisher, or any media format**. The summary must be a complete stand-alone piece without attribution to external sources.
 
-        Use a neutral, journalistic tone, and ensure that you're reporting the facts as presented in the content, not adding personal opinions or speculation.
+            Use a neutral, journalistic tone, and ensure that you're reporting the facts as presented in the content, not adding personal opinions or speculation.
 
-        Format your response as follows:
-        HEADLINE: [Your SEO-optimized headline here]
+            Format your response as follows:
+            HEADLINE: [Your SEO-optimized headline here]
 
-        [Your comprehensive summary here, following the inverted pyramid style]
-        """
+            [Your comprehensive summary here, following the inverted pyramid style]
+            """
+
 
     def _format_summary(self, summary: str, url: str) -> Dict[str, str]:
         parts = summary.split('\n', 1)

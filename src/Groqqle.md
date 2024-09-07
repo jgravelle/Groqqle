@@ -156,7 +156,7 @@ def main(api_key_arg: str = None, num_results: int = 10, max_tokens: int = 4096,
     if 'selected_model' not in st.session_state:
         st.session_state.selected_model = "mixtral-8x7b-32768"
     if 'temperature' not in st.session_state:
-        st.session_state.temperature = 0.5
+        st.session_state.temperature = 0.0
     if 'comprehension_grade' not in st.session_state:
         st.session_state.comprehension_grade = 8
     if 'context_window' not in st.session_state:
@@ -412,7 +412,7 @@ def create_api_app(api_key_arg: str = None, default_num_results: int = 10, defau
         max_tokens = data.get('max_tokens', default_max_tokens)
         summary_length = data.get('summary_length', default_summary_length)
         model = data.get('model', 'mixtral-8x7b-32768')
-        temperature = data.get('temperature', 0.5)
+        temperature = data.get('temperature', 0.0)
         comprehension_grade = data.get('comprehension_grade', 8)
         search_type = data.get('search_type', 'web').lower()  # Default to 'web' if not provided
         
@@ -484,7 +484,7 @@ if __name__ == "__main__":
                 "max_tokens": 4096,
                 "summary_length": 200,
                 "model": "mixtral-8x7b-32768",
-                "temperature": 0.5,
+                "temperature": 0.0,
                 "comprehension_grade": 8,
                 "search_type": "web"  // Use "web" for web search or "news" for news search
             }
@@ -580,7 +580,7 @@ def log_debug(message):
         print(f"Debug: {message}")
 
 class News_Agent(Base_Agent):
-    def __init__(self, api_key, provider_name='groq', num_results=10, max_tokens=4096, model="mixtral-8x7b-32768", temperature=0.5, comprehension_grade=8):
+    def __init__(self, api_key, provider_name='groq', num_results=10, max_tokens=4096, model="mixtral-8x7b-32768", temperature=0.0, comprehension_grade=8):
         log_debug(f"Initializing News_Agent with provider_name: {provider_name}, num_results: {num_results}, max_tokens: {max_tokens}, model: {model}, temperature: {temperature}, comprehension_grade: {comprehension_grade}")
         
         if not api_key:
@@ -843,7 +843,7 @@ except ImportError as e:
     ProviderFactory = None
 
 class Web_Agent(Base_Agent):
-    def __init__(self, api_key, provider_name='groq', num_results=10, max_tokens=4096, model="mixtral-8x7b-32768", temperature=0.5, comprehension_grade=8, summary_length=300):
+    def __init__(self, api_key, provider_name='groq', num_results=10, max_tokens=4096, model="mixtral-8x7b-32768", temperature=0.0, comprehension_grade=8, summary_length=300):
         log_debug(f"Initializing Web_Agent with provider_name: {provider_name}, num_results: {num_results}, max_tokens: {max_tokens}, model: {model}, temperature: {temperature}, comprehension_grade: {comprehension_grade}, summary_length: {summary_length}")
         if not api_key:
             log_debug("API key is missing or empty")
@@ -1424,7 +1424,7 @@ def WebGetContents_Tool(URL):
     headers = {
         'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36',
         'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,/;q=0.8',
-        'Accept-Language': 'en-US,en;q=0.5',
+        'Accept-Language': 'en-US,en;q=0.0',
         'Referer': 'https://www.google.com/',
         'DNT': '1',
         'Connection': 'keep-alive',
@@ -1584,7 +1584,7 @@ class WebGetStocks_Tool(Base_Tool):
         headers = {
             "User-Agent": random.choice(user_agents),
             "Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8",
-            "Accept-Language": "en-US,en;q=0.5",
+            "Accept-Language": "en-US,en;q=0.0",
             "Accept-Encoding": "gzip, deflate, br",
             "DNT": "1",
             "Connection": "keep-alive",
@@ -1782,7 +1782,7 @@ def WebSearch_Tool(query: str, num_results: int = 10):
     headers = {
         'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36',
         'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,/;q=0.8',
-        'Accept-Language': 'en-US,en;q=0.5',
+        'Accept-Language': 'en-US,en;q=0.0',
         'Referer': 'https://www.google.com/',
         'DNT': '1',
         'Connection': 'keep-alive',
