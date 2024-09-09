@@ -184,7 +184,7 @@ def main(api_key_arg: str = None, num_results: int = 10, max_tokens: int = 4096,
         st.session_state.context_window = max_tokens
     if 'models' not in st.session_state:
         st.session_state.models = {
-            "mixtral-8x7b-32768": {"id": "mixtral-8x7b-32768", "context_window": 32768},
+            "llava-v1.5-7b-4096-preview": {"id": "llava-v1.5-7b-4096-preview", "context_window": 4096},
             "llama2-70b-4096": {"id": "llama2-70b-4096", "context_window": 4096}
         }
     if 'search_type' not in st.session_state:
@@ -194,7 +194,7 @@ def main(api_key_arg: str = None, num_results: int = 10, max_tokens: int = 4096,
 
     if api_key:
         if 'models' not in st.session_state or st.session_state.models == {
-            "mixtral-8x7b-32768": {"id": "mixtral-8x7b-32768", "context_window": 32768},
+            "llava-v1.5-7b-4096-preview": {"id": "llava-v1.5-7b-4096-preview", "context_window": 4096},
             "llama2-70b-4096": {"id": "llama2-70b-4096", "context_window": 4096}
         }:
             st.session_state.models = fetch_groq_models(api_key)
@@ -429,7 +429,7 @@ def create_api_app(api_key_arg: str = None, default_num_results: int = 10, defau
         num_results = data.get('num_results', default_num_results)
         max_tokens = data.get('max_tokens', default_max_tokens)
         summary_length = data.get('summary_length', default_summary_length)
-        model = data.get('model', 'mixtral-8x7b-32768')
+        model = data.get('model', 'llava-v1.5-7b-4096-preview')
         temperature = data.get('temperature', 0.0)
         comprehension_grade = data.get('comprehension_grade', 8)
         search_type = data.get('search_type', 'web').lower()  # Default to 'web' if not provided

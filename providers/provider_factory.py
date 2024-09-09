@@ -39,7 +39,7 @@ class ProviderFactory:
 
     @staticmethod
     def get_model():
-        model = os.environ.get('DEFAULT_MODEL', 'mixtral-8x7b-32768')
+        model = os.environ.get('DEFAULT_MODEL', 'llava-v1.5-7b-4096-preview')
         if DEBUG:
             log_debug(f"get_model called, returning: {model}")
         return model
