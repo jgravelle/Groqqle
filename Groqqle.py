@@ -9,7 +9,7 @@ from agents.Web_Agent import Web_Agent
 from agents.News_Agent import News_Agent  # Import the new News_Agent
 from dotenv import load_dotenv
 from flask import Flask, request, jsonify
-from urllib.parse import urlparse
+from urllib.parse import quote_plus, unquote_plus
 
 # Load environment variables from .env file
 load_dotenv()
@@ -59,28 +59,46 @@ def fetch_groq_models(api_key):
         }
 
 def get_groq_api_key(api_key_arg: str = None) -> str:
-    api_key = api_key_arg or os.getenv('GROQ_API_KEY')
-    log_debug(f"GROQ_API_KEY from environment: {'Found' if api_key else 'Not found'}")
-    
-    if not api_key:
-        if 'groq_api_key' not in st.session_state:
-            st.write("To run Groqqle locally, you need to set up a Groq API key. You can get one by signing up at [Groq](https://groq.com/).")
-            st.warning("Groq API Key not found in environment. Please enter your API key below:")
-            api_key = st.text_input("Groq API Key", type="password", key="api_key_input")
-            if api_key:
-                st.session_state.groq_api_key = api_key
-                st.session_state.models = fetch_groq_models(api_key)  # Fetch models after API key is entered
-                st.success("API key saved. The page will refresh momentarily.")
-                st.rerun()  # Use st.rerun() instead of st.experimental_rerun()
-            log_debug("API key entered by user and stored in session state")
-        else:
-            api_key = st.session_state.groq_api_key
-            log_debug("API key retrieved from session state")
-    else:
+    # Check URL parameters first
+    query_params = st.query_params
+    url_api_key = query_params.get("api_key")
+    if url_api_key:
+        url_api_key = unquote_plus(url_api_key)
+        log_debug("API key found in URL parameters")
+        st.session_state.groq_api_key = url_api_key
+        st.session_state.api_key_source = 'manual'
+        return url_api_key
+
+    # Then check function argument
+    if api_key_arg:
+        log_debug("API key found in function argument")
+        st.session_state.groq_api_key = api_key_arg
+        st.session_state.api_key_source = 'argument'
+        return api_key_arg
+
+    # Then check environment variable
+    api_key = os.getenv('GROQ_API_KEY')
+    if api_key:
+        log_debug("API key found in environment variable")
         st.session_state.groq_api_key = api_key
-        log_debug("API key from environment stored in session state")
-    
-    return api_key
+        st.session_state.api_key_source = 'environment'
+        return api_key
+
+    # Finally, check session state or prompt user
+    if 'groq_api_key' in st.session_state:
+        log_debug("API key retrieved from session state")
+        return st.session_state.groq_api_key
+    else:
+        st.write("To run Groqqle locally, you need to set up a Groq API key. You can get one by signing up at [Groq](https://groq.com/).")
+        st.warning("Groq API Key not found. Please enter your API key below:")
+        api_key = st.text_input("Groq API Key", type="password", key="api_key_input")
+        if api_key:
+            st.session_state.groq_api_key = api_key
+            st.session_state.api_key_source = 'manual'
+            st.session_state.models = fetch_groq_models(api_key)  # Fetch models after API key is entered
+            st.success("API key saved. The page will refresh momentarily.")
+            st.rerun()
+        return api_key
 
 
 def update_search_type():
@@ -184,17 +202,19 @@ def main(api_key_arg: str = None, num_results: int = 10, max_tokens: int = 4096,
         st.session_state.context_window = max_tokens
     if 'models' not in st.session_state:
         st.session_state.models = {
-            "llava-v1.5-7b-4096-preview": {"id": "llava-v1.5-7b-4096-preview", "context_window": 4096},
+            "mixtral-8x7b-32768": {"id": "mixtral-8x7b-32768", "context_window": 32768},
             "llama2-70b-4096": {"id": "llama2-70b-4096", "context_window": 4096}
         }
     if 'search_type' not in st.session_state:
         st.session_state.search_type = "Web"  # Default to Web search
+    if 'api_key_source' not in st.session_state:
+        st.session_state.api_key_source = None
 
     api_key = get_groq_api_key(api_key_arg)
 
     if api_key:
         if 'models' not in st.session_state or st.session_state.models == {
-            "llava-v1.5-7b-4096-preview": {"id": "llava-v1.5-7b-4096-preview", "context_window": 4096},
+            "mixtral-8x7b-32768": {"id": "mixtral-8x7b-32768", "context_window": 32768},
             "llama2-70b-4096": {"id": "llama2-70b-4096", "context_window": 4096}
         }:
             st.session_state.models = fetch_groq_models(api_key)
@@ -263,7 +283,19 @@ def main(api_key_arg: str = None, num_results: int = 10, max_tokens: int = 4096,
 
     st.markdown('<div class="search-container">', unsafe_allow_html=True)
     
-    st.image("images/logo.png", width=272)
+    # Only include the API key in the URL if it was manually entered
+    logo_url = "."
+    if st.session_state.api_key_source == 'manual':
+        logo_url = f"?api_key={quote_plus(api_key)}"
+
+    clickable_image_html = f"""
+        <div class="search-container">
+            <a href="{logo_url}">
+                <img src="https://j.gravelle.us/groqqle_logo.png" width="272" />
+            </a>
+        </div>
+        """
+    st.markdown(clickable_image_html, unsafe_allow_html=True)
 
     query = st.text_input("Search query or enter a URL", key="search_bar", on_change=perform_search, label_visibility="collapsed")
 
