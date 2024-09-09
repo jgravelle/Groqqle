@@ -2,6 +2,8 @@ import os
 import sys
 import requests
 import time
+import tldextract
+
 from bs4 import BeautifulSoup
 from typing import List, Dict, Any
 from urllib.parse import quote_plus, urljoin
@@ -98,11 +100,15 @@ class News_Agent(Base_Agent):
                         timestamp_elem = card.find('span', attrs={'aria-label': True})
                         timestamp = timestamp_elem['aria-label'] if timestamp_elem else ''
                         
+                        # Extract the root domain from the URL
+                        ext = tldextract.extract(url)
+                        root_domain = f"{ext.domain}.{ext.suffix}"
+                        
                         results.append({
                             "title": title,
                             "url": url,
                             "description": description,
-                            "source": source,
+                            "source": root_domain,  # Use the root domain as the source
                             "timestamp": timestamp
                         })
                 
@@ -113,7 +119,7 @@ class News_Agent(Base_Agent):
                 break
 
         log_debug(f"News search completed successfully. Number of results: {len(results)}")
-        return results[:self.num_results]  # Ensure we don't return more than requested
+        return results[:self.num_results] 
 
     def _summarize_news_content(self, content: str, url: str) -> Dict[str, str]:
         log_debug(f"Summarizing content from URL: {url}")
@@ -160,7 +166,7 @@ class News_Agent(Base_Agent):
                 - Present the most important information first
                 - Follow with supporting details and context
                 - End with the least essential information
-                - Don't mention the parts of the pyramid. Just follow the structure. No need to say "in conclusion."
+                - **Don't mention the parts of the pyramid. Just follow the structure. Never say "in conclusion", for example.**
 
             4. Adjust the language complexity strictly targeted to the reading level for {grade_description}. This means:
                 - Use vocabulary appropriate for this comprehension level
@@ -173,7 +179,7 @@ class News_Agent(Base_Agent):
             7. Provide relevant context or background information that helps understand the topic
             8. Mention any significant implications, applications, or future directions discussed
             9. If applicable, include important quotes or statistics that support the main points
-            10. **Never refer to the original article, source, author, publisher, or any media format**. The summary must be a complete stand-alone piece without attribution to external sources.
+            10. **Never refer to the original article, its source, its author, its publisher, or itsss media format**. The summary must be a complete stand-alone piece without attribution to, or mention of, the source article.
 
             Use a neutral, journalistic tone, and ensure that you're reporting the facts as presented in the content, not adding personal opinions or speculation.
 

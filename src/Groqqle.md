@@ -86,6 +86,15 @@ def get_groq_api_key(api_key_arg: str = None) -> str:
     return api_key
 
 
+def update_search_type():
+    if st.session_state.search_type == 'News':
+        st.session_state.previous_temperature = st.session_state.temperature
+        st.session_state.temperature = 0
+    else:
+        st.session_state.temperature = st.session_state.previous_temperature
+    st.session_state.search_results = None  # Clear previous results when switching search type
+
+
 def update_sidebar(models):
     with st.sidebar:
         st.title("Settings")
@@ -120,13 +129,32 @@ def update_sidebar(models):
         )
 
         # Temperature slider
-        st.session_state.temperature = st.slider(
-            "Temperature",
-            min_value=0.0,
-            max_value=1.0,
-            value=st.session_state.temperature,
-            step=0.01
-        )
+        if 'previous_temperature' not in st.session_state:
+            st.session_state.previous_temperature = 0.0
+
+        is_news_search = st.session_state.get('search_type', 'Web') == 'News'
+        
+        if is_news_search:
+            st.session_state.temperature = 0
+            st.slider(
+                "Temperature",
+                min_value=0.0,
+                max_value=1.0,
+                value=0.0,
+                step=0.01,
+                disabled=True,
+                key="temp_slider"
+            )
+        else:
+            st.session_state.temperature = st.slider(
+                "Temperature",
+                min_value=0.0,
+                max_value=1.0,
+                value=st.session_state.previous_temperature,
+                step=0.01,
+                key="temp_slider"
+            )
+            st.session_state.previous_temperature = st.session_state.temperature
 
         # Comprehension Grade slider
         grade_labels = [
@@ -137,13 +165,9 @@ def update_sidebar(models):
         selected_grade = st.selectbox(
             "Comprehension Grade",
             options=grade_labels,
-            index=st.session_state.comprehension_grade - 1  # Adjust index from grade level
+            index=st.session_state.comprehension_grade - 1
         )
-        log_debug(f"Selected comprehension grade: {selected_grade}")
-        selected_grade_index = grade_labels.index(selected_grade) + 1
-        log_debug(f"Selected comprehension grade index: {selected_grade_index}")
-        st.session_state.comprehension_grade = selected_grade_index
-        log_debug(f"Updated comprehension grade in session state: {st.session_state.comprehension_grade}")
+        st.session_state.comprehension_grade = grade_labels.index(selected_grade) + 1
 
 def main(api_key_arg: str = None, num_results: int = 10, max_tokens: int = 4096, default_summary_length: int = 300):
     st.set_page_config(page_title="Groqqle", layout="centered", initial_sidebar_state="collapsed")
@@ -154,7 +178,7 @@ def main(api_key_arg: str = None, num_results: int = 10, max_tokens: int = 4096,
     if 'summary_length' not in st.session_state:
         st.session_state.summary_length = default_summary_length
     if 'selected_model' not in st.session_state:
-        st.session_state.selected_model = "mixtral-8x7b-32768"
+        st.session_state.selected_model = "llama3-8b-8192"
     if 'temperature' not in st.session_state:
         st.session_state.temperature = 0.0
     if 'comprehension_grade' not in st.session_state:
@@ -251,10 +275,7 @@ def main(api_key_arg: str = None, num_results: int = 10, max_tokens: int = 4096,
         if st.button("Groqqle Search", key="search_button"):
             perform_search()
     with col2:
-        search_type = st.radio("Search Type", ["Web", "News"], index=0, key="search_type")
-        if search_type != st.session_state.search_type:
-            st.session_state.search_type = search_type
-            st.session_state.search_results = None  # Clear previous results when switching search type
+        search_type = st.radio("Search Type", ["Web", "News"], index=0, key="search_type", on_change=update_search_type)
     with col4:
         json_results = st.checkbox("JSON Results", value=False, key="json_results")
 
@@ -274,7 +295,7 @@ def perform_search():
     summary_length = st.session_state.summary_length
     selected_model = st.session_state.selected_model
     context_window = st.session_state.context_window
-    temperature = st.session_state.temperature
+    temperature = 0 if st.session_state.search_type == 'News' else st.session_state.temperature
     comprehension_grade = st.session_state.comprehension_grade
     search_type = st.session_state.search_type
 
@@ -351,7 +372,6 @@ def display_results(results, json_format=False, api_key=None):
     
     if results:
         st.markdown("---")
-        st.markdown("### Search Results")
         
         if json_format:
             st.json(results)
@@ -361,9 +381,10 @@ def display_results(results, json_format=False, api_key=None):
                 
                 col1, col2 = st.columns([0.9, 0.1])
                 with col1:
-                    st.markdown(f"### [{result['title']}]({result['url']})")
+                    st.markdown(f"#### [{result['title']}]({result['url']})")
                 with col2:
-                    summary_button = st.button("📝", key=f"summary_{result['url']}", help="Get summary")
+                    # Use a combination of index and URL to create a unique key
+                    summary_button = st.button("📝", key=f"summary_{index}_{result['url']}", help="Summarize")
                 
                 # Determine if this is a news search result
                 is_news_search = 'timestamp' in result
@@ -391,7 +412,7 @@ def display_results(results, json_format=False, api_key=None):
                     with st.spinner("Generating summary..."):
                         summary = summarize_url(result['url'], api_key, st.session_state.comprehension_grade, st.session_state.temperature)
                         st.markdown("---")
-                        st.markdown(f"## Summary: {summary['title']}")
+                        st.markdown(f"##### Summary:<br/>{summary['title']}", unsafe_allow_html=True)
                         st.markdown(f"*Source: [{summary['url']}]({summary['url']})*")
                         st.markdown(summary['description'])
                         st.markdown("---")
@@ -565,6 +586,8 @@ import os
 import sys
 import requests
 import time
+import tldextract
+
 from bs4 import BeautifulSoup
 from typing import List, Dict, Any
 from urllib.parse import quote_plus, urljoin
@@ -623,7 +646,7 @@ class News_Agent(Base_Agent):
         log_debug(f"Performing news search with query: {query} and num_results: {self.num_results}")
         
         encoded_query = quote_plus(query)
-        base_url = f'https://www.bing.com/news/search?q={encoded_query}&qft=interval%3d"7"'
+        base_url = f'https://www.bing.com/news/search?q={encoded_query}&qft=interval%3d"7"&qft=sortbydate%3d"1" '
         
         headers = {
             'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36',
@@ -661,11 +684,15 @@ class News_Agent(Base_Agent):
                         timestamp_elem = card.find('span', attrs={'aria-label': True})
                         timestamp = timestamp_elem['aria-label'] if timestamp_elem else ''
                         
+                        # Extract the root domain from the URL
+                        ext = tldextract.extract(url)
+                        root_domain = f"{ext.domain}.{ext.suffix}"
+                        
                         results.append({
                             "title": title,
                             "url": url,
                             "description": description,
-                            "source": source,
+                            "source": root_domain,  # Use the root domain as the source
                             "timestamp": timestamp
                         })
                 
@@ -676,7 +703,7 @@ class News_Agent(Base_Agent):
                 break
 
         log_debug(f"News search completed successfully. Number of results: {len(results)}")
-        return results[:self.num_results]  # Ensure we don't return more than requested
+        return results[:self.num_results] 
 
     def _summarize_news_content(self, content: str, url: str) -> Dict[str, str]:
         log_debug(f"Summarizing content from URL: {url}")
@@ -702,49 +729,50 @@ class News_Agent(Base_Agent):
         log_debug(f"Selected grade description: {grade_description}")
 
         return f"""
-        Summarize the following news content from {url} for {grade_description}:
-        {content[:6000]}  # Limit content to first 6000 characters
+            Summarize the following news content from {url} for {grade_description}:
+            {content} 
 
-        Your task is to provide a comprehensive and informative synopsis of the main subject matter, along with an SEO-optimized headline. Follow these guidelines:
+            Your task is to provide a comprehensive and informative synopsis of the main subject matter, along with an SEO-optimized headline. The summary must stand alone, without mentioning the original source, its authors, or any references to articles, videos, or materials. Follow these guidelines:
 
-        1. Generate an SEO-optimized headline that:
-        - Captures user interest without sensationalism
-        - Accurately represents the main topic
-        - Uses relevant keywords
-        - Is concise (ideally 50-60 characters)
-        - Maintains professionalism
-        - Does not begin with anything akin to "Imagine" or "Picture this"
-        
-        2. Format your headline exactly as follows:
-        HEADLINE: [Your SEO-optimized headline here]
+            1. Generate an SEO-optimized headline that:
+                - Captures user interest without sensationalism
+                - Accurately represents the main topic
+                - Uses relevant keywords
+                - Is concise (ideally 50-60 characters)
+                - Maintains professionalism
+                - Does not begin with anything akin to "Imagine" or "Picture this"
+                    
+            2. Format your headline exactly as follows:
+                HEADLINE: [Your SEO-optimized headline here]
 
-        3. Write your summary using the inverted pyramid style:
-        - Start with a strong lede (opening sentence) that entices readers and summarizes the most crucial information
-        - Present the most important information first
-        - Follow with supporting details and context
-        - End with the least essential information
-        - Don't mention the parts of the pyramid. Just follow the structure. No need to say "in conclusion" in the conclusion, for example.
+            3. Write your summary using the inverted pyramid style:
+                - Start with a strong lede (opening sentence) that entices readers and summarizes the most crucial information
+                - Present the most important information first
+                - Follow with supporting details and context
+                - End with the least essential information
+                - **Don't mention the parts of the pyramid. Just follow the structure. Never say "in conclusion", for example.**
 
-        4. Adjust the language complexity strictly targeted to the reading level for {grade_description}. This means:
-        - Use vocabulary appropriate for this comprehension level
-        - Adjust sentence structure complexity accordingly
-        - Explain concepts in a way that would be clear to someone at this educational level
-        - Do not specifically mention the target's age or grade level in the summary response
+            4. Adjust the language complexity strictly targeted to the reading level for {grade_description}. This means:
+                - Use vocabulary appropriate for this comprehension level
+                - Adjust sentence structure complexity accordingly
+                - Explain concepts in a way that would be clear to someone at this educational level
+                - Do not specifically mention the target's age or grade level in the summary response
 
-        5. Clearly explain the main topic or discovery being discussed
-        6. Highlight key points, findings, or arguments presented in the content
-        7. Provide relevant context or background information that helps understand the topic
-        8. Mention any significant implications, applications, or future directions discussed
-        9. If applicable, include important quotes or statistics that support the main points
-        10.  Never discuss or reference the reference material, article, video, source, or author in the summary
+            5. Clearly explain the main topic or discovery being discussed
+            6. Highlight key points, findings, or arguments presented in the content
+            7. Provide relevant context or background information that helps understand the topic
+            8. Mention any significant implications, applications, or future directions discussed
+            9. If applicable, include important quotes or statistics that support the main points
+            10. **Never refer to the original article, its source, its author, its publisher, or itsss media format**. The summary must be a complete stand-alone piece without attribution to, or mention of, the source article.
 
-        Your summary should be approximately 200 words long. Use a neutral, journalistic tone, and ensure that you're reporting the facts as presented in the content, not adding personal opinions or speculation.
+            Use a neutral, journalistic tone, and ensure that you're reporting the facts as presented in the content, not adding personal opinions or speculation.
 
-        Format your response as follows:
-        HEADLINE: [Your SEO-optimized headline here]
+            Format your response as follows:
+            HEADLINE: [Your SEO-optimized headline here]
 
-        [Your comprehensive summary here, following the inverted pyramid style]
-        """
+            [Your comprehensive summary here, following the inverted pyramid style]
+            """
+
 
     def _format_summary(self, summary: str, url: str) -> Dict[str, str]:
         parts = summary.split('\n', 1)
@@ -958,6 +986,8 @@ class Web_Agent(Base_Agent):
             if result['url'] not in seen_urls:
                 seen_urls.add(result['url'])
                 unique_results.append(result)
+            else:
+                log_debug(f"Duplicate URL found and removed: {result['url']}")
         log_debug(f"Deduplication completed. Number of unique results: {len(unique_results)}")
         return unique_results
 
