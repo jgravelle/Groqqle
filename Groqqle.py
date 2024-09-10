@@ -1,9 +1,11 @@
 import argparse
 import logging
 import os
+import re
 import requests
 import streamlit as st
 import tldextract
+import traceback
 
 from agents.Web_Agent import Web_Agent
 from agents.News_Agent import News_Agent  # Import the new News_Agent
@@ -100,6 +102,50 @@ def get_groq_api_key(api_key_arg: str = None) -> str:
             st.rerun()
         return api_key
 
+def extract_url_and_prompt(query: str):
+    # Regular expression to find URLs in the query
+    url_pattern = r'http[s]?://(?:[a-zA-Z]|[0-9]|[$-_@.&+]|[!*\\(\\),]|(?:%[0-9a-fA-F][0-9a-fA-F]))+'
+    urls = re.findall(url_pattern, query)
+    
+    if urls:
+        image_url = urls[0]
+        # Remove the URL from the query to get the custom prompt
+        custom_prompt = query.replace(image_url, '').strip()
+        if not custom_prompt:
+            custom_prompt = "What's in this image?"
+        return image_url, custom_prompt
+    return None, None
+
+def process_image(query: str, api_key: str):
+    image_url, custom_prompt = extract_url_and_prompt(query)
+    if not image_url:
+        return None
+
+    try:
+        agent = Web_Agent(
+            api_key,
+            num_results=1,
+            max_tokens=st.session_state.context_window,
+            model="llava-v1.5-7b-4096-preview",
+            temperature=st.session_state.temperature,
+            comprehension_grade=st.session_state.comprehension_grade,
+            summary_length=st.session_state.summary_length
+        )
+        results = agent._process_image_request(image_url, custom_prompt)
+        if results and isinstance(results, list) and len(results) > 0:
+            results[0]['prompt_used'] = custom_prompt
+        return results
+    except Exception as e:
+        st.error(f"An error occurred while processing the image: {str(e)}")
+        if os.environ.get('DEBUG') == 'True':
+            st.error(traceback.format_exc())
+        return [{
+            "title": "Error",
+            "url": image_url,
+            "description": f"An error occurred while analyzing the image: {str(e)}",
+            "prompt_used": custom_prompt
+        }]
+
 
 def update_search_type():
     if st.session_state.search_type == 'News':
@@ -185,7 +231,7 @@ def update_sidebar(models):
         st.session_state.comprehension_grade = grade_labels.index(selected_grade) + 1
 
 def main(api_key_arg: str = None, num_results: int = 10, max_tokens: int = 4096, default_summary_length: int = 300):
-    st.set_page_config(page_title="Groqqle", layout="centered", initial_sidebar_state="collapsed")
+    st.set_page_config(page_title="Groqqle", layout="wide", initial_sidebar_state="collapsed")
 
     # Initialize session state
     if 'num_results' not in st.session_state:
@@ -207,23 +253,25 @@ def main(api_key_arg: str = None, num_results: int = 10, max_tokens: int = 4096,
         }
     if 'search_type' not in st.session_state:
         st.session_state.search_type = "Web"  # Default to Web search
-    if 'api_key_source' not in st.session_state:
-        st.session_state.api_key_source = None
 
     api_key = get_groq_api_key(api_key_arg)
 
-    if api_key:
-        if 'models' not in st.session_state or st.session_state.models == {
-            "mixtral-8x7b-32768": {"id": "mixtral-8x7b-32768", "context_window": 32768},
-            "llama2-70b-4096": {"id": "llama2-70b-4096", "context_window": 4096}
-        }:
-            st.session_state.models = fetch_groq_models(api_key)
-
-    update_sidebar(st.session_state.models)
-
     # Main content
-    st.markdown(""" 
+    st.markdown("""
     <style>
+    .main-content {
+        display: flex;
+        justify-content: space-between;
+    }
+    .search-container {
+        flex: 2;
+        padding-right: 20px;
+    }
+    .image-analysis {
+        flex: 1;
+        padding-left: 20px;
+        border-left: 1px solid #e0e0e0;
+    }
     .stApp {
         max-width: 100%;
     }
@@ -250,7 +298,7 @@ def main(api_key_arg: str = None, num_results: int = 10, max_tokens: int = 4096,
     }
     .search-container {
         max-width: 600px;
-        margin: 0 auto;
+        margin: 0;
     }
     .search-results {
         max-width: 600px;
@@ -278,44 +326,107 @@ def main(api_key_arg: str = None, num_results: int = 10, max_tokens: int = 4096,
     """, unsafe_allow_html=True)
 
     if not api_key:
-        st.error("Please provide a valid Groq API Key to use the application.")
+        st.warning("Please provide a valid Groq API Key to use the application.")
         return
 
-    st.markdown('<div class="search-container">', unsafe_allow_html=True)
+    # Initialize Web_Agent and fetch models
+    if 'models' not in st.session_state or st.session_state.models == {
+        "mixtral-8x7b-32768": {"id": "mixtral-8x7b-32768", "context_window": 32768},
+        "llama2-70b-4096": {"id": "llama2-70b-4096", "context_window": 4096}
+    }:
+        st.session_state.models = fetch_groq_models(api_key)
+
+    update_sidebar(st.session_state.models)
+
+    web_agent = Web_Agent(
+        api_key,
+        num_results=num_results,
+        max_tokens=st.session_state.context_window,
+        model=st.session_state.selected_model,
+        temperature=st.session_state.temperature,
+        comprehension_grade=st.session_state.comprehension_grade,
+        summary_length=st.session_state.summary_length
+    )
+
+    # Create a two-column layout for main content and image analysis
+    main_col, image_col = st.columns([3, 1])
+
+    with main_col:
+        st.markdown('<div class="search-container">', unsafe_allow_html=True)
     
-    # Only include the API key in the URL if it was manually entered
-    logo_url = "."
-    if st.session_state.api_key_source == 'manual':
-        logo_url = f"?api_key={quote_plus(api_key)}"
+        # Only include the API key in the URL if it was manually entered
+        logo_url = "."
+        if st.session_state.api_key_source == 'manual':
+            logo_url = f"?api_key={quote_plus(api_key)}"
 
-    clickable_image_html = f"""
-        <div class="search-container">
-            <a href="{logo_url}">
-                <img src="https://j.gravelle.us/groqqle_logo.png" width="272" />
-            </a>
-        </div>
-        """
-    st.markdown(clickable_image_html, unsafe_allow_html=True)
+        clickable_image_html = f"""
+            <div class="search-container" style="align:left">
+                <a href="{logo_url}">
+                    <img src="https://j.gravelle.us/groqqle_logo.png" width="272" />
+                </a>
+            </div>
+            """
+        st.markdown(clickable_image_html, unsafe_allow_html=True)
 
-    query = st.text_input("Search query or enter a URL", key="search_bar", on_change=perform_search, label_visibility="collapsed")
+        query = st.text_input("Search query, enter a URL, or paste an image URL with an optional question.  The URL can be to an article, web page, foreign text, or image.", key="search_bar", on_change=perform_search)
 
-    col1, col2, col3, col4 = st.columns([2,1,1,2])
-    with col1:
-        if st.button("Groqqle Search", key="search_button"):
-            perform_search()
-    with col2:
-        search_type = st.radio("Search Type", ["Web", "News"], index=0, key="search_type", on_change=update_search_type)
-    with col4:
-        json_results = st.checkbox("JSON Results", value=False, key="json_results")
+        col1, col2, col3, col4 = st.columns([2,1,1,2])
+        with col1:
+            if st.button("Groqqle Search", key="search_button"):
+                perform_search()
+        with col2:
+            search_type = st.radio("Search Type", ["Web", "News"], index=0, key="search_type", on_change=update_search_type)
+        with col4:
+            json_results = st.checkbox("JSON Results", value=False, key="json_results")
 
-    if query.startswith(('http://', 'https://')):
-        with st.spinner('Summarizing URL...'):
-            summary = summarize_url(query, api_key, st.session_state.comprehension_grade, st.session_state.temperature)
-            display_results([summary], json_results, api_key)
-    elif st.session_state.get('search_results'):
-        display_results(st.session_state.search_results, json_results, api_key)
+        if query:
+            image_url, _ = extract_url_and_prompt(query)
+            if image_url:
+                with st.spinner('Analyzing image...'):
+                    image_results = process_image(query, api_key)
+                    if image_results:
+                        st.session_state.image_analysis = image_results[0]['description']
+                        st.session_state.image_url = image_url
+                        st.session_state.image_prompt = image_results[0].get('prompt_used', "What's in this image?")
+            elif web_agent._is_url(query):
+                with st.spinner('Summarizing URL...'):
+                    summary = summarize_url(query, api_key, st.session_state.comprehension_grade, st.session_state.temperature)
+                    display_results([summary], json_results, api_key)
+            elif st.session_state.get('search_results'):
+                display_results(st.session_state.search_results, json_results, api_key)
 
-    st.markdown('</div>', unsafe_allow_html=True)
+        st.markdown('</div>', unsafe_allow_html=True)
+
+    with image_col:
+        st.markdown('<div class="image-analysis">', unsafe_allow_html=True)
+        if 'image_analysis' in st.session_state and 'image_url' in st.session_state:
+            st.image(st.session_state.image_url, use_column_width=True)
+            st.markdown("### IMAGE ANALYSIS")
+            st.write(f"**Prompt:** {st.session_state.image_prompt}")
+            st.write(st.session_state.image_analysis)
+        # else:
+            # st.markdown("### IMAGE ANALYSIS")
+            # st.write("No image analyzed yet. Enter an image URL with an optional question in the search bar to analyze.")
+        st.markdown('</div>', unsafe_allow_html=True)
+
+    # Add custom CSS to ensure proper layout
+    st.markdown("""
+        <style>
+        .main-content {
+            display: flex;
+            justify-content: space-between;
+        }
+        .search-container {
+            flex: 3;
+            padding-right: 20px;
+        }
+        .image-analysis {
+            flex: 1;
+            padding-left: 20px;
+            border-left: 1px solid #e0e0e0;
+        }
+        </style>
+    """, unsafe_allow_html=True)
 
 def perform_search():
     query = st.session_state.search_bar
@@ -456,50 +567,63 @@ def create_api_app(api_key_arg: str = None, default_num_results: int = 10, defau
 
     @app.route('/search', methods=['POST'])
     def api_search():
+        # Check for API key in Authorization header
+        auth_header = request.headers.get('Authorization')
+        if auth_header and auth_header.startswith('Bearer '):
+            api_key = auth_header.split('Bearer ')[1]
+        else:
+            # Fallback to environment variable if no Authorization header
+            api_key = api_key_arg or os.getenv('GROQ_API_KEY')
+
+        if not api_key:
+            return jsonify({"error": "No API key provided. Please include it in the Authorization header as 'Bearer YOUR_API_KEY' or set it as an environment variable."}), 401
+
         data = request.json
         query = data.get('query')
         num_results = data.get('num_results', default_num_results)
         max_tokens = data.get('max_tokens', default_max_tokens)
         summary_length = data.get('summary_length', default_summary_length)
-        model = data.get('model', 'llava-v1.5-7b-4096-preview')
+        model = data.get('model', 'mixtral-8x7b-32768')
         temperature = data.get('temperature', 0.0)
         comprehension_grade = data.get('comprehension_grade', 8)
-        search_type = data.get('search_type', 'web').lower()  # Default to 'web' if not provided
+        search_type = data.get('search_type', 'web').lower()
+        custom_prompt = data.get('custom_prompt')
         
         if not query:
             return jsonify({"error": "No query provided"}), 400
 
-        api_key = api_key_arg or os.getenv('GROQ_API_KEY')
-        if not api_key:
-            return jsonify({"error": "Groq API Key not set"}), 500
-
-        log_debug(f"API search endpoint hit with query: {query}, num_results: {num_results}, summary_length: {summary_length}, model: {model}, max_tokens: {max_tokens}, temperature: {temperature}, comprehension_grade: {comprehension_grade}, search_type: {search_type}")
+        log_debug(f"API search endpoint hit with query: {query}, num_results: {num_results}, summary_length: {summary_length}, model: {model}, max_tokens: {max_tokens}, temperature: {temperature}, comprehension_grade: {comprehension_grade}, search_type: {search_type}, custom_prompt: {custom_prompt}")
         
         try:
-            if search_type == 'web':
-                agent = Web_Agent(
-                    api_key, 
-                    num_results=num_results, 
-                    max_tokens=max_tokens, 
-                    model=model,
-                    temperature=temperature,
-                    comprehension_grade=comprehension_grade,
-                    summary_length=summary_length
-                )
+            agent = Web_Agent(
+                api_key, 
+                num_results=num_results, 
+                max_tokens=max_tokens, 
+                model=model,
+                temperature=temperature,
+                comprehension_grade=comprehension_grade,
+                summary_length=summary_length
+            )
+
+            if agent._is_image_url(query):
+                results = agent._process_image_request(query, custom_prompt)
+            elif search_type == 'web':
+                results = agent.process_request(query)
             elif search_type == 'news':
-                agent = News_Agent(
+                news_agent = News_Agent(
                     api_key, 
-                    num_results=num_results,  # Correctly pass num_results to News_Agent
+                    num_results=num_results,
                     max_tokens=max_tokens, 
                     model=model,
                     temperature=temperature,
                     comprehension_grade=comprehension_grade
                 )
+                results = news_agent.process_request(query)
             else:
                 return jsonify({"error": "Invalid search type. Use 'web' or 'news'."}), 400
 
-            results = agent.process_request(query)
             return jsonify(results)
+        
         except Exception as e:
             log_debug(f"Error in API search: {str(e)}")
             return jsonify({"error": str(e)}), 500

@@ -75,6 +75,8 @@ class Web_Agent(Base_Agent):
         self.temperature = temperature
         self.comprehension_grade = comprehension_grade
         self.summary_length = summary_length
+        self.provider = ProviderFactory.get_provider(provider_name, api_key)
+        self.image_handler = self._initialize_image_handler()
 
         try:
             log_debug(f"Attempting to get provider with API key: {api_key[:5]}...")
@@ -87,24 +89,59 @@ class Web_Agent(Base_Agent):
             log_debug(f"Error in Web_Agent.__init__: {str(e)}")
             log_debug(f"Traceback:\n{traceback.format_exc()}")
             raise
+    
+
+    def _initialize_image_handler(self):
+        return lambda image_url, prompt: self.provider.generate(prompt, image_path=image_url)
+
 
     def process_request(self, user_request: str) -> list:
         log_debug(f"Processing request: {user_request}")
         log_debug(f"Using comprehension grade: {self.comprehension_grade}, temperature: {self.temperature}")
         try:
-            if self._is_url(user_request):
-                log_debug(f"Request is a URL: {user_request}")
+            if self._is_image_url(user_request):
+                return self._process_image_request(user_request)
+            elif self._is_url(user_request):
                 return self._process_url_request(user_request)
             else:
-                log_debug(f"Request is a search query: {user_request}")
                 return self._process_web_search(user_request)
         except Exception as e:
             log_debug(f"Error in process_request: {str(e)}")
             log_debug(f"Traceback:\n{traceback.format_exc()}")
-            if os.environ.get('DEBUG') == 'True':
-                print(f"Error in Web_Agent: {str(e)}")
             return [{"title": "Error", "url": "", "description": f"An error occurred while processing your request: {str(e)}"}]
+
+    def _is_image_url(self, url: str) -> bool:
+        image_extensions = ['.jpg', '.jpeg', '.png', '.gif', '.bmp', '.webp']
+        parsed_url = urlparse(url)
+        return parsed_url.scheme in ['http', 'https'] and any(parsed_url.path.lower().endswith(ext) for ext in image_extensions)
+
+    def _process_image_request(self, image_url: str, custom_prompt: str = None) -> list:
+        log_debug(f"Processing image request: {image_url}")
+        default_prompt = "What's in this image?"
+        prompt = custom_prompt if custom_prompt else default_prompt
         
+        try:
+            if self.model == "llava-v1.5-7b-4096-preview":
+                description = self.provider.generate(prompt, image_path=image_url, model=self.model)
+            else:
+                description = self.provider.generate(f"{prompt}\n\nImage URL: {image_url}")
+            
+            log_debug(f"Image description generated successfully")
+            return [{
+                "title": "Image Analysis",
+                "url": image_url,
+                "description": description,
+                "prompt_used": prompt
+            }]
+        except Exception as e:
+            log_debug(f"Error in _process_image_request: {str(e)}")
+            return [{
+                "title": "Error",
+                "url": image_url,
+                "description": f"An error occurred while analyzing the image: {str(e)}",
+                "prompt_used": prompt
+            }]
+
     def _is_url(self, text: str) -> bool:
         try:
             result = urlparse(text)
