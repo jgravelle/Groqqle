@@ -56,7 +56,7 @@ def fetch_groq_models(api_key):
     except Exception as e:
         log_debug(f"Error fetching Groq models: {str(e)}")
         return {
-            "mixtral-8x7b-32768": {"id": "mixtral-8x7b-32768", "context_window": 32768},
+            "llama3-8b-8192": {"id": "llama3-8b-8192", "context_window": 32768},
             "llama2-70b-4096": {"id": "llama2-70b-4096", "context_window": 4096}
         }
 
@@ -248,7 +248,7 @@ def main(api_key_arg: str = None, num_results: int = 10, max_tokens: int = 4096,
         st.session_state.context_window = max_tokens
     if 'models' not in st.session_state:
         st.session_state.models = {
-            "mixtral-8x7b-32768": {"id": "mixtral-8x7b-32768", "context_window": 32768},
+            "llama3-8b-8192": {"id": "llama3-8b-8192", "context_window": 32768},
             "llama2-70b-4096": {"id": "llama2-70b-4096", "context_window": 4096}
         }
     if 'search_type' not in st.session_state:
@@ -331,7 +331,7 @@ def main(api_key_arg: str = None, num_results: int = 10, max_tokens: int = 4096,
 
     # Initialize Web_Agent and fetch models
     if 'models' not in st.session_state or st.session_state.models == {
-        "mixtral-8x7b-32768": {"id": "mixtral-8x7b-32768", "context_window": 32768},
+        "llama3-8b-8192": {"id": "llama3-8b-8192", "context_window": 32768},
         "llama2-70b-4096": {"id": "llama2-70b-4096", "context_window": 4096}
     }:
         st.session_state.models = fetch_groq_models(api_key)
@@ -368,7 +368,7 @@ def main(api_key_arg: str = None, num_results: int = 10, max_tokens: int = 4096,
             """
         st.markdown(clickable_image_html, unsafe_allow_html=True)
 
-        query = st.text_input("Search query, enter a URL, or paste an image URL with an optional question.  The URL can be to an article, web page, foreign text, or image.", key="search_bar", on_change=perform_search)
+        query = st.text_input("Enter search criteria or a link.  URLs can be for articles, web pages, foreign language content, or images.", key="search_bar", on_change=perform_search)
 
         col1, col2, col3, col4 = st.columns([2,1,1,2])
         with col1:
@@ -583,7 +583,7 @@ def create_api_app(api_key_arg: str = None, default_num_results: int = 10, defau
         num_results = data.get('num_results', default_num_results)
         max_tokens = data.get('max_tokens', default_max_tokens)
         summary_length = data.get('summary_length', default_summary_length)
-        model = data.get('model', 'mixtral-8x7b-32768')
+        model = data.get('model', 'llama3-8b-8192')
         temperature = data.get('temperature', 0.0)
         comprehension_grade = data.get('comprehension_grade', 8)
         search_type = data.get('search_type', 'web').lower()
@@ -657,7 +657,7 @@ if __name__ == "__main__":
                 "num_results": 5,
                 "max_tokens": 4096,
                 "summary_length": 200,
-                "model": "mixtral-8x7b-32768",
+                "model": "llama3-8b-8192",
                 "temperature": 0.0,
                 "comprehension_grade": 8,
                 "search_type": "web"  // Use "web" for web search or "news" for news search

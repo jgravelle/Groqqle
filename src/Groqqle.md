@@ -4,9 +4,11 @@
 import argparse
 import logging
 import os
+import re
 import requests
 import streamlit as st
 import tldextract
+import traceback
 
 from agents.Web_Agent import Web_Agent
 from agents.News_Agent import News_Agent  # Import the new News_Agent
@@ -57,7 +59,7 @@ def fetch_groq_models(api_key):
     except Exception as e:
         log_debug(f"Error fetching Groq models: {str(e)}")
         return {
-            "mixtral-8x7b-32768": {"id": "mixtral-8x7b-32768", "context_window": 32768},
+            "llama3-8b-8192": {"id": "llama3-8b-8192", "context_window": 32768},
             "llama2-70b-4096": {"id": "llama2-70b-4096", "context_window": 4096}
         }
 
@@ -102,6 +104,50 @@ def get_groq_api_key(api_key_arg: str = None) -> str:
             st.success("API key saved. The page will refresh momentarily.")
             st.rerun()
         return api_key
+
+def extract_url_and_prompt(query: str):
+    # Regular expression to find URLs in the query
+    url_pattern = r'http[s]?://(?:[a-zA-Z]|[0-9]|[$-_@.&+]|[!*\\(\\),]|(?:%[0-9a-fA-F][0-9a-fA-F]))+'
+    urls = re.findall(url_pattern, query)
+    
+    if urls:
+        image_url = urls[0]
+        # Remove the URL from the query to get the custom prompt
+        custom_prompt = query.replace(image_url, '').strip()
+        if not custom_prompt:
+            custom_prompt = "What's in this image?"
+        return image_url, custom_prompt
+    return None, None
+
+def process_image(query: str, api_key: str):
+    image_url, custom_prompt = extract_url_and_prompt(query)
+    if not image_url:
+        return None
+
+    try:
+        agent = Web_Agent(
+            api_key,
+            num_results=1,
+            max_tokens=st.session_state.context_window,
+            model="llava-v1.5-7b-4096-preview",
+            temperature=st.session_state.temperature,
+            comprehension_grade=st.session_state.comprehension_grade,
+            summary_length=st.session_state.summary_length
+        )
+        results = agent._process_image_request(image_url, custom_prompt)
+        if results and isinstance(results, list) and len(results) > 0:
+            results[0]['prompt_used'] = custom_prompt
+        return results
+    except Exception as e:
+        st.error(f"An error occurred while processing the image: {str(e)}")
+        if os.environ.get('DEBUG') == 'True':
+            st.error(traceback.format_exc())
+        return [{
+            "title": "Error",
+            "url": image_url,
+            "description": f"An error occurred while analyzing the image: {str(e)}",
+            "prompt_used": custom_prompt
+        }]
 
 
 def update_search_type():
@@ -188,7 +234,7 @@ def update_sidebar(models):
         st.session_state.comprehension_grade = grade_labels.index(selected_grade) + 1
 
 def main(api_key_arg: str = None, num_results: int = 10, max_tokens: int = 4096, default_summary_length: int = 300):
-    st.set_page_config(page_title="Groqqle", layout="centered", initial_sidebar_state="collapsed")
+    st.set_page_config(page_title="Groqqle", layout="wide", initial_sidebar_state="collapsed")
 
     # Initialize session state
     if 'num_results' not in st.session_state:
@@ -205,28 +251,30 @@ def main(api_key_arg: str = None, num_results: int = 10, max_tokens: int = 4096,
         st.session_state.context_window = max_tokens
     if 'models' not in st.session_state:
         st.session_state.models = {
-            "mixtral-8x7b-32768": {"id": "mixtral-8x7b-32768", "context_window": 32768},
+            "llama3-8b-8192": {"id": "llama3-8b-8192", "context_window": 32768},
             "llama2-70b-4096": {"id": "llama2-70b-4096", "context_window": 4096}
         }
     if 'search_type' not in st.session_state:
         st.session_state.search_type = "Web"  # Default to Web search
-    if 'api_key_source' not in st.session_state:
-        st.session_state.api_key_source = None
 
     api_key = get_groq_api_key(api_key_arg)
 
-    if api_key:
-        if 'models' not in st.session_state or st.session_state.models == {
-            "mixtral-8x7b-32768": {"id": "mixtral-8x7b-32768", "context_window": 32768},
-            "llama2-70b-4096": {"id": "llama2-70b-4096", "context_window": 4096}
-        }:
-            st.session_state.models = fetch_groq_models(api_key)
-
-    update_sidebar(st.session_state.models)
-
     # Main content
-    st.markdown(""" 
+    st.markdown("""
     <style>
+    .main-content {
+        display: flex;
+        justify-content: space-between;
+    }
+    .search-container {
+        flex: 2;
+        padding-right: 20px;
+    }
+    .image-analysis {
+        flex: 1;
+        padding-left: 20px;
+        border-left: 1px solid #e0e0e0;
+    }
     .stApp {
         max-width: 100%;
     }
@@ -253,7 +301,7 @@ def main(api_key_arg: str = None, num_results: int = 10, max_tokens: int = 4096,
     }
     .search-container {
         max-width: 600px;
-        margin: 0 auto;
+        margin: 0;
     }
     .search-results {
         max-width: 600px;
@@ -281,44 +329,107 @@ def main(api_key_arg: str = None, num_results: int = 10, max_tokens: int = 4096,
     """, unsafe_allow_html=True)
 
     if not api_key:
-        st.error("Please provide a valid Groq API Key to use the application.")
+        st.warning("Please provide a valid Groq API Key to use the application.")
         return
 
-    st.markdown('<div class="search-container">', unsafe_allow_html=True)
+    # Initialize Web_Agent and fetch models
+    if 'models' not in st.session_state or st.session_state.models == {
+        "llama3-8b-8192": {"id": "llama3-8b-8192", "context_window": 32768},
+        "llama2-70b-4096": {"id": "llama2-70b-4096", "context_window": 4096}
+    }:
+        st.session_state.models = fetch_groq_models(api_key)
+
+    update_sidebar(st.session_state.models)
+
+    web_agent = Web_Agent(
+        api_key,
+        num_results=num_results,
+        max_tokens=st.session_state.context_window,
+        model=st.session_state.selected_model,
+        temperature=st.session_state.temperature,
+        comprehension_grade=st.session_state.comprehension_grade,
+        summary_length=st.session_state.summary_length
+    )
+
+    # Create a two-column layout for main content and image analysis
+    main_col, image_col = st.columns([3, 1])
+
+    with main_col:
+        st.markdown('<div class="search-container">', unsafe_allow_html=True)
     
-    # Only include the API key in the URL if it was manually entered
-    logo_url = "."
-    if st.session_state.api_key_source == 'manual':
-        logo_url = f"?api_key={quote_plus(api_key)}"
+        # Only include the API key in the URL if it was manually entered
+        logo_url = "."
+        if st.session_state.api_key_source == 'manual':
+            logo_url = f"?api_key={quote_plus(api_key)}"
 
-    clickable_image_html = f"""
-        <div class="search-container">
-            <a href="{logo_url}">
-                <img src="https://j.gravelle.us/groqqle_logo.png" width="272" />
-            </a>
-        </div>
-        """
-    st.markdown(clickable_image_html, unsafe_allow_html=True)
+        clickable_image_html = f"""
+            <div class="search-container" style="align:left">
+                <a href="{logo_url}">
+                    <img src="https://j.gravelle.us/groqqle_logo.png" width="272" />
+                </a>
+            </div>
+            """
+        st.markdown(clickable_image_html, unsafe_allow_html=True)
 
-    query = st.text_input("Search query or enter a URL", key="search_bar", on_change=perform_search, label_visibility="collapsed")
+        query = st.text_input("Enter search criteria or a link.  URLs can be for articles, web pages, foreign language content, or images.", key="search_bar", on_change=perform_search)
 
-    col1, col2, col3, col4 = st.columns([2,1,1,2])
-    with col1:
-        if st.button("Groqqle Search", key="search_button"):
-            perform_search()
-    with col2:
-        search_type = st.radio("Search Type", ["Web", "News"], index=0, key="search_type", on_change=update_search_type)
-    with col4:
-        json_results = st.checkbox("JSON Results", value=False, key="json_results")
+        col1, col2, col3, col4 = st.columns([2,1,1,2])
+        with col1:
+            if st.button("Groqqle Search", key="search_button"):
+                perform_search()
+        with col2:
+            search_type = st.radio("Search Type", ["Web", "News"], index=0, key="search_type", on_change=update_search_type)
+        with col4:
+            json_results = st.checkbox("JSON Results", value=False, key="json_results")
 
-    if query.startswith(('http://', 'https://')):
-        with st.spinner('Summarizing URL...'):
-            summary = summarize_url(query, api_key, st.session_state.comprehension_grade, st.session_state.temperature)
-            display_results([summary], json_results, api_key)
-    elif st.session_state.get('search_results'):
-        display_results(st.session_state.search_results, json_results, api_key)
+        if query:
+            image_url, _ = extract_url_and_prompt(query)
+            if image_url:
+                with st.spinner('Analyzing image...'):
+                    image_results = process_image(query, api_key)
+                    if image_results:
+                        st.session_state.image_analysis = image_results[0]['description']
+                        st.session_state.image_url = image_url
+                        st.session_state.image_prompt = image_results[0].get('prompt_used', "What's in this image?")
+            elif web_agent._is_url(query):
+                with st.spinner('Summarizing URL...'):
+                    summary = summarize_url(query, api_key, st.session_state.comprehension_grade, st.session_state.temperature)
+                    display_results([summary], json_results, api_key)
+            elif st.session_state.get('search_results'):
+                display_results(st.session_state.search_results, json_results, api_key)
 
-    st.markdown('</div>', unsafe_allow_html=True)
+        st.markdown('</div>', unsafe_allow_html=True)
+
+    with image_col:
+        st.markdown('<div class="image-analysis">', unsafe_allow_html=True)
+        if 'image_analysis' in st.session_state and 'image_url' in st.session_state:
+            st.image(st.session_state.image_url, use_column_width=True)
+            st.markdown("### IMAGE ANALYSIS")
+            st.write(f"**Prompt:** {st.session_state.image_prompt}")
+            st.write(st.session_state.image_analysis)
+        # else:
+            # st.markdown("### IMAGE ANALYSIS")
+            # st.write("No image analyzed yet. Enter an image URL with an optional question in the search bar to analyze.")
+        st.markdown('</div>', unsafe_allow_html=True)
+
+    # Add custom CSS to ensure proper layout
+    st.markdown("""
+        <style>
+        .main-content {
+            display: flex;
+            justify-content: space-between;
+        }
+        .search-container {
+            flex: 3;
+            padding-right: 20px;
+        }
+        .image-analysis {
+            flex: 1;
+            padding-left: 20px;
+            border-left: 1px solid #e0e0e0;
+        }
+        </style>
+    """, unsafe_allow_html=True)
 
 def perform_search():
     query = st.session_state.search_bar
@@ -459,50 +570,63 @@ def create_api_app(api_key_arg: str = None, default_num_results: int = 10, defau
 
     @app.route('/search', methods=['POST'])
     def api_search():
+        # Check for API key in Authorization header
+        auth_header = request.headers.get('Authorization')
+        if auth_header and auth_header.startswith('Bearer '):
+            api_key = auth_header.split('Bearer ')[1]
+        else:
+            # Fallback to environment variable if no Authorization header
+            api_key = api_key_arg or os.getenv('GROQ_API_KEY')
+
+        if not api_key:
+            return jsonify({"error": "No API key provided. Please include it in the Authorization header as 'Bearer YOUR_API_KEY' or set it as an environment variable."}), 401
+
         data = request.json
         query = data.get('query')
         num_results = data.get('num_results', default_num_results)
         max_tokens = data.get('max_tokens', default_max_tokens)
         summary_length = data.get('summary_length', default_summary_length)
-        model = data.get('model', 'llava-v1.5-7b-4096-preview')
+        model = data.get('model', 'llama3-8b-8192')
         temperature = data.get('temperature', 0.0)
         comprehension_grade = data.get('comprehension_grade', 8)
-        search_type = data.get('search_type', 'web').lower()  # Default to 'web' if not provided
+        search_type = data.get('search_type', 'web').lower()
+        custom_prompt = data.get('custom_prompt')
         
         if not query:
             return jsonify({"error": "No query provided"}), 400
 
-        api_key = api_key_arg or os.getenv('GROQ_API_KEY')
-        if not api_key:
-            return jsonify({"error": "Groq API Key not set"}), 500
-
-        log_debug(f"API search endpoint hit with query: {query}, num_results: {num_results}, summary_length: {summary_length}, model: {model}, max_tokens: {max_tokens}, temperature: {temperature}, comprehension_grade: {comprehension_grade}, search_type: {search_type}")
+        log_debug(f"API search endpoint hit with query: {query}, num_results: {num_results}, summary_length: {summary_length}, model: {model}, max_tokens: {max_tokens}, temperature: {temperature}, comprehension_grade: {comprehension_grade}, search_type: {search_type}, custom_prompt: {custom_prompt}")
         
         try:
-            if search_type == 'web':
-                agent = Web_Agent(
-                    api_key, 
-                    num_results=num_results, 
-                    max_tokens=max_tokens, 
-                    model=model,
-                    temperature=temperature,
-                    comprehension_grade=comprehension_grade,
-                    summary_length=summary_length
-                )
+            agent = Web_Agent(
+                api_key, 
+                num_results=num_results, 
+                max_tokens=max_tokens, 
+                model=model,
+                temperature=temperature,
+                comprehension_grade=comprehension_grade,
+                summary_length=summary_length
+            )
+
+            if agent._is_image_url(query):
+                results = agent._process_image_request(query, custom_prompt)
+            elif search_type == 'web':
+                results = agent.process_request(query)
             elif search_type == 'news':
-                agent = News_Agent(
+                news_agent = News_Agent(
                     api_key, 
-                    num_results=num_results,  # Correctly pass num_results to News_Agent
+                    num_results=num_results,
                     max_tokens=max_tokens, 
                     model=model,
                     temperature=temperature,
                     comprehension_grade=comprehension_grade
                 )
+                results = news_agent.process_request(query)
             else:
                 return jsonify({"error": "Invalid search type. Use 'web' or 'news'."}), 400
 
-            results = agent.process_request(query)
             return jsonify(results)
+        
         except Exception as e:
             log_debug(f"Error in API search: {str(e)}")
             return jsonify({"error": str(e)}), 500
@@ -536,7 +660,7 @@ if __name__ == "__main__":
                 "num_results": 5,
                 "max_tokens": 4096,
                 "summary_length": 200,
-                "model": "mixtral-8x7b-32768",
+                "model": "llama3-8b-8192",
                 "temperature": 0.0,
                 "comprehension_grade": 8,
                 "search_type": "web"  // Use "web" for web search or "news" for news search
@@ -548,6 +672,130 @@ if __name__ == "__main__":
 
         # Run the Flask app without debug mode
         app.run(host='0.0.0.0', port=args.port)
+```
+
+# Groqqle_web_tool.py
+
+```python
+from typing import Dict, Any, List
+from tools.web_tools.WebSearch_Tool import WebSearch_Tool
+from tools.web_tools.WebGetContents_Tool import WebGetContents_Tool
+from providers.provider_factory import ProviderFactory
+
+class Groqqle_web_tool:
+    def __init__(self, api_key: str, provider_name: str = 'groq', num_results: int = 10, max_tokens: int = 4096, model: str = "llama3-8b-8192", temperature: float = 0.0, comprehension_grade: int = 8):
+        self.api_key = api_key
+        self.num_results = num_results
+        self.max_tokens = max_tokens
+        self.model = model
+        self.temperature = temperature
+        self.comprehension_grade = comprehension_grade
+        self.provider = ProviderFactory.get_provider(provider_name, api_key)
+
+    def run(self, query: str) -> List[Dict[str, Any]]:
+        search_results = self._perform_web_search(query)
+        filtered_results = self._filter_search_results(search_results)
+        deduplicated_results = self._remove_duplicates(filtered_results)
+        return deduplicated_results[:self.num_results]
+
+    def _perform_web_search(self, query: str) -> List[Dict[str, Any]]:
+        return WebSearch_Tool(query, self.num_results * 2)
+
+    def _filter_search_results(self, results: List[Dict[str, Any]]) -> List[Dict[str, Any]]:
+        return [result for result in results if result['description'] and result['title'] != 'No title' and result['url'].startswith('https://')]
+
+    def _remove_duplicates(self, results: List[Dict[str, Any]]) -> List[Dict[str, Any]]:
+        seen_urls = set()
+        unique_results = []
+        for result in results:
+            if result['url'] not in seen_urls:
+                seen_urls.add(result['url'])
+                unique_results.append(result)
+        return unique_results
+
+    def _summarize_web_content(self, content: str, url: str) -> Dict[str, str]:
+        summary_prompt = self._create_summary_prompt(content, url)
+        summary = self.provider.generate(
+            summary_prompt,
+            max_tokens=self.max_tokens,
+            temperature=self.temperature
+        )
+        return self._format_summary(summary, url)
+
+    def _create_summary_prompt(self, content: str, url: str) -> str:
+        grade_descriptions = {
+            1: "a 6-year-old in 1st grade", 2: "a 7-year-old in 2nd grade", 3: "an 8-year-old in 3rd grade",
+            4: "a 9-year-old in 4th grade", 5: "a 10-year-old in 5th grade", 6: "an 11-year-old in 6th grade",
+            7: "a 12-year-old in 7th grade", 8: "a 13-year-old in 8th grade", 9: "a 14-year-old in 9th grade",
+            10: "a 15-year-old in 10th grade", 11: "a 16-year-old in 11th grade", 12: "a 17-year-old in 12th grade",
+            13: "a college undergraduate", 14: "a master's degree student", 15: "a PhD candidate"
+        }
+        grade_description = grade_descriptions.get(self.comprehension_grade, "an average adult")
+
+        return f"""
+        Summarize the following web content from {url} for {grade_description}:
+        {content}
+
+        Your task is to provide a comprehensive and informative synopsis of the main subject matter, along with an SEO-optimized headline. Follow these guidelines:
+
+        1. Generate an SEO-optimized headline that:
+        - Captures user interest without sensationalism
+        - Accurately represents the main topic
+        - Uses relevant keywords
+        - Is concise
+        - Maintains professionalism
+        - Does not begin with anything akin to "Imagine" or "Picture this"
+        
+        2. Format your headline exactly as follows:
+        HEADLINE: [Your SEO-optimized headline here]
+
+        3. Write your summary using the inverted pyramid style:
+        - Start with a strong lede (opening sentence) that entices readers and summarizes the most crucial information
+        - Present the most important information first
+        - Follow with supporting details and context
+        - End with the least essential information
+
+        4. Adjust the language complexity strictly targeted to the reading level for {grade_description}.
+
+        5. Clearly explain the main topic or discovery being discussed
+        6. Highlight key points, findings, or arguments presented in the content
+        7. Provide relevant context or background information that helps understand the topic
+        8. Mention any significant implications, applications, or future directions discussed
+        9. If applicable, include important quotes or statistics that support the main points
+
+        Use a neutral, journalistic tone, and ensure that you're reporting the facts as presented in the content, not adding personal opinions or speculation.
+
+        Format your response as follows:
+        HEADLINE: [Your SEO-optimized headline here]
+
+        [Your comprehensive summary here, following the inverted pyramid style]
+        """
+
+    def _format_summary(self, summary: str, url: str) -> Dict[str, str]:
+        parts = summary.split('\n', 1)
+        if len(parts) == 2 and parts[0].startswith('HEADLINE:'):
+            headline = parts[0].replace('HEADLINE:', '').strip()
+            body = parts[1].strip()
+        else:
+            sentences = summary.split('. ')
+            headline = sentences[0].strip()
+            body = '. '.join(sentences[1:]).strip()
+
+        if not headline or headline == "Summary of Web Content":
+            headline = f"Summary of {url.split('//')[1].split('/')[0]}"
+
+        return {
+            "title": headline,
+            "url": url,
+            "description": body
+        }
+
+    def summarize_url(self, url: str) -> Dict[str, str]:
+        content = WebGetContents_Tool(url)
+        if content:
+            return self._summarize_web_content(content, url)
+        else:
+            return {"title": "Error", "url": url, "description": "Failed to retrieve content from the URL."}
 ```
 
 # agents\Base_Agent.py
@@ -635,7 +883,7 @@ def log_debug(message):
         print(f"Debug: {message}")
 
 class News_Agent(Base_Agent):
-    def __init__(self, api_key, provider_name='groq', num_results=10, max_tokens=4096, model="mixtral-8x7b-32768", temperature=0.0, comprehension_grade=8):
+    def __init__(self, api_key, provider_name='groq', num_results=10, max_tokens=4096, model="llama3-8b-8192", temperature=0.0, comprehension_grade=8):
         log_debug(f"Initializing News_Agent with provider_name: {provider_name}, num_results: {num_results}, max_tokens: {max_tokens}, model: {model}, temperature: {temperature}, comprehension_grade: {comprehension_grade}")
         
         if not api_key:
@@ -903,7 +1151,7 @@ except ImportError as e:
     ProviderFactory = None
 
 class Web_Agent(Base_Agent):
-    def __init__(self, api_key, provider_name='groq', num_results=10, max_tokens=4096, model="mixtral-8x7b-32768", temperature=0.0, comprehension_grade=8, summary_length=300):
+    def __init__(self, api_key, provider_name='groq', num_results=10, max_tokens=4096, model="llama3-8b-8192", temperature=0.0, comprehension_grade=8, summary_length=300):
         log_debug(f"Initializing Web_Agent with provider_name: {provider_name}, num_results: {num_results}, max_tokens: {max_tokens}, model: {model}, temperature: {temperature}, comprehension_grade: {comprehension_grade}, summary_length: {summary_length}")
         if not api_key:
             log_debug("API key is missing or empty")
@@ -919,6 +1167,8 @@ class Web_Agent(Base_Agent):
         self.temperature = temperature
         self.comprehension_grade = comprehension_grade
         self.summary_length = summary_length
+        self.provider = ProviderFactory.get_provider(provider_name, api_key)
+        self.image_handler = self._initialize_image_handler()
 
         try:
             log_debug(f"Attempting to get provider with API key: {api_key[:5]}...")
@@ -931,24 +1181,59 @@ class Web_Agent(Base_Agent):
             log_debug(f"Error in Web_Agent.__init__: {str(e)}")
             log_debug(f"Traceback:\n{traceback.format_exc()}")
             raise
+    
+
+    def _initialize_image_handler(self):
+        return lambda image_url, prompt: self.provider.generate(prompt, image_path=image_url)
+
 
     def process_request(self, user_request: str) -> list:
         log_debug(f"Processing request: {user_request}")
         log_debug(f"Using comprehension grade: {self.comprehension_grade}, temperature: {self.temperature}")
         try:
-            if self._is_url(user_request):
-                log_debug(f"Request is a URL: {user_request}")
+            if self._is_image_url(user_request):
+                return self._process_image_request(user_request)
+            elif self._is_url(user_request):
                 return self._process_url_request(user_request)
             else:
-                log_debug(f"Request is a search query: {user_request}")
                 return self._process_web_search(user_request)
         except Exception as e:
             log_debug(f"Error in process_request: {str(e)}")
             log_debug(f"Traceback:\n{traceback.format_exc()}")
-            if os.environ.get('DEBUG') == 'True':
-                print(f"Error in Web_Agent: {str(e)}")
             return [{"title": "Error", "url": "", "description": f"An error occurred while processing your request: {str(e)}"}]
+
+    def _is_image_url(self, url: str) -> bool:
+        image_extensions = ['.jpg', '.jpeg', '.png', '.gif', '.bmp', '.webp']
+        parsed_url = urlparse(url)
+        return parsed_url.scheme in ['http', 'https'] and any(parsed_url.path.lower().endswith(ext) for ext in image_extensions)
+
+    def _process_image_request(self, image_url: str, custom_prompt: str = None) -> list:
+        log_debug(f"Processing image request: {image_url}")
+        default_prompt = "What's in this image?"
+        prompt = custom_prompt if custom_prompt else default_prompt
         
+        try:
+            if self.model == "llava-v1.5-7b-4096-preview":
+                description = self.provider.generate(prompt, image_path=image_url, model=self.model)
+            else:
+                description = self.provider.generate(f"{prompt}\n\nImage URL: {image_url}")
+            
+            log_debug(f"Image description generated successfully")
+            return [{
+                "title": "Image Analysis",
+                "url": image_url,
+                "description": description,
+                "prompt_used": prompt
+            }]
+        except Exception as e:
+            log_debug(f"Error in _process_image_request: {str(e)}")
+            return [{
+                "title": "Error",
+                "url": image_url,
+                "description": f"An error occurred while analyzing the image: {str(e)}",
+                "prompt_used": prompt
+            }]
+
     def _is_url(self, text: str) -> bool:
         try:
             result = urlparse(text)

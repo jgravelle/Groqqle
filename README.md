@@ -1,8 +1,8 @@
-# Groqqle 2.0: Your Free AI-Powered Search Engine and Content Generator
+# Groqqle 2.1: Your Free AI-Powered Search Engine and Content Generator
 
 ![Groqqle Logo](https://github.com/user-attachments/assets/1ff3686d-130f-4b63-ae4d-f0cf7bb6562e)
 
-Groqqle 2.0 is a revolutionary, free AI web search and API that instantly returns ORIGINAL content derived from source articles, websites, videos, and even foreign language sources, for ANY target market of ANY reading comprehension level! It combines the power of large language models with advanced web and news search capabilities, offering both a user-friendly web interface and a robust API for seamless integration into your projects.
+Groqqle 2.1 is a revolutionary, free AI web search and API that instantly returns ORIGINAL content derived from source articles, websites, videos, and even foreign language sources, for ANY target market of ANY reading comprehension level! It combines the power of large language models with advanced web and news search capabilities, offering a user-friendly web interface, a robust API, and now a powerful Groqqle_web_tool for seamless integration into your projects.
 
 Developers can instantly incorporate Groqqle into their applications, providing a powerful tool for content generation, research, and analysis across various domains and languages.
 
@@ -19,6 +19,7 @@ Developers can instantly incorporate Groqqle into their applications, providing 
 - 🖥️ Intuitive web interface for easy searching and content generation
 - 🚀 Fast and efficient results using Groq's high-speed inference
 - 🔌 RESTful API for quick integration into developer projects
+- 🛠️ Groqqle_web_tool for direct integration into Python projects
 - 🔒 Secure handling of API keys through environment variables
 - 📊 Option to view results in JSON format
 - 🔄 Extensible architecture for multiple AI providers
@@ -27,19 +28,18 @@ Developers can instantly incorporate Groqqle into their applications, providing 
 
 ![Groqqle Features](image-5.png)
 
-## 🚀 Why Choose Groqqle 2.0?
+## 🚀 Why Choose Groqqle 2.1?
 
-Groqqle 2.0 stands out as a powerful tool for developers, researchers, content creators, and businesses:
+Groqqle 2.1 stands out as a powerful tool for developers, researchers, content creators, and businesses:
 
 - **Instant Original Content**: Generate fresh, unique content on any topic, saving time and resources.
 - **Multilingual Capabilities**: Process and synthesize information from foreign language sources, breaking down language barriers.
 - **Flexible Output**: Tailor content to any target market or audience, adjusting complexity and style as needed.
-- **Easy Integration**: Developers can quickly incorporate Groqqle into their projects, enhancing applications with powerful search and content generation capabilities.
+- **Easy Integration**: Developers can quickly incorporate Groqqle into their projects using the web interface, API, or the new Groqqle_web_tool.
 - **Customizable Comprehension Levels**: Adjust the output to match any reading level, from elementary to expert.
 - **Diverse Source Processing**: Extract insights from various media types, including articles, websites, and videos.
 
-Whether you're building a content aggregation platform, a research tool, or an AI-powered writing assistant, Groqqle 2.0 provides the flexibility and power you need to deliver outstanding results.
-
+Whether you're building a content aggregation platform, a research tool, or an AI-powered writing assistant, Groqqle 2.1 provides the flexibility and power you need to deliver outstanding results.
 
 ## 🛠️ Installation
 
@@ -64,6 +64,11 @@ Whether you're building a content aggregation platform, a research tool, or an A
    Create a `.env` file in the project root and add your Groq API key:
    ```env
    GROQ_API_KEY=your_api_key_here
+   ```
+
+5. Install PocketGroq:
+   ```bash
+   pip install pocketgroq
    ```
 
 ## 🚀 Usage
@@ -135,114 +140,65 @@ Make sure you have set the `GROQ_API_KEY` in your environment variables or `.env
 
 ![Groqqle API Usage](image-3.png)
 
-### Simple and Useful Use Case Scenarios for Groqqle's API Mode
+### Groqqle_web_tool
 
-1. **Content Summarization**
+The new Groqqle_web_tool allows you to integrate Groqqle's powerful search and content generation capabilities directly into your Python projects. Here's how to use it:
 
-   **Scenario:** A news aggregator app needs to summarize articles from various sources.
-
+1. Import the necessary modules:
    ```python
-   import requests
-
-   def summarize_article(url):
-       query = f"Summarize the main points of the article at {url}"
-       response = requests.post("http://127.0.0.1:5000/search", json={"query": query})
-       return response.json()["result"]
-
-   article_url = "https://example.com/article"
-   summary = summarize_article(article_url)
-   print(summary)
+   from pocketgroq import GroqProvider
+   from groqqle_web_tool import Groqqle_web_tool
    ```
 
-2. **Competitive Analysis**
-
-   **Scenario:** A business intelligence tool needs to compare a company with its competitors.
-
+2. Initialize the GroqProvider and Groqqle_web_tool:
    ```python
-   import requests
-
-   def analyze_competitors(company_name, competitors):
-       query = f"Compare {company_name} with its competitors: {', '.join(competitors)}"
-       response = requests.post("http://127.0.0.1:5000/search", json={"query": query})
-       return response.json()["result"]
-
-   company = "TechCorp"
-   competitors = ["RivalTech", "InnovaCo", "TechGiant"]
-   analysis = analyze_competitors(company, competitors)
-   print(analysis)
+   groq_provider = GroqProvider(api_key="your_groq_api_key_here")
+   groqqle_tool = Groqqle_web_tool(api_key="your_groq_api_key_here")
    ```
 
-3. **Research Assistant**
-
-   **Scenario:** An educational platform needs to provide comprehensive overviews of various topics.
-
+3. Define the tool for PocketGroq:
    ```python
-   import requests
+   tools = [
+       {
+           "type": "function",
+           "function": {
+               "name": "groqqle_web_search",
+               "description": "Perform a web search using Groqqle",
+               "parameters": {
+                   "type": "object",
+                   "properties": {
+                       "query": {
+                           "type": "string",
+                           "description": "The search query"
+                       }
+                   },
+                   "required": ["query"]
+               }
+           }
+       }
+   ]
 
-   def research_topic(topic, depth="brief"):
-       query = f"Provide a {depth} overview of {topic}, including key concepts and recent developments"
-       response = requests.post("http://127.0.0.1:5000/search", json={"query": query})
-       return response.json()["result"]
-
-   topic = "Quantum Computing"
-   research_result = research_topic(topic, "comprehensive")
-   print(research_result)
+   def groqqle_web_search(query):
+       results = groqqle_tool.run(query)
+       return results
    ```
 
-4. **Sentiment Analysis of Product Reviews**
-
-   **Scenario:** An e-commerce platform needs to analyze the sentiment of customer reviews.
-
+4. Use the tool in your project:
    ```python
-   import requests
+   user_message = "Search for the latest developments in quantum computing"
+   system_message = "You are a helpful assistant. Use the Groqqle web search tool to find information."
 
-   def analyze_sentiment(review):
-       query = f"Analyze the sentiment of the following review: '{review}'"
-       response = requests.post("http://127.0.0.1:5000/search", json={"query": query})
-       return response.json()["result"]
+   response = groq_provider.generate(
+       system_message,
+       user_message,
+       tools=tools,
+       tool_choice="auto"
+   )
 
-   review = "The product is excellent and exceeded my expectations!"
-   sentiment_analysis = analyze_sentiment(review)
-   print(sentiment_analysis)
+   print(response)
    ```
 
-5. **Legal Document Summarization**
-
-   **Scenario:** A legal firm needs to summarize lengthy legal documents into key points.
-
-   ```python
-   import requests
-
-   def summarize_legal_document(document_url):
-       query = f"Summarize the main points of the legal document at {document_url}"
-       response = requests.post("http://127.0.0.1:5000/search", json={"query": query})
-       return response.json()["result"]
-
-   document_url = "https://example.com/legal-document"
-   summary = summarize_legal_document(document_url)
-   print(summary)
-   ```
-
-6. **News Monitoring and Analysis**
-
-   **Scenario:** A media monitoring service needs to track and analyze news about specific topics or companies.
-
-   ```python
-   import requests
-
-   def monitor_news(topic, days=1):
-       query = f"Latest news about {topic} in the past {days} day(s)"
-       response = requests.post("http://127.0.0.1:5000/search", json={
-           "query": query,
-           "search_type": "news",
-           "num_results": 50
-       })
-       return response.json()["result"]
-
-   topic = "Artificial Intelligence"
-   news_analysis = monitor_news(topic, days=7)
-   print(news_analysis)
-   ```
+This new tool allows for seamless integration of Groqqle's capabilities into your Python projects, enabling powerful search and content generation without the need for a separate API or web interface.
 
 ## 🔄 AI Providers
 
@@ -256,8 +212,11 @@ Groqqle now supports the following configuration options:
 
 - `num_results`: Number of search results to return (default: 10)
 - `max_tokens`: Maximum number of tokens for the AI model response (default: 4096)
+- `model`: The Groq model to use (default: "llama3-8b-8192")
+- `temperature`: The temperature setting for content generation (default: 0.0)
+- `comprehension_grade`: The target comprehension grade level (default: 8)
 
-These options can be set when running the application or when making API requests.
+These options can be set when running the application, making API requests, or initializing the Groqqle_web_tool.
 
 ## 🤝 Contributing
 
@@ -287,5 +246,6 @@ Project Link: [https://github.com/jgravelle/Groqqle](https://github.com/jgravell
 - [Streamlit](https://streamlit.io/) for the amazing web app framework
 - [Flask](https://flask.palletsprojects.com/) for the lightweight WSGI web application framework
 - [Beautiful Soup](https://www.crummy.com/software/BeautifulSoup/) for web scraping capabilities
+- [PocketGroq](https://github.com/CaseCal/pocketgroq) for the Groq provider integration
 
 ![Groqqle Footer](https://github.com/user-attachments/assets/1ff3686d-130f-4b63-ae4d-f0cf7bb6562e)
