@@ -249,3 +249,348 @@ Project Link: [https://github.com/jgravelle/Groqqle](https://github.com/jgravell
 - [PocketGroq](https://github.com/CaseCal/pocketgroq) for the Groq provider integration
 
 ![Groqqle Footer](https://github.com/user-attachments/assets/1ff3686d-130f-4b63-ae4d-f0cf7bb6562e)
+
+
+= = = = = = = = =
+
+## MAC INSTALLATION INSTRUCTIONS (untested, by request)
+
+To install **Groqqle 2.1** on your Mac, follow the step-by-step guide below. This installation process involves setting up a Python environment using Conda, installing necessary packages, and configuring environment variables.
+
+---
+
+## **Prerequisites**
+
+Before starting, ensure you have the following installed on your Mac:
+
+1. **Git**: For cloning the Groqqle repository.
+2. **Conda (Anaconda or Miniconda)**: For managing Python environments.
+3. **Python 3.11**: Groqqle requires Python 3.11 (Conda will handle this).
+4. **Groq API Key**: You'll need a valid API key from Groq.
+
+---
+
+## **Step-by-Step Installation Guide**
+
+### **1. Install Git (if not already installed)**
+
+**Check if Git is installed:**
+
+Open **Terminal** (Finder > Applications > Utilities > Terminal) and run:
+
+```bash
+git --version
+```
+
+- **If Git is installed**, you'll see a version number.
+- **If not installed**, you'll be prompted to install the Xcode Command Line Tools. Follow the on-screen instructions.
+
+**Alternatively, install Git using Homebrew:**
+
+If you prefer using Homebrew (a package manager for macOS):
+
+1. **Install Homebrew** (if not already installed):
+
+   ```bash
+   /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+   ```
+
+2. **Install Git via Homebrew:**
+
+   ```bash
+   brew install git
+   ```
+
+### **2. Install Conda (Anaconda or Miniconda)**
+
+Groqqle uses Conda to manage its Python environment.
+
+**Option A: Install Miniconda (Recommended for simplicity)**
+
+1. **Download Miniconda Installer:**
+
+   - Go to the [Miniconda installation page](https://docs.conda.io/en/latest/miniconda.html).
+   - Download the **macOS installer** matching your Mac's architecture:
+     - **Intel Macs**: `Miniconda3-latest-MacOSX-x86_64.sh`
+     - **Apple Silicon (M1/M2)**: `Miniconda3-latest-MacOSX-arm64.sh`
+
+2. **Run the Installer:**
+
+   ```bash
+   # Navigate to your Downloads folder
+   cd ~/Downloads
+
+   # Run the installer (replace with your downloaded file's name)
+   bash Miniconda3-latest-MacOSX-x86_64.sh  # For Intel Macs
+   # or
+   bash Miniconda3-latest-MacOSX-arm64.sh   # For M1/M2 Macs
+   ```
+
+3. **Follow the On-Screen Prompts:**
+
+   - Press **Enter** to proceed.
+   - Type `yes` to agree to the license agreement.
+   - Press **Enter** to confirm the installation location (default is recommended).
+   - Type `yes` to initialize Conda.
+
+4. **Restart Terminal or Source Conda:**
+
+   ```bash
+   # For Bash shell
+   source ~/.bash_profile
+
+   # For Zsh shell (default on macOS Catalina and later)
+   source ~/.zshrc
+   ```
+
+**Option B: Install Anaconda**
+
+If you prefer a full Anaconda installation (larger download), download it from the [Anaconda distribution page](https://www.anaconda.com/products/individual).
+
+### **3. Clone the Groqqle Repository**
+
+1. **Open Terminal** and navigate to your desired directory:
+
+   ```bash
+   cd ~  # or wherever you want to clone the repository
+   ```
+
+2. **Clone the Repository:**
+
+   ```bash
+   git clone https://github.com/jgravelle/Groqqle.git
+   ```
+
+3. **Navigate into the Project Directory:**
+
+   ```bash
+   cd Groqqle
+   ```
+
+### **4. Create and Activate a Conda Environment**
+
+1. **Create a New Environment with Python 3.11:**
+
+   ```bash
+   conda create --name groqqle python=3.11
+   ```
+
+2. **Activate the Environment:**
+
+   ```bash
+   conda activate groqqle
+   ```
+
+   - **Note**: If you receive an error about activation, initialize Conda for your shell:
+
+     ```bash
+     conda init
+     ```
+
+     Then restart Terminal or source your shell configuration:
+
+     ```bash
+     source ~/.bash_profile  # For Bash
+     source ~/.zshrc         # For Zsh
+     ```
+
+### **5. Install the Required Packages**
+
+1. **Install Dependencies from `requirements.txt`:**
+
+   ```bash
+   pip install -r requirements.txt
+   ```
+
+   - **Troubleshooting**:
+     - If you encounter errors, especially on M1/M2 Macs, see the **Apple Silicon Compatibility** section below.
+
+### **6. Set Up Your Environment Variables**
+
+1. **Create a `.env` File in the Project Root:**
+
+   ```bash
+   touch .env
+   ```
+
+2. **Add Your Groq API Key:**
+
+   Open the `.env` file with a text editor:
+
+   ```bash
+   open .env  # Opens the file in the default text editor
+   ```
+
+   Add the following line (replace `your_api_key_here` with your actual API key):
+
+   ```env
+   GROQ_API_KEY=your_api_key_here
+   ```
+
+3. **Save and Close the File.**
+
+   - **Alternatively**, set the environment variable in Terminal (session-specific):
+
+     ```bash
+     export GROQ_API_KEY=your_api_key_here
+     ```
+
+### **7. Install PocketGroq**
+
+1. **Install via Pip:**
+
+   ```bash
+   pip install pocketgroq
+   ```
+
+### **8. Verify the Installation**
+
+#### **Option A: Run the Web Interface**
+
+1. **Start the Application:**
+
+   ```bash
+   streamlit run Groqqle.py
+   ```
+
+2. **Access the Interface:**
+
+   - Open the URL provided in the Terminal output (typically `http://localhost:8501`) in your web browser.
+
+#### **Option B: Run the API Server**
+
+1. **Start the API Server:**
+
+   ```bash
+   python Groqqle.py api --num_results 20 --max_tokens 4096
+   ```
+
+2. **Test the API:**
+
+   - The API will be running at `http://127.0.0.1:5000`.
+   - You can send POST requests to this endpoint as per the documentation.
+
+---
+
+## **Apple Silicon Compatibility (M1/M2 Macs)**
+
+Some Python packages may have compatibility issues on Apple Silicon. Here's how to address them:
+
+1. **Install Rosetta 2 (if not already installed):**
+
+   ```bash
+   softwareupdate --install-rosetta
+   ```
+
+2. **Run Terminal in Rosetta Mode:**
+
+   - **Locate Terminal App**:
+     - Go to `Applications` > `Utilities`.
+   - **Duplicate Terminal**:
+     - Right-click on `Terminal` and select `Duplicate`.
+     - Rename the duplicated app to `Terminal Rosetta`.
+   - **Enable Rosetta for the Duplicated Terminal**:
+     - Right-click `Terminal Rosetta` > `Get Info`.
+     - Check the box **"Open using Rosetta"**.
+   - **Use Terminal Rosetta**:
+     - Open `Terminal Rosetta` and proceed with the installation steps.
+
+3. **Create an x86_64 Conda Environment:**
+
+   ```bash
+   CONDA_SUBDIR=osx-64 conda create --name groqqle python=3.11
+   conda activate groqqle
+   ```
+
+4. **Proceed with Installation Steps 5 to 8.**
+
+---
+
+## **Additional Notes**
+
+- **Ensure Python Version**: Verify that Python 3.11 is active in your environment:
+
+  ```bash
+  python --version
+  ```
+
+- **Install Xcode Command Line Tools**: Some packages require compilation:
+
+  ```bash
+  xcode-select --install
+  ```
+
+- **Troubleshooting Package Installation**: If `pip install -r requirements.txt` fails:
+
+  - Install packages individually to identify the problematic one.
+  - Use Conda to install problematic packages:
+
+    ```bash
+    conda install package-name
+    ```
+
+- **Using Virtual Environments**: If you prefer `venv` or `virtualenv` over Conda:
+
+  ```bash
+  python3.11 -m venv groqqle_env
+  source groqqle_env/bin/activate
+  pip install -r requirements.txt
+  ```
+
+---
+
+## **Using Groqqle**
+
+Refer to the **Usage** section in the documentation for detailed instructions on:
+
+- **Web Interface Usage**
+- **API Usage**
+- **Integration with Python Projects using `groqqle_web_tool`**
+
+---
+
+## **Common Issues and Solutions**
+
+- **Streamlit Not Found**:
+
+  ```bash
+  pip install streamlit
+  ```
+
+- **Environment Activation Fails**:
+
+  Ensure Conda is initialized for your shell:
+
+  ```bash
+  conda init
+  source ~/.bash_profile  # For Bash
+  source ~/.zshrc         # For Zsh
+  ```
+
+- **Permission Errors**:
+
+  Run commands with appropriate permissions or adjust file permissions:
+
+  ```bash
+  sudo chown -R $(whoami) ~/.conda
+  ```
+
+- **Missing Dependencies**:
+
+  Install missing system dependencies via Homebrew:
+
+  ```bash
+  brew install [package-name]
+  ```
+
+---
+
+## **Support**
+
+- **Groqqle GitHub Repository**: [https://github.com/jgravelle/Groqqle](https://github.com/jgravelle/Groqqle)
+- **Contact**: J. Gravelle - [j@gravelle.us](mailto:j@gravelle.us)
+- **Issues**: If you encounter problems, consider opening an issue on the GitHub repository.
+
+---
+
+By following these steps, you should have Groqqle 2.1 installed and running on your Mac. If you need further assistance, feel free to ask!
