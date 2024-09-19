@@ -148,7 +148,7 @@ class News_Agent(Base_Agent):
             Summarize the following news content from {url} for {grade_description}:
             {content} 
 
-            Your task is to provide a comprehensive and informative synopsis of the main subject matter, along with an SEO-optimized headline. The summary must stand alone, without mentioning the original source, its authors, or any references to articles, videos, or materials. Follow these guidelines:
+            Your task is to write a new, comprehensive and informative article containing synopses of the main subject matter, along with an SEO-optimized headline. The summary must stand alone, without mentioning the original source, its authors, or any references to articles, videos, or materials. Follow these guidelines:
 
             1. Generate an SEO-optimized headline that:
                 - Captures user interest without sensationalism
@@ -157,6 +157,7 @@ class News_Agent(Base_Agent):
                 - Is concise (ideally 50-60 characters)
                 - Maintains professionalism
                 - Does not begin with anything akin to "Imagine" or "Picture this"
+                - Never references the original source material (e.g.: "the article", or "the story", etc.)
                     
             2. Format your headline exactly as follows:
                 HEADLINE: [Your SEO-optimized headline here]
