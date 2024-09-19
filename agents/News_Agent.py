@@ -148,9 +148,9 @@ class News_Agent(Base_Agent):
             Summarize the following news content from {url} for {grade_description}:
             {content} 
 
-            Your task is to write a new, comprehensive and informative article containing synopses of the main subject matter, along with an SEO-optimized headline. The summary must stand alone, without mentioning the original source, its authors, or any references to articles, videos, or materials. Follow these guidelines:
+            Your task is to write a new, comprehensive and informative article by creating original synopses of the main subject matter, along with an SEO-optimized headline. Your writing must stand alone as its own independent news article, without mentioning the original source, its authors, or any references to articles, videos, or materials. Follow these guidelines:
 
-            1. Generate an SEO-optimized headline that:
+    w        1. Generate an SEO-optimized headline that:
                 - Captures user interest without sensationalism
                 - Accurately represents the main topic
                 - Uses relevant keywords
@@ -162,7 +162,7 @@ class News_Agent(Base_Agent):
             2. Format your headline exactly as follows:
                 HEADLINE: [Your SEO-optimized headline here]
 
-            3. Write your summary using the inverted pyramid style:
+            3. Write your article using the inverted pyramid style:
                 - Start with a strong lede (opening sentence) that entices readers and summarizes the most crucial information
                 - Present the most important information first
                 - Follow with supporting details and context
@@ -173,21 +173,21 @@ class News_Agent(Base_Agent):
                 - Use vocabulary appropriate for this comprehension level
                 - Adjust sentence structure complexity accordingly
                 - Explain concepts in a way that would be clear to someone at this educational level
-                - Do not specifically mention the target's age or grade level in the summary response
+                - Do not specifically mention the target's age or grade level in your newly written article
 
             5. Clearly explain the main topic or discovery being discussed
             6. Highlight key points, findings, or arguments presented in the content
             7. Provide relevant context or background information that helps understand the topic
             8. Mention any significant implications, applications, or future directions discussed
             9. If applicable, include important quotes or statistics that support the main points
-            10. **Never refer to the original article, its source, its author, its publisher, or itsss media format**. The summary must be a complete stand-alone piece without attribution to, or mention of, the source article.
+            10. **Never refer to the original article, its source, its author, its publisher, or itsss media format**. The article must be a complete stand-alone piece without attribution to, or mention of, the source article.
 
             Use a neutral, journalistic tone, and ensure that you're reporting the facts as presented in the content, not adding personal opinions or speculation.
 
             Format your response as follows:
             HEADLINE: [Your SEO-optimized headline here]
 
-            [Your comprehensive summary here, following the inverted pyramid style]
+            [Your comprehensive news article here, following the inverted pyramid style]
             """
 
 
