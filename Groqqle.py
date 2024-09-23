@@ -92,7 +92,7 @@ def get_groq_api_key(api_key_arg: str = None) -> str:
         return st.session_state.groq_api_key
     else:
         st.write("To run Groqqle locally, you need to set up a Groq API key. You can get one by signing up at [Groq](https://groq.com/).")
-        st.warning("Groq API Key not found. Please enter your API key below:")
+        st.warning("Groq API Key not found. Please enter your API key below (or enter 'NONE' to use Groqqle without AI):")
         api_key = st.text_input("Groq API Key", type="password", key="api_key_input")
         if api_key:
             st.session_state.groq_api_key = api_key
