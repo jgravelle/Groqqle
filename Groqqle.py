@@ -89,8 +89,12 @@ def get_groq_api_key(api_key_arg: str = None) -> str:
     # Finally, check session state
     if 'groq_api_key' in st.session_state:
         log_debug("API key retrieved from session state")
+        if 'api_key_source' not in st.session_state:
+            st.session_state.api_key_source = 'session'
         return st.session_state.groq_api_key
     
+    # If no API key is found, initialize api_key_source
+    st.session_state.api_key_source = 'none'
     return None
 
 def is_url(text: str) -> bool:
@@ -262,6 +266,8 @@ def main(api_key_arg: str = None, num_results: int = 10, max_tokens: int = 4096,
         }
     if 'search_type' not in st.session_state:
         st.session_state.search_type = "Web"
+    if 'api_key_source' not in st.session_state:
+        st.session_state.api_key_source = 'none'
 
     api_key = get_groq_api_key(api_key_arg)
 
@@ -271,7 +277,69 @@ def main(api_key_arg: str = None, num_results: int = 10, max_tokens: int = 4096,
     # Main content
     st.markdown("""
     <style>
-    /* ... (keep existing styles) ... */
+    .main-content {
+        display: flex;
+        justify-content: space-between;
+    }
+    .search-container {
+        flex: 2;
+        padding-right: 20px;
+    }
+    .image-analysis {
+        flex: 1;
+        padding-left: 20px;
+        border-left: 1px solid #e0e0e0;
+    }
+    .stApp {
+        max-width: 100%;
+    }
+    .main {
+        padding-top: 20px;
+        padding-left: 10%;
+        padding-right: 10%;
+    }
+    .stButton>button {
+        background-color: #f8f9fa;
+        border: 1px solid #f8f9fa;
+        border-radius: 4px;
+        color: #3c4043;
+        font-family: arial,sans-serif;
+        font-size: 14px;
+        margin: 11px 4px;
+        padding: 0 16px;
+        line-height: 27px;
+        height: 36px;
+        min-width: 120px;
+        text-align: center;
+        cursor: pointer;
+        user-select: none;
+    }
+    .search-container {
+        max-width: 600px;
+        margin: 0 auto;
+    }
+    .search-results {
+        max-width: 600px;
+        margin: 0 auto;
+        text-align: left;
+        padding: 0;
+    }
+    .search-result {
+        margin-bottom: 20px;
+    }
+    .search-result-title {
+        font-size: 18px;
+        color: #1a0dab;
+        text-decoration: none;
+    }
+    .search-result-url {
+        font-size: 14px;
+        color: #006621;
+    }
+    .search-result-description {
+        font-size: 14px;
+        color: #545454;
+    }
     </style>
     """, unsafe_allow_html=True)
 
@@ -283,7 +351,7 @@ def main(api_key_arg: str = None, num_results: int = 10, max_tokens: int = 4096,
     
         # Only include the API key in the URL if it was manually entered
         logo_url = "."
-        if st.session_state.api_key_source == 'manual':
+        if st.session_state.api_key_source == 'manual' and api_key:
             logo_url = f"?api_key={quote_plus(api_key)}"
 
         clickable_image_html = f"""
@@ -295,7 +363,7 @@ def main(api_key_arg: str = None, num_results: int = 10, max_tokens: int = 4096,
             """
         st.markdown(clickable_image_html, unsafe_allow_html=True)
 
-        query = st.text_input("Enter search criteria or a link.  URLs can be for articles, web pages, foreign language content, or images.", key="search_bar", on_change=perform_search)
+        query = st.text_input("Enter search criteria or a link. URLs can be for articles, web pages, foreign language content, or images.", key="search_bar")
 
         col1, col2, col3, col4 = st.columns([2,1,1,2])
         with col1:
@@ -318,12 +386,14 @@ def main(api_key_arg: str = None, num_results: int = 10, max_tokens: int = 4096,
                             st.session_state.image_analysis = image_results[0]['description']
                             st.session_state.image_url = image_url
                             st.session_state.image_prompt = image_results[0].get('prompt_used', "What's in this image?")
-                elif is_url(query):  # Use the new is_url function here
+                elif is_url(query):
                     with st.spinner('Summarizing URL...'):
                         summary = summarize_url(query, api_key, st.session_state.comprehension_grade, st.session_state.temperature)
                         display_results([summary], json_results, api_key)
-                elif st.session_state.get('search_results'):
+                elif 'search_results' in st.session_state and st.session_state.search_results:
                     display_results(st.session_state.search_results, json_results, api_key)
+                else:
+                    st.info("Enter a search query and click 'Groqqle Search' to see results.")
 
         st.markdown('</div>', unsafe_allow_html=True)
 
@@ -334,26 +404,10 @@ def main(api_key_arg: str = None, num_results: int = 10, max_tokens: int = 4096,
             st.markdown("### IMAGE ANALYSIS")
             st.write(f"**Prompt:** {st.session_state.image_prompt}")
             st.write(st.session_state.image_analysis)
+        else:
+            st.markdown("### IMAGE ANALYSIS")
+            st.write("No image analyzed yet. Enter an image URL with an optional question in the search bar to analyze.")
         st.markdown('</div>', unsafe_allow_html=True)
-
-    # Add custom CSS to ensure proper layout
-    st.markdown("""
-        <style>
-        .main-content {
-            display: flex;
-            justify-content: space-between;
-        }
-        .search-container {
-            flex: 3;
-            padding-right: 20px;
-        }
-        .image-analysis {
-            flex: 1;
-            padding-left: 20px;
-            border-left: 1px solid #e0e0e0;
-        }
-        </style>
-    """, unsafe_allow_html=True)
 
 def perform_search():
     query = st.session_state.search_bar
