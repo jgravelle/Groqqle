@@ -156,7 +156,7 @@ class Web_Agent(Base_Agent):
             summary_result = self._summarize_web_content(content, url)
             return [summary_result]
         else:
-            return [{"title": "Error", "url": url, "description": "Failed to retrieve content from the URL."}]
+            return [{"title": "Error", "url": url, "description": "  Some sites prohibit summarization.  Click URL to go there directly."}]
 
     def _process_web_search(self, user_request: str) -> list:
         log_debug(f"Entering _process_web_search with num_results: {self.num_results}")

@@ -8,10 +8,10 @@ import tldextract
 import traceback
 
 from agents.Web_Agent import Web_Agent
-from agents.News_Agent import News_Agent  # Import the new News_Agent
+from agents.News_Agent import News_Agent
 from dotenv import load_dotenv
 from flask import Flask, request, jsonify
-from urllib.parse import quote_plus, unquote_plus
+from urllib.parse import quote_plus, unquote_plus, urlparse
 
 # Load environment variables from .env file
 load_dotenv()
@@ -86,21 +86,24 @@ def get_groq_api_key(api_key_arg: str = None) -> str:
         st.session_state.api_key_source = 'environment'
         return api_key
 
-    # Finally, check session state or prompt user
+    # Finally, check session state
     if 'groq_api_key' in st.session_state:
         log_debug("API key retrieved from session state")
         return st.session_state.groq_api_key
-    else:
-        st.write("To run Groqqle locally, you need to set up a Groq API key. You can get one by signing up at [Groq](https://groq.com/).")
-        st.warning("Groq API Key not found. Please enter your API key below:")
-        api_key = st.text_input("Groq API Key", type="password", key="api_key_input")
-        if api_key:
-            st.session_state.groq_api_key = api_key
-            st.session_state.api_key_source = 'manual'
-            st.session_state.models = fetch_groq_models(api_key)  # Fetch models after API key is entered
-            st.success("API key saved. The page will refresh momentarily.")
-            st.rerun()
-        return api_key
+    
+    return None
+
+def is_url(text: str) -> bool:
+    try:
+        result = urlparse(text)
+        return all([result.scheme, result.netloc])
+    except ValueError:
+        return False
+
+def validate_api_key(api_key):
+    # This is a placeholder function. In a real-world scenario, you'd want to
+    # make a test call to the Groq API to validate the key.
+    return bool(api_key) and len(api_key) > 10
 
 def extract_url_and_prompt(query: str):
     # Regular expression to find URLs in the query
@@ -146,7 +149,6 @@ def process_image(query: str, api_key: str):
             "prompt_used": custom_prompt
         }]
 
-
 def update_search_type():
     if st.session_state.search_type == 'News':
         st.session_state.previous_temperature = st.session_state.temperature
@@ -155,10 +157,17 @@ def update_search_type():
         st.session_state.temperature = st.session_state.previous_temperature
     st.session_state.search_results = None  # Clear previous results when switching search type
 
-
 def update_sidebar(models):
     with st.sidebar:
         st.title("Settings")
+        
+        # Move API key input to sidebar
+        api_key = st.text_input("Groq API Key", type="password", key="api_key_input")
+        if api_key:
+            st.session_state.groq_api_key = api_key
+            st.session_state.api_key_source = 'manual'
+            st.session_state.models = fetch_groq_models(api_key)
+        
         st.session_state.num_results = st.slider(
             "Number of Results", 
             min_value=1, 
@@ -252,103 +261,21 @@ def main(api_key_arg: str = None, num_results: int = 10, max_tokens: int = 4096,
             "llama2-70b-4096": {"id": "llama2-70b-4096", "context_window": 4096}
         }
     if 'search_type' not in st.session_state:
-        st.session_state.search_type = "Web"  # Default to Web search
+        st.session_state.search_type = "Web"
 
     api_key = get_groq_api_key(api_key_arg)
+
+    # Update sidebar (which now includes API key input)
+    update_sidebar(st.session_state.models)
 
     # Main content
     st.markdown("""
     <style>
-    .main-content {
-        display: flex;
-        justify-content: space-between;
-    }
-    .search-container {
-        flex: 2;
-        padding-right: 20px;
-    }
-    .image-analysis {
-        flex: 1;
-        padding-left: 20px;
-        border-left: 1px solid #e0e0e0;
-    }
-    .stApp {
-        max-width: 100%;
-    }
-    .main {
-        padding-top: 20px;
-        padding-left: 10%;
-        padding-right: 10%;
-    }
-    .stButton>button {
-        background-color: #f8f9fa;
-        border: 1px solid #f8f9fa;
-        border-radius: 4px;
-        color: #3c4043;
-        font-family: arial,sans-serif;
-        font-size: 14px;
-        margin: 11px 4px;
-        padding: 0 16px;
-        line-height: 27px;
-        height: 36px;
-        min-width: 120px;
-        text-align: center;
-        cursor: pointer;
-        user-select: none;
-    }
-    .search-container {
-        max-width: 600px;
-        margin: 0;
-    }
-    .search-results {
-        max-width: 600px;
-        margin: 0 auto;
-        text-align: left;
-        padding: 0;
-    }
-    .search-result {
-        margin-bottom: 20px;
-    }
-    .search-result-title {
-        font-size: 18px;
-        color: #1a0dab;
-        text-decoration: none;
-    }
-    .search-result-url {
-        font-size: 14px;
-        color: #006621;
-    }
-    .search-result-description {
-        font-size: 14px;
-        color: #545454;
-    }
+    /* ... (keep existing styles) ... */
     </style>
     """, unsafe_allow_html=True)
 
-    if not api_key:
-        st.warning("Please provide a valid Groq API Key to use the application.")
-        return
-
-    # Initialize Web_Agent and fetch models
-    if 'models' not in st.session_state or st.session_state.models == {
-        "llama3-8b-8192": {"id": "llama3-8b-8192", "context_window": 32768},
-        "llama2-70b-4096": {"id": "llama2-70b-4096", "context_window": 4096}
-    }:
-        st.session_state.models = fetch_groq_models(api_key)
-
-    update_sidebar(st.session_state.models)
-
-    web_agent = Web_Agent(
-        api_key,
-        num_results=num_results,
-        max_tokens=st.session_state.context_window,
-        model=st.session_state.selected_model,
-        temperature=st.session_state.temperature,
-        comprehension_grade=st.session_state.comprehension_grade,
-        summary_length=st.session_state.summary_length
-    )
-
-    # Create a two-column layout for main content and image analysis
+    # Always display the interface, even if no API key is provided
     main_col, image_col = st.columns([3, 1])
 
     with main_col:
@@ -380,20 +307,23 @@ def main(api_key_arg: str = None, num_results: int = 10, max_tokens: int = 4096,
             json_results = st.checkbox("JSON Results", value=False, key="json_results")
 
         if query:
-            image_url, _ = extract_url_and_prompt(query)
-            if image_url:
-                with st.spinner('Analyzing image...'):
-                    image_results = process_image(query, api_key)
-                    if image_results:
-                        st.session_state.image_analysis = image_results[0]['description']
-                        st.session_state.image_url = image_url
-                        st.session_state.image_prompt = image_results[0].get('prompt_used', "What's in this image?")
-            elif web_agent._is_url(query):
-                with st.spinner('Summarizing URL...'):
-                    summary = summarize_url(query, api_key, st.session_state.comprehension_grade, st.session_state.temperature)
-                    display_results([summary], json_results, api_key)
-            elif st.session_state.get('search_results'):
-                display_results(st.session_state.search_results, json_results, api_key)
+            if not validate_api_key(api_key):
+                st.error("Please enter a valid Groq API Key in the sidebar to use Groqqle.")
+            else:
+                image_url, _ = extract_url_and_prompt(query)
+                if image_url:
+                    with st.spinner('Analyzing image...'):
+                        image_results = process_image(query, api_key)
+                        if image_results:
+                            st.session_state.image_analysis = image_results[0]['description']
+                            st.session_state.image_url = image_url
+                            st.session_state.image_prompt = image_results[0].get('prompt_used', "What's in this image?")
+                elif is_url(query):  # Use the new is_url function here
+                    with st.spinner('Summarizing URL...'):
+                        summary = summarize_url(query, api_key, st.session_state.comprehension_grade, st.session_state.temperature)
+                        display_results([summary], json_results, api_key)
+                elif st.session_state.get('search_results'):
+                    display_results(st.session_state.search_results, json_results, api_key)
 
         st.markdown('</div>', unsafe_allow_html=True)
 
@@ -404,9 +334,6 @@ def main(api_key_arg: str = None, num_results: int = 10, max_tokens: int = 4096,
             st.markdown("### IMAGE ANALYSIS")
             st.write(f"**Prompt:** {st.session_state.image_prompt}")
             st.write(st.session_state.image_analysis)
-        # else:
-            # st.markdown("### IMAGE ANALYSIS")
-            # st.write("No image analyzed yet. Enter an image URL with an optional question in the search bar to analyze.")
         st.markdown('</div>', unsafe_allow_html=True)
 
     # Add custom CSS to ensure proper layout
@@ -481,11 +408,14 @@ def perform_search():
         st.session_state.search_results = results
     else:
         if not api_key:
-            st.error("Please provide a valid Groq API Key to perform the search.")
+            st.error("Please provide a valid Groq API Key in the sidebar to perform the search.")
         if not query:
             st.error("Please enter a search query or URL.")
 
 def summarize_url(url, api_key, comprehension_grade, temperature):
+    if not validate_api_key(api_key):
+        return {"title": "API Key Required", "url": url, "description": "A valid Groq API key is required to summarize content. Please enter it in the sidebar."}
+    
     summary_length = st.session_state.summary_length
     try:
         agent = Web_Agent(
@@ -505,7 +435,6 @@ def summarize_url(url, api_key, comprehension_grade, temperature):
     except Exception as e:
         log_debug(f"Error in summarize_url: {str(e)}")
         return {"title": "Summary Error", "url": url, "description": f"Error generating summary: {str(e)}"}
-
 
 def display_results(results, json_format=False, api_key=None):
     log_debug(f"display_results called with {len(results)} results")

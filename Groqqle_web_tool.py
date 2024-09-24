@@ -116,4 +116,4 @@ class Groqqle_web_tool:
         if content:
             return self._summarize_web_content(content, url)
         else:
-            return {"title": "Error", "url": url, "description": "Failed to retrieve content from the URL."}
+            return {"title": "Error", "url": url, "description": "Failed to retrieve content from the URL.  Some sites prohibit summarization.  Click URL to go there directly."}
