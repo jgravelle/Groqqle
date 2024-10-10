@@ -12,6 +12,8 @@ import logging
 # Set up logging only if DEBUG is True in .env
 DEBUG = os.getenv('DEBUG', 'False').lower() == 'true'
 
+DEBUG = True
+
 if DEBUG:
     logging.basicConfig(
         filename='debug_info.txt',
@@ -99,16 +101,21 @@ class Web_Agent(Base_Agent):
         log_debug(f"Processing request: {user_request}")
         log_debug(f"Using comprehension grade: {self.comprehension_grade}, temperature: {self.temperature}")
         try:
-            if self._is_image_url(user_request):
-                return self._process_image_request(user_request)
-            elif self._is_url(user_request):
-                return self._process_url_request(user_request)
+            if self._is_url(user_request):
+                return self._process_direct_url_request(user_request)
             else:
                 return self._process_web_search(user_request)
         except Exception as e:
             log_debug(f"Error in process_request: {str(e)}")
             log_debug(f"Traceback:\n{traceback.format_exc()}")
             return [{"title": "Error", "url": "", "description": f"An error occurred while processing your request: {str(e)}"}]
+
+    def _is_url(self, text: str) -> bool:
+        try:
+            result = urlparse(text)
+            return all([result.scheme, result.netloc])
+        except ValueError:
+            return False
 
     def _is_image_url(self, url: str) -> bool:
         image_extensions = ['.jpg', '.jpeg', '.png', '.gif', '.bmp', '.webp']
@@ -142,13 +149,6 @@ class Web_Agent(Base_Agent):
                 "prompt_used": prompt
             }]
 
-    def _is_url(self, text: str) -> bool:
-        try:
-            result = urlparse(text)
-            return all([result.scheme, result.netloc])
-        except ValueError:
-            return False
-
     def _process_url_request(self, url: str) -> list:
         log_debug(f"Processing URL request: {url}")
         content = self._get_web_content(url)
@@ -156,7 +156,19 @@ class Web_Agent(Base_Agent):
             summary_result = self._summarize_web_content(content, url)
             return [summary_result]
         else:
-            return [{"title": "Error", "url": url, "description": "  Some sites prohibit summarization.  Click URL to go there directly."}]
+            return [{"title": "Error", "url": url, "description": "Failed to retrieve content from the URL. Some sites prohibit summarization. Click URL to go there directly."}]
+
+    def _process_direct_url_request(self, url: str) -> list:
+        log_debug(f"Processing direct URL request: {url}")
+        if self._is_image_url(url):
+            return self._process_image_request(url)
+        else:
+            content = self._get_web_content(url)
+            if content:
+                summary_result = self._summarize_web_content(content, url)
+                return [summary_result]
+            else:
+                return [{"title": "Error", "url": url, "description": "Failed to retrieve content from the URL. Some sites prohibit summarization. Click URL to go there directly."}]
 
     def _process_web_search(self, user_request: str) -> list:
         log_debug(f"Entering _process_web_search with num_results: {self.num_results}")

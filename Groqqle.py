@@ -57,7 +57,8 @@ def fetch_groq_models(api_key):
         log_debug(f"Error fetching Groq models: {str(e)}")
         return {
             "llama3-8b-8192": {"id": "llama3-8b-8192", "context_window": 32768},
-            "llama2-70b-4096": {"id": "llama2-70b-4096", "context_window": 4096}
+            "llama2-70b-4096": {"id": "llama2-70b-4096", "context_window": 4096},
+            "llama-3.2-11b-vision-preview": {"id": "llama-3.2-11b-vision-preview", "context_window": 4096}
         }
 
 def get_groq_api_key(api_key_arg: str = None) -> str:
@@ -115,13 +116,18 @@ def extract_url_and_prompt(query: str):
     urls = re.findall(url_pattern, query)
     
     if urls:
-        image_url = urls[0]
+        url = urls[0]
         # Remove the URL from the query to get the custom prompt
-        custom_prompt = query.replace(image_url, '').strip()
+        custom_prompt = query.replace(url, '').strip()
         if not custom_prompt:
-            custom_prompt = "What's in this image?"
-        return image_url, custom_prompt
+            custom_prompt = "Describe this image in one sentence."
+        return url, custom_prompt
     return None, None
+
+def is_image_url(url: str) -> bool:
+    image_extensions = ['.jpg', '.jpeg', '.png', '.gif', '.bmp', '.webp']
+    parsed_url = urlparse(url)
+    return parsed_url.scheme in ['http', 'https'] and any(parsed_url.path.lower().endswith(ext) for ext in image_extensions)
 
 def process_image(query: str, api_key: str):
     image_url, custom_prompt = extract_url_and_prompt(query)
@@ -133,14 +139,12 @@ def process_image(query: str, api_key: str):
             api_key,
             num_results=1,
             max_tokens=st.session_state.context_window,
-            model="llava-v1.5-7b-4096-preview",
+            model="llama-3.2-11b-vision-preview",
             temperature=st.session_state.temperature,
             comprehension_grade=st.session_state.comprehension_grade,
             summary_length=st.session_state.summary_length
         )
         results = agent._process_image_request(image_url, custom_prompt)
-        if results and isinstance(results, list) and len(results) > 0:
-            results[0]['prompt_used'] = custom_prompt
         return results
     except Exception as e:
         st.error(f"An error occurred while processing the image: {str(e)}")
@@ -262,7 +266,8 @@ def main(api_key_arg: str = None, num_results: int = 10, max_tokens: int = 4096,
     if 'models' not in st.session_state:
         st.session_state.models = {
             "llama3-8b-8192": {"id": "llama3-8b-8192", "context_window": 32768},
-            "llama2-70b-4096": {"id": "llama2-70b-4096", "context_window": 4096}
+            "llama2-70b-4096": {"id": "llama2-70b-4096", "context_window": 4096},
+            "llama-3.2-11b-vision-preview": {"id": "llama-3.2-11b-vision-preview", "context_window": 4096}
         }
     if 'search_type' not in st.session_state:
         st.session_state.search_type = "Web"
@@ -332,7 +337,7 @@ def main(api_key_arg: str = None, num_results: int = 10, max_tokens: int = 4096,
         color: #1a0dab;
         text-decoration: none;
     }
-    .search-result-url {
+    .search-result-url {    
         font-size: 14px;
         color: #006621;
     }
@@ -378,18 +383,19 @@ def main(api_key_arg: str = None, num_results: int = 10, max_tokens: int = 4096,
             if not validate_api_key(api_key):
                 st.error("Please enter a valid Groq API Key in the sidebar to use Groqqle.")
             else:
-                image_url, _ = extract_url_and_prompt(query)
-                if image_url:
-                    with st.spinner('Analyzing image...'):
-                        image_results = process_image(query, api_key)
-                        if image_results:
-                            st.session_state.image_analysis = image_results[0]['description']
-                            st.session_state.image_url = image_url
-                            st.session_state.image_prompt = image_results[0].get('prompt_used', "What's in this image?")
-                elif is_url(query):
-                    with st.spinner('Summarizing URL...'):
-                        summary = summarize_url(query, api_key, st.session_state.comprehension_grade, st.session_state.temperature)
-                        display_results([summary], json_results, api_key)
+                url, custom_prompt = extract_url_and_prompt(query)
+                if url:
+                    with st.spinner('Processing URL...'):
+                        if is_image_url(url):
+                            image_results = process_image(query, api_key)
+                            if image_results:
+                                st.session_state.image_analysis = image_results[0]['description']
+                                st.session_state.image_url = url
+                                st.session_state.image_prompt = image_results[0].get('prompt_used', "Describe this image in one sentence.")
+                                display_results(image_results, json_results, api_key)
+                        else:
+                            summary = summarize_url(url, api_key, st.session_state.comprehension_grade, st.session_state.temperature)
+                            display_results([summary], json_results, api_key)
                 elif 'search_results' in st.session_state and st.session_state.search_results:
                     display_results(st.session_state.search_results, json_results, api_key)
                 else:
@@ -425,17 +431,21 @@ def perform_search():
     if query and api_key:
         with st.spinner('Processing...'):
             log_debug(f"Processing query: {query}")
-            if query.startswith(('http://', 'https://')):
-                agent = Web_Agent(
-                    api_key,
-                    num_results=1,
-                    max_tokens=context_window,
-                    model=selected_model,
-                    temperature=temperature,
-                    comprehension_grade=comprehension_grade,
-                    summary_length=summary_length
-                )
-                results = [summarize_url(query, api_key, comprehension_grade, temperature)]
+            url, _ = extract_url_and_prompt(query)
+            if url:
+                if is_image_url(url):
+                    results = process_image(query, api_key)
+                else:
+                    agent = Web_Agent(
+                        api_key,
+                        num_results=1,
+                        max_tokens=context_window,
+                        model=selected_model,
+                        temperature=temperature,
+                        comprehension_grade=comprehension_grade,
+                        summary_length=summary_length
+                    )
+                    results = [summarize_url(url, api_key, comprehension_grade, temperature)]
             elif search_type == "Web":
                 agent = Web_Agent(
                     api_key,
@@ -588,8 +598,9 @@ def create_api_app(api_key_arg: str = None, default_num_results: int = 10, defau
                 summary_length=summary_length
             )
 
-            if agent._is_image_url(query):
-                results = agent._process_image_request(query, custom_prompt)
+            url, _ = extract_url_and_prompt(query)
+            if url and is_image_url(url):
+                results = process_image(query, api_key)
             elif search_type == 'web':
                 results = agent.process_request(query)
             elif search_type == 'news':

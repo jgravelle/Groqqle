@@ -11,10 +11,10 @@ import tldextract
 import traceback
 
 from agents.Web_Agent import Web_Agent
-from agents.News_Agent import News_Agent  # Import the new News_Agent
+from agents.News_Agent import News_Agent
 from dotenv import load_dotenv
 from flask import Flask, request, jsonify
-from urllib.parse import quote_plus, unquote_plus
+from urllib.parse import quote_plus, unquote_plus, urlparse
 
 # Load environment variables from .env file
 load_dotenv()
@@ -89,21 +89,28 @@ def get_groq_api_key(api_key_arg: str = None) -> str:
         st.session_state.api_key_source = 'environment'
         return api_key
 
-    # Finally, check session state or prompt user
+    # Finally, check session state
     if 'groq_api_key' in st.session_state:
         log_debug("API key retrieved from session state")
+        if 'api_key_source' not in st.session_state:
+            st.session_state.api_key_source = 'session'
         return st.session_state.groq_api_key
-    else:
-        st.write("To run Groqqle locally, you need to set up a Groq API key. You can get one by signing up at [Groq](https://groq.com/).")
-        st.warning("Groq API Key not found. Please enter your API key below:")
-        api_key = st.text_input("Groq API Key", type="password", key="api_key_input")
-        if api_key:
-            st.session_state.groq_api_key = api_key
-            st.session_state.api_key_source = 'manual'
-            st.session_state.models = fetch_groq_models(api_key)  # Fetch models after API key is entered
-            st.success("API key saved. The page will refresh momentarily.")
-            st.rerun()
-        return api_key
+    
+    # If no API key is found, initialize api_key_source
+    st.session_state.api_key_source = 'none'
+    return None
+
+def is_url(text: str) -> bool:
+    try:
+        result = urlparse(text)
+        return all([result.scheme, result.netloc])
+    except ValueError:
+        return False
+
+def validate_api_key(api_key):
+    # This is a placeholder function. In a real-world scenario, you'd want to
+    # make a test call to the Groq API to validate the key.
+    return bool(api_key) and len(api_key) > 10
 
 def extract_url_and_prompt(query: str):
     # Regular expression to find URLs in the query
@@ -149,7 +156,6 @@ def process_image(query: str, api_key: str):
             "prompt_used": custom_prompt
         }]
 
-
 def update_search_type():
     if st.session_state.search_type == 'News':
         st.session_state.previous_temperature = st.session_state.temperature
@@ -158,10 +164,17 @@ def update_search_type():
         st.session_state.temperature = st.session_state.previous_temperature
     st.session_state.search_results = None  # Clear previous results when switching search type
 
-
 def update_sidebar(models):
     with st.sidebar:
         st.title("Settings")
+        
+        # Move API key input to sidebar
+        api_key = st.text_input("Groq API Key", type="password", key="api_key_input")
+        if api_key:
+            st.session_state.groq_api_key = api_key
+            st.session_state.api_key_source = 'manual'
+            st.session_state.models = fetch_groq_models(api_key)
+        
         st.session_state.num_results = st.slider(
             "Number of Results", 
             min_value=1, 
@@ -255,9 +268,14 @@ def main(api_key_arg: str = None, num_results: int = 10, max_tokens: int = 4096,
             "llama2-70b-4096": {"id": "llama2-70b-4096", "context_window": 4096}
         }
     if 'search_type' not in st.session_state:
-        st.session_state.search_type = "Web"  # Default to Web search
+        st.session_state.search_type = "Web"
+    if 'api_key_source' not in st.session_state:
+        st.session_state.api_key_source = 'none'
 
     api_key = get_groq_api_key(api_key_arg)
+
+    # Update sidebar (which now includes API key input)
+    update_sidebar(st.session_state.models)
 
     # Main content
     st.markdown("""
@@ -301,7 +319,7 @@ def main(api_key_arg: str = None, num_results: int = 10, max_tokens: int = 4096,
     }
     .search-container {
         max-width: 600px;
-        margin: 0;
+        margin: 0 auto;
     }
     .search-results {
         max-width: 600px;
@@ -317,7 +335,7 @@ def main(api_key_arg: str = None, num_results: int = 10, max_tokens: int = 4096,
         color: #1a0dab;
         text-decoration: none;
     }
-    .search-result-url {
+    .search-result-url {    
         font-size: 14px;
         color: #006621;
     }
@@ -328,30 +346,7 @@ def main(api_key_arg: str = None, num_results: int = 10, max_tokens: int = 4096,
     </style>
     """, unsafe_allow_html=True)
 
-    if not api_key:
-        st.warning("Please provide a valid Groq API Key to use the application.")
-        return
-
-    # Initialize Web_Agent and fetch models
-    if 'models' not in st.session_state or st.session_state.models == {
-        "llama3-8b-8192": {"id": "llama3-8b-8192", "context_window": 32768},
-        "llama2-70b-4096": {"id": "llama2-70b-4096", "context_window": 4096}
-    }:
-        st.session_state.models = fetch_groq_models(api_key)
-
-    update_sidebar(st.session_state.models)
-
-    web_agent = Web_Agent(
-        api_key,
-        num_results=num_results,
-        max_tokens=st.session_state.context_window,
-        model=st.session_state.selected_model,
-        temperature=st.session_state.temperature,
-        comprehension_grade=st.session_state.comprehension_grade,
-        summary_length=st.session_state.summary_length
-    )
-
-    # Create a two-column layout for main content and image analysis
+    # Always display the interface, even if no API key is provided
     main_col, image_col = st.columns([3, 1])
 
     with main_col:
@@ -359,7 +354,7 @@ def main(api_key_arg: str = None, num_results: int = 10, max_tokens: int = 4096,
     
         # Only include the API key in the URL if it was manually entered
         logo_url = "."
-        if st.session_state.api_key_source == 'manual':
+        if st.session_state.api_key_source == 'manual' and api_key:
             logo_url = f"?api_key={quote_plus(api_key)}"
 
         clickable_image_html = f"""
@@ -371,7 +366,7 @@ def main(api_key_arg: str = None, num_results: int = 10, max_tokens: int = 4096,
             """
         st.markdown(clickable_image_html, unsafe_allow_html=True)
 
-        query = st.text_input("Enter search criteria or a link.  URLs can be for articles, web pages, foreign language content, or images.", key="search_bar", on_change=perform_search)
+        query = st.text_input("Enter search criteria or a link. URLs can be for articles, web pages, foreign language content, or images.", key="search_bar")
 
         col1, col2, col3, col4 = st.columns([2,1,1,2])
         with col1:
@@ -383,20 +378,25 @@ def main(api_key_arg: str = None, num_results: int = 10, max_tokens: int = 4096,
             json_results = st.checkbox("JSON Results", value=False, key="json_results")
 
         if query:
-            image_url, _ = extract_url_and_prompt(query)
-            if image_url:
-                with st.spinner('Analyzing image...'):
-                    image_results = process_image(query, api_key)
-                    if image_results:
-                        st.session_state.image_analysis = image_results[0]['description']
-                        st.session_state.image_url = image_url
-                        st.session_state.image_prompt = image_results[0].get('prompt_used', "What's in this image?")
-            elif web_agent._is_url(query):
-                with st.spinner('Summarizing URL...'):
-                    summary = summarize_url(query, api_key, st.session_state.comprehension_grade, st.session_state.temperature)
-                    display_results([summary], json_results, api_key)
-            elif st.session_state.get('search_results'):
-                display_results(st.session_state.search_results, json_results, api_key)
+            if not validate_api_key(api_key):
+                st.error("Please enter a valid Groq API Key in the sidebar to use Groqqle.")
+            else:
+                image_url, _ = extract_url_and_prompt(query)
+                if image_url:
+                    with st.spinner('Analyzing image...'):
+                        image_results = process_image(query, api_key)
+                        if image_results:
+                            st.session_state.image_analysis = image_results[0]['description']
+                            st.session_state.image_url = image_url
+                            st.session_state.image_prompt = image_results[0].get('prompt_used', "What's in this image?")
+                elif is_url(query):
+                    with st.spinner('Summarizing URL...'):
+                        summary = summarize_url(query, api_key, st.session_state.comprehension_grade, st.session_state.temperature)
+                        display_results([summary], json_results, api_key)
+                elif 'search_results' in st.session_state and st.session_state.search_results:
+                    display_results(st.session_state.search_results, json_results, api_key)
+                else:
+                    st.info("Enter a search query and click 'Groqqle Search' to see results.")
 
         st.markdown('</div>', unsafe_allow_html=True)
 
@@ -407,29 +407,10 @@ def main(api_key_arg: str = None, num_results: int = 10, max_tokens: int = 4096,
             st.markdown("### IMAGE ANALYSIS")
             st.write(f"**Prompt:** {st.session_state.image_prompt}")
             st.write(st.session_state.image_analysis)
-        # else:
-            # st.markdown("### IMAGE ANALYSIS")
-            # st.write("No image analyzed yet. Enter an image URL with an optional question in the search bar to analyze.")
+        else:
+            st.markdown("### IMAGE ANALYSIS")
+            st.write("No image analyzed yet. Enter an image URL with an optional question in the search bar to analyze.")
         st.markdown('</div>', unsafe_allow_html=True)
-
-    # Add custom CSS to ensure proper layout
-    st.markdown("""
-        <style>
-        .main-content {
-            display: flex;
-            justify-content: space-between;
-        }
-        .search-container {
-            flex: 3;
-            padding-right: 20px;
-        }
-        .image-analysis {
-            flex: 1;
-            padding-left: 20px;
-            border-left: 1px solid #e0e0e0;
-        }
-        </style>
-    """, unsafe_allow_html=True)
 
 def perform_search():
     query = st.session_state.search_bar
@@ -484,11 +465,14 @@ def perform_search():
         st.session_state.search_results = results
     else:
         if not api_key:
-            st.error("Please provide a valid Groq API Key to perform the search.")
+            st.error("Please provide a valid Groq API Key in the sidebar to perform the search.")
         if not query:
             st.error("Please enter a search query or URL.")
 
 def summarize_url(url, api_key, comprehension_grade, temperature):
+    if not validate_api_key(api_key):
+        return {"title": "API Key Required", "url": url, "description": "A valid Groq API key is required to summarize content. Please enter it in the sidebar."}
+    
     summary_length = st.session_state.summary_length
     try:
         agent = Web_Agent(
@@ -508,7 +492,6 @@ def summarize_url(url, api_key, comprehension_grade, temperature):
     except Exception as e:
         log_debug(f"Error in summarize_url: {str(e)}")
         return {"title": "Summary Error", "url": url, "description": f"Error generating summary: {str(e)}"}
-
 
 def display_results(results, json_format=False, api_key=None):
     log_debug(f"display_results called with {len(results)} results")
@@ -672,6 +655,7 @@ if __name__ == "__main__":
 
         # Run the Flask app without debug mode
         app.run(host='0.0.0.0', port=args.port)
+
 ```
 
 # Groqqle_web_tool.py
@@ -795,7 +779,7 @@ class Groqqle_web_tool:
         if content:
             return self._summarize_web_content(content, url)
         else:
-            return {"title": "Error", "url": url, "description": "Failed to retrieve content from the URL."}
+            return {"title": "Error", "url": url, "description": "Failed to retrieve content from the URL.  Some sites prohibit summarization.  Click URL to go there directly."}
 ```
 
 # agents\Base_Agent.py
@@ -1012,20 +996,21 @@ class News_Agent(Base_Agent):
             Summarize the following news content from {url} for {grade_description}:
             {content} 
 
-            Your task is to provide a comprehensive and informative synopsis of the main subject matter, along with an SEO-optimized headline. The summary must stand alone, without mentioning the original source, its authors, or any references to articles, videos, or materials. Follow these guidelines:
+            Your task is to write a new, comprehensive and informative article by creating original synopses of the main subject matter, along with an SEO-optimized headline. Your writing must stand alone as its own independent news article, without mentioning the original source, its authors, or any references to articles, videos, or materials. Follow these guidelines:
 
-            1. Generate an SEO-optimized headline that:
+    w        1. Generate an SEO-optimized headline that:
                 - Captures user interest without sensationalism
                 - Accurately represents the main topic
                 - Uses relevant keywords
                 - Is concise (ideally 50-60 characters)
                 - Maintains professionalism
                 - Does not begin with anything akin to "Imagine" or "Picture this"
+                - Never references the original source material (e.g.: "the article", or "the story", etc.)
                     
             2. Format your headline exactly as follows:
                 HEADLINE: [Your SEO-optimized headline here]
 
-            3. Write your summary using the inverted pyramid style:
+            3. Write your article using the inverted pyramid style:
                 - Start with a strong lede (opening sentence) that entices readers and summarizes the most crucial information
                 - Present the most important information first
                 - Follow with supporting details and context
@@ -1036,21 +1021,21 @@ class News_Agent(Base_Agent):
                 - Use vocabulary appropriate for this comprehension level
                 - Adjust sentence structure complexity accordingly
                 - Explain concepts in a way that would be clear to someone at this educational level
-                - Do not specifically mention the target's age or grade level in the summary response
+                - Do not specifically mention the target's age or grade level in your newly written article
 
             5. Clearly explain the main topic or discovery being discussed
             6. Highlight key points, findings, or arguments presented in the content
             7. Provide relevant context or background information that helps understand the topic
             8. Mention any significant implications, applications, or future directions discussed
             9. If applicable, include important quotes or statistics that support the main points
-            10. **Never refer to the original article, its source, its author, its publisher, or itsss media format**. The summary must be a complete stand-alone piece without attribution to, or mention of, the source article.
+            10. **Never refer to the original article, its source, its author, its publisher, or itsss media format**. The article must be a complete stand-alone piece without attribution to, or mention of, the source article.
 
             Use a neutral, journalistic tone, and ensure that you're reporting the facts as presented in the content, not adding personal opinions or speculation.
 
             Format your response as follows:
             HEADLINE: [Your SEO-optimized headline here]
 
-            [Your comprehensive summary here, following the inverted pyramid style]
+            [Your comprehensive news article here, following the inverted pyramid style]
             """
 
 
@@ -1085,6 +1070,7 @@ if __name__ == "__main__":
         print(f"Description: {result['description']}")
         print(f"Timestamp: {result['timestamp']}")
         print("---")
+
 ```
 
 # agents\Web_Agent.py
@@ -1248,7 +1234,7 @@ class Web_Agent(Base_Agent):
             summary_result = self._summarize_web_content(content, url)
             return [summary_result]
         else:
-            return [{"title": "Error", "url": url, "description": "Failed to retrieve content from the URL."}]
+            return [{"title": "Error", "url": url, "description": "  Some sites prohibit summarization.  Click URL to go there directly."}]
 
     def _process_web_search(self, user_request: str) -> list:
         log_debug(f"Entering _process_web_search with num_results: {self.num_results}")
