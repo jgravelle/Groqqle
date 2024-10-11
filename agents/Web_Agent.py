@@ -61,8 +61,8 @@ except ImportError as e:
     ProviderFactory = None
 
 class Web_Agent(Base_Agent):
-    def __init__(self, api_key, provider_name='groq', num_results=10, max_tokens=4096, model="llama3-8b-8192", temperature=0.0, comprehension_grade=8, summary_length=300):
-        log_debug(f"Initializing Web_Agent with provider_name: {provider_name}, num_results: {num_results}, max_tokens: {max_tokens}, model: {model}, temperature: {temperature}, comprehension_grade: {comprehension_grade}, summary_length: {summary_length}")
+    def __init__(self, api_key, provider_name='groq', num_results=10, max_tokens=4096, model="llama3-8b-8192", temperature=0.0, comprehension_grade=8, summary_length=300, humanize=False):
+        log_debug(f"Initializing Web_Agent with provider_name: {provider_name}, num_results: {num_results}, max_tokens: {max_tokens}, model: {model}, temperature: {temperature}, comprehension_grade: {comprehension_grade}, summary_length: {summary_length}, humanize: {humanize}")
         if not api_key:
             log_debug("API key is missing or empty")
             raise ValueError("API key is required")
@@ -77,6 +77,7 @@ class Web_Agent(Base_Agent):
         self.temperature = temperature
         self.comprehension_grade = comprehension_grade
         self.summary_length = summary_length
+        self.humanize = humanize
         self.provider = ProviderFactory.get_provider(provider_name, api_key)
         self.image_handler = self._initialize_image_handler()
 
@@ -254,48 +255,85 @@ class Web_Agent(Base_Agent):
 
         log_debug(f"Selected grade description: {grade_description}")
 
-        return f"""
-        Summarize the following web content from {url} for {grade_description}:
-        {content}
+        if self.humanize:
+            return f"""
+            Summarize the content from {url} for {grade_description}.
 
-        Your task is to provide a comprehensive and informative synopsis of the main subject matter, along with an SEO-optimized headline. Follow these guidelines:
+            **Instructions for Writing the Summary:**
 
-        1. Generate an SEO-optimized headline that:
-        - Captures user interest without sensationalism
-        - Accurately represents the main topic
-        - Uses relevant keywords
-        - Is concise
-        - Maintains professionalism
-        - Does not begin with anything akin to "Imagine" or "Picture this"
-        
-        2. Format your headline exactly as follows:
-        HEADLINE: [Your SEO-optimized headline here]
+            - **Tone and Style:**
+            - Use an informal, friendly tone appropriate for 8th graders.
+            - Keep the content conversational and engaging.
+            - Avoid overly technical language; explain concepts in simple terms.
 
-        3. Write your summary using the inverted pyramid style:
-        - Start with a strong lede (opening sentence) that entices readers and summarizes the most crucial information
-        - Present the most important information first
-        - Follow with supporting details and context
-        - End with the least essential information
+            - **Language and Structure:**
+            - Use varied sentence structures and lengths to mimic natural human writing.
+            - Incorporate contractions (e.g., can't, it's, they're) to enhance readability.
+            - Include idioms and colloquialisms where appropriate.
+            - Use metaphors like puzzles, games, or detective work to explain complex ideas, ensuring they sound natural.
 
-        4. Adjust the language complexity strictly targeted to the reading level for {grade_description}. This means:
-        - Use vocabulary appropriate for this comprehension level
-        - Adjust sentence structure complexity accordingly
-        - Explain concepts in a way that would be clear to someone at this educational level
-        - Do not specifically mention the target's age or grade level in the summary response
+            - **Content Guidelines:**
+            - Stick to the original content; do not introduce new questions or concepts.
+            - Avoid repetitive phrases or redundant information.
+            - Express appropriate emotions or excitement relevant to the content.
+            - Do not add personal opinions; focus on conveying the original message.
 
-        5. Clearly explain the main topic or discovery being discussed
-        6. Highlight key points, findings, or arguments presented in the content
-        7. Provide relevant context or background information that helps understand the topic
-        8. Mention any significant implications, applications, or future directions discussed
-        9. If applicable, include important quotes or statistics that support the main points
+            - **Engagement Techniques:**
+            - Pose rhetorical questions to engage the reader.
+            - Use storytelling elements if they help clarify the content.
 
-        Your summary should be approximately {self.summary_length} words long. Use a neutral, journalistic tone, and ensure that you're reporting the facts as presented in the content, not adding personal opinions or speculation.
+            - **Conclusion:**
+            - End with a thought-provoking statement or a simple summary of the main points.
 
-        Format your response as follows:
-        HEADLINE: [Your SEO-optimized headline here]
+            Here's the content to summarize:
+            {content}
 
-        [Your comprehensive summary here, following the inverted pyramid style]
-        """
+            **Your summary should be approximately {self.summary_length} words long, making it informative and enjoyable for {grade_description}.**
+            """
+        else:
+            return f"""
+            Summarize the following web content from {url} for {grade_description}:
+            {content}
+
+            Your task is to provide a comprehensive and informative synopsis of the main subject matter, along with an SEO-optimized headline. Follow these guidelines:
+
+            1. Generate an SEO-optimized headline that:
+            - Captures user interest without sensationalism
+            - Accurately represents the main topic
+            - Uses relevant keywords
+            - Is concise
+            - Maintains professionalism
+            - Does not begin with anything akin to "Imagine" or "Picture this"
+            
+            2. Format your headline exactly as follows:
+            HEADLINE: [Your SEO-optimized headline here]
+
+            3. Write your summary using the inverted pyramid style:
+            - Start with a strong lede (opening sentence) that entices readers and summarizes the most crucial information
+            - Present the most important information first
+            - Follow with supporting details and context
+            - End with the least essential information
+
+            4. Adjust the language complexity strictly targeted to the reading level for {grade_description}.
+
+            5. Clearly explain the main topic or discovery being discussed
+            6. Highlight key points, findings, or arguments presented in the content
+            7. Provide relevant context or background information that helps understand the topic
+            8. Mention any significant implications, applications, or future directions discussed
+            9. If applicable, include important quotes or statistics that support the main points
+
+            Your summary should be approximately {self.summary_length} words long. Use a neutral, journalistic tone, and ensure that you're reporting the facts as presented in the content, not adding personal opinions or speculation.
+
+            Format your response as follows:
+            HEADLINE: [Your SEO-optimized headline here]
+
+            [Your comprehensive summary here, following the inverted pyramid style]
+            """
+
+
+
+
+
 
     def _format_summary(self, summary: str, url: str) -> dict:
         # Split the summary into headline and body

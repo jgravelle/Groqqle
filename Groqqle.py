@@ -247,6 +247,9 @@ def update_sidebar(models):
         )
         st.session_state.comprehension_grade = grade_labels.index(selected_grade) + 1
 
+        # Add Humanize checkbox
+        st.session_state.humanize = st.checkbox("Humanize", value=False, key="humanize_checkbox")
+
 def main(api_key_arg: str = None, num_results: int = 10, max_tokens: int = 4096, default_summary_length: int = 300):
     st.set_page_config(page_title="Groqqle", layout="wide", initial_sidebar_state="collapsed")
 
@@ -443,7 +446,8 @@ def perform_search():
                         model=selected_model,
                         temperature=temperature,
                         comprehension_grade=comprehension_grade,
-                        summary_length=summary_length
+                        summary_length=summary_length,
+                        humanize=st.session_state.humanize 
                     )
                     results = [summarize_url(url, api_key, comprehension_grade, temperature)]
             elif search_type == "Web":
@@ -454,7 +458,8 @@ def perform_search():
                     model=selected_model,
                     temperature=temperature,
                     comprehension_grade=comprehension_grade,
-                    summary_length=summary_length
+                    summary_length=summary_length,
+                    humanize=st.session_state.humanize 
                 )
                 results = agent.process_request(query)
             else:  # News search
@@ -488,7 +493,8 @@ def summarize_url(url, api_key, comprehension_grade, temperature):
             max_tokens=4096,
             comprehension_grade=comprehension_grade,
             temperature=temperature,
-            summary_length=summary_length
+            summary_length=summary_length,
+            humanize=st.session_state.humanize 
         )
         log_debug(f"Web_Agent initialized for URL summary with comprehension grade: {comprehension_grade}, temperature: {temperature}, and summary_length: {summary_length}")
         summary_result = agent.process_request(url)
@@ -595,7 +601,8 @@ def create_api_app(api_key_arg: str = None, default_num_results: int = 10, defau
                 model=model,
                 temperature=temperature,
                 comprehension_grade=comprehension_grade,
-                summary_length=summary_length
+                summary_length=summary_length,
+                humanize=st.session_state.humanize 
             )
 
             url, _ = extract_url_and_prompt(query)
