@@ -60,7 +60,8 @@ def fetch_groq_models(api_key):
         log_debug(f"Error fetching Groq models: {str(e)}")
         return {
             "llama3-8b-8192": {"id": "llama3-8b-8192", "context_window": 32768},
-            "llama2-70b-4096": {"id": "llama2-70b-4096", "context_window": 4096}
+            "llama2-70b-4096": {"id": "llama2-70b-4096", "context_window": 4096},
+            "llama-3.2-11b-vision-preview": {"id": "llama-3.2-11b-vision-preview", "context_window": 4096}
         }
 
 def get_groq_api_key(api_key_arg: str = None) -> str:
@@ -118,13 +119,18 @@ def extract_url_and_prompt(query: str):
     urls = re.findall(url_pattern, query)
     
     if urls:
-        image_url = urls[0]
+        url = urls[0]
         # Remove the URL from the query to get the custom prompt
-        custom_prompt = query.replace(image_url, '').strip()
+        custom_prompt = query.replace(url, '').strip()
         if not custom_prompt:
-            custom_prompt = "What's in this image?"
-        return image_url, custom_prompt
+            custom_prompt = "Describe this image in one sentence."
+        return url, custom_prompt
     return None, None
+
+def is_image_url(url: str) -> bool:
+    image_extensions = ['.jpg', '.jpeg', '.png', '.gif', '.bmp', '.webp']
+    parsed_url = urlparse(url)
+    return parsed_url.scheme in ['http', 'https'] and any(parsed_url.path.lower().endswith(ext) for ext in image_extensions)
 
 def process_image(query: str, api_key: str):
     image_url, custom_prompt = extract_url_and_prompt(query)
@@ -136,14 +142,12 @@ def process_image(query: str, api_key: str):
             api_key,
             num_results=1,
             max_tokens=st.session_state.context_window,
-            model="llava-v1.5-7b-4096-preview",
+            model="llama-3.2-11b-vision-preview",
             temperature=st.session_state.temperature,
             comprehension_grade=st.session_state.comprehension_grade,
             summary_length=st.session_state.summary_length
         )
         results = agent._process_image_request(image_url, custom_prompt)
-        if results and isinstance(results, list) and len(results) > 0:
-            results[0]['prompt_used'] = custom_prompt
         return results
     except Exception as e:
         st.error(f"An error occurred while processing the image: {str(e)}")
@@ -246,6 +250,9 @@ def update_sidebar(models):
         )
         st.session_state.comprehension_grade = grade_labels.index(selected_grade) + 1
 
+        # Add Humanize checkbox
+        st.session_state.humanize = st.checkbox("Humanize", value=False, key="humanize_checkbox")
+
 def main(api_key_arg: str = None, num_results: int = 10, max_tokens: int = 4096, default_summary_length: int = 300):
     st.set_page_config(page_title="Groqqle", layout="wide", initial_sidebar_state="collapsed")
 
@@ -265,7 +272,8 @@ def main(api_key_arg: str = None, num_results: int = 10, max_tokens: int = 4096,
     if 'models' not in st.session_state:
         st.session_state.models = {
             "llama3-8b-8192": {"id": "llama3-8b-8192", "context_window": 32768},
-            "llama2-70b-4096": {"id": "llama2-70b-4096", "context_window": 4096}
+            "llama2-70b-4096": {"id": "llama2-70b-4096", "context_window": 4096},
+            "llama-3.2-11b-vision-preview": {"id": "llama-3.2-11b-vision-preview", "context_window": 4096}
         }
     if 'search_type' not in st.session_state:
         st.session_state.search_type = "Web"
@@ -381,18 +389,19 @@ def main(api_key_arg: str = None, num_results: int = 10, max_tokens: int = 4096,
             if not validate_api_key(api_key):
                 st.error("Please enter a valid Groq API Key in the sidebar to use Groqqle.")
             else:
-                image_url, _ = extract_url_and_prompt(query)
-                if image_url:
-                    with st.spinner('Analyzing image...'):
-                        image_results = process_image(query, api_key)
-                        if image_results:
-                            st.session_state.image_analysis = image_results[0]['description']
-                            st.session_state.image_url = image_url
-                            st.session_state.image_prompt = image_results[0].get('prompt_used', "What's in this image?")
-                elif is_url(query):
-                    with st.spinner('Summarizing URL...'):
-                        summary = summarize_url(query, api_key, st.session_state.comprehension_grade, st.session_state.temperature)
-                        display_results([summary], json_results, api_key)
+                url, custom_prompt = extract_url_and_prompt(query)
+                if url:
+                    with st.spinner('Processing URL...'):
+                        if is_image_url(url):
+                            image_results = process_image(query, api_key)
+                            if image_results:
+                                st.session_state.image_analysis = image_results[0]['description']
+                                st.session_state.image_url = url
+                                st.session_state.image_prompt = image_results[0].get('prompt_used', "Describe this image in one sentence.")
+                                display_results(image_results, json_results, api_key)
+                        else:
+                            summary = summarize_url(url, api_key, st.session_state.comprehension_grade, st.session_state.temperature)
+                            display_results([summary], json_results, api_key)
                 elif 'search_results' in st.session_state and st.session_state.search_results:
                     display_results(st.session_state.search_results, json_results, api_key)
                 else:
@@ -428,17 +437,22 @@ def perform_search():
     if query and api_key:
         with st.spinner('Processing...'):
             log_debug(f"Processing query: {query}")
-            if query.startswith(('http://', 'https://')):
-                agent = Web_Agent(
-                    api_key,
-                    num_results=1,
-                    max_tokens=context_window,
-                    model=selected_model,
-                    temperature=temperature,
-                    comprehension_grade=comprehension_grade,
-                    summary_length=summary_length
-                )
-                results = [summarize_url(query, api_key, comprehension_grade, temperature)]
+            url, _ = extract_url_and_prompt(query)
+            if url:
+                if is_image_url(url):
+                    results = process_image(query, api_key)
+                else:
+                    agent = Web_Agent(
+                        api_key,
+                        num_results=1,
+                        max_tokens=context_window,
+                        model=selected_model,
+                        temperature=temperature,
+                        comprehension_grade=comprehension_grade,
+                        summary_length=summary_length,
+                        humanize=st.session_state.humanize 
+                    )
+                    results = [summarize_url(url, api_key, comprehension_grade, temperature)]
             elif search_type == "Web":
                 agent = Web_Agent(
                     api_key,
@@ -447,7 +461,8 @@ def perform_search():
                     model=selected_model,
                     temperature=temperature,
                     comprehension_grade=comprehension_grade,
-                    summary_length=summary_length
+                    summary_length=summary_length,
+                    humanize=st.session_state.humanize 
                 )
                 results = agent.process_request(query)
             else:  # News search
@@ -481,7 +496,8 @@ def summarize_url(url, api_key, comprehension_grade, temperature):
             max_tokens=4096,
             comprehension_grade=comprehension_grade,
             temperature=temperature,
-            summary_length=summary_length
+            summary_length=summary_length,
+            humanize=st.session_state.humanize 
         )
         log_debug(f"Web_Agent initialized for URL summary with comprehension grade: {comprehension_grade}, temperature: {temperature}, and summary_length: {summary_length}")
         summary_result = agent.process_request(url)
@@ -588,11 +604,13 @@ def create_api_app(api_key_arg: str = None, default_num_results: int = 10, defau
                 model=model,
                 temperature=temperature,
                 comprehension_grade=comprehension_grade,
-                summary_length=summary_length
+                summary_length=summary_length,
+                humanize=st.session_state.humanize 
             )
 
-            if agent._is_image_url(query):
-                results = agent._process_image_request(query, custom_prompt)
+            url, _ = extract_url_and_prompt(query)
+            if url and is_image_url(url):
+                results = process_image(query, api_key)
             elif search_type == 'web':
                 results = agent.process_request(query)
             elif search_type == 'news':
@@ -1090,6 +1108,8 @@ import logging
 # Set up logging only if DEBUG is True in .env
 DEBUG = os.getenv('DEBUG', 'False').lower() == 'true'
 
+DEBUG = True
+
 if DEBUG:
     logging.basicConfig(
         filename='debug_info.txt',
@@ -1137,8 +1157,8 @@ except ImportError as e:
     ProviderFactory = None
 
 class Web_Agent(Base_Agent):
-    def __init__(self, api_key, provider_name='groq', num_results=10, max_tokens=4096, model="llama3-8b-8192", temperature=0.0, comprehension_grade=8, summary_length=300):
-        log_debug(f"Initializing Web_Agent with provider_name: {provider_name}, num_results: {num_results}, max_tokens: {max_tokens}, model: {model}, temperature: {temperature}, comprehension_grade: {comprehension_grade}, summary_length: {summary_length}")
+    def __init__(self, api_key, provider_name='groq', num_results=10, max_tokens=4096, model="llama3-8b-8192", temperature=0.0, comprehension_grade=8, summary_length=300, humanize=False):
+        log_debug(f"Initializing Web_Agent with provider_name: {provider_name}, num_results: {num_results}, max_tokens: {max_tokens}, model: {model}, temperature: {temperature}, comprehension_grade: {comprehension_grade}, summary_length: {summary_length}, humanize: {humanize}")
         if not api_key:
             log_debug("API key is missing or empty")
             raise ValueError("API key is required")
@@ -1153,6 +1173,7 @@ class Web_Agent(Base_Agent):
         self.temperature = temperature
         self.comprehension_grade = comprehension_grade
         self.summary_length = summary_length
+        self.humanize = humanize
         self.provider = ProviderFactory.get_provider(provider_name, api_key)
         self.image_handler = self._initialize_image_handler()
 
@@ -1177,16 +1198,21 @@ class Web_Agent(Base_Agent):
         log_debug(f"Processing request: {user_request}")
         log_debug(f"Using comprehension grade: {self.comprehension_grade}, temperature: {self.temperature}")
         try:
-            if self._is_image_url(user_request):
-                return self._process_image_request(user_request)
-            elif self._is_url(user_request):
-                return self._process_url_request(user_request)
+            if self._is_url(user_request):
+                return self._process_direct_url_request(user_request)
             else:
                 return self._process_web_search(user_request)
         except Exception as e:
             log_debug(f"Error in process_request: {str(e)}")
             log_debug(f"Traceback:\n{traceback.format_exc()}")
             return [{"title": "Error", "url": "", "description": f"An error occurred while processing your request: {str(e)}"}]
+
+    def _is_url(self, text: str) -> bool:
+        try:
+            result = urlparse(text)
+            return all([result.scheme, result.netloc])
+        except ValueError:
+            return False
 
     def _is_image_url(self, url: str) -> bool:
         image_extensions = ['.jpg', '.jpeg', '.png', '.gif', '.bmp', '.webp']
@@ -1220,13 +1246,6 @@ class Web_Agent(Base_Agent):
                 "prompt_used": prompt
             }]
 
-    def _is_url(self, text: str) -> bool:
-        try:
-            result = urlparse(text)
-            return all([result.scheme, result.netloc])
-        except ValueError:
-            return False
-
     def _process_url_request(self, url: str) -> list:
         log_debug(f"Processing URL request: {url}")
         content = self._get_web_content(url)
@@ -1234,7 +1253,19 @@ class Web_Agent(Base_Agent):
             summary_result = self._summarize_web_content(content, url)
             return [summary_result]
         else:
-            return [{"title": "Error", "url": url, "description": "  Some sites prohibit summarization.  Click URL to go there directly."}]
+            return [{"title": "Error", "url": url, "description": "Failed to retrieve content from the URL. Some sites prohibit summarization. Click URL to go there directly."}]
+
+    def _process_direct_url_request(self, url: str) -> list:
+        log_debug(f"Processing direct URL request: {url}")
+        if self._is_image_url(url):
+            return self._process_image_request(url)
+        else:
+            content = self._get_web_content(url)
+            if content:
+                summary_result = self._summarize_web_content(content, url)
+                return [summary_result]
+            else:
+                return [{"title": "Error", "url": url, "description": "Failed to retrieve content from the URL. Some sites prohibit summarization. Click URL to go there directly."}]
 
     def _process_web_search(self, user_request: str) -> list:
         log_debug(f"Entering _process_web_search with num_results: {self.num_results}")
@@ -1320,48 +1351,85 @@ class Web_Agent(Base_Agent):
 
         log_debug(f"Selected grade description: {grade_description}")
 
-        return f"""
-        Summarize the following web content from {url} for {grade_description}:
-        {content}
+        if self.humanize:
+            return f"""
+            Summarize the content from {url} for {grade_description}.
 
-        Your task is to provide a comprehensive and informative synopsis of the main subject matter, along with an SEO-optimized headline. Follow these guidelines:
+            **Instructions for Writing the Summary:**
 
-        1. Generate an SEO-optimized headline that:
-        - Captures user interest without sensationalism
-        - Accurately represents the main topic
-        - Uses relevant keywords
-        - Is concise
-        - Maintains professionalism
-        - Does not begin with anything akin to "Imagine" or "Picture this"
-        
-        2. Format your headline exactly as follows:
-        HEADLINE: [Your SEO-optimized headline here]
+            - **Tone and Style:**
+            - Use an informal, friendly tone appropriate for 8th graders.
+            - Keep the content conversational and engaging.
+            - Avoid overly technical language; explain concepts in simple terms.
 
-        3. Write your summary using the inverted pyramid style:
-        - Start with a strong lede (opening sentence) that entices readers and summarizes the most crucial information
-        - Present the most important information first
-        - Follow with supporting details and context
-        - End with the least essential information
+            - **Language and Structure:**
+            - Use varied sentence structures and lengths to mimic natural human writing.
+            - Incorporate contractions (e.g., can't, it's, they're) to enhance readability.
+            - Include idioms and colloquialisms where appropriate.
+            - Use metaphors like puzzles, games, or detective work to explain complex ideas, ensuring they sound natural.
 
-        4. Adjust the language complexity strictly targeted to the reading level for {grade_description}. This means:
-        - Use vocabulary appropriate for this comprehension level
-        - Adjust sentence structure complexity accordingly
-        - Explain concepts in a way that would be clear to someone at this educational level
-        - Do not specifically mention the target's age or grade level in the summary response
+            - **Content Guidelines:**
+            - Stick to the original content; do not introduce new questions or concepts.
+            - Avoid repetitive phrases or redundant information.
+            - Express appropriate emotions or excitement relevant to the content.
+            - Do not add personal opinions; focus on conveying the original message.
 
-        5. Clearly explain the main topic or discovery being discussed
-        6. Highlight key points, findings, or arguments presented in the content
-        7. Provide relevant context or background information that helps understand the topic
-        8. Mention any significant implications, applications, or future directions discussed
-        9. If applicable, include important quotes or statistics that support the main points
+            - **Engagement Techniques:**
+            - Pose rhetorical questions to engage the reader.
+            - Use storytelling elements if they help clarify the content.
 
-        Your summary should be approximately {self.summary_length} words long. Use a neutral, journalistic tone, and ensure that you're reporting the facts as presented in the content, not adding personal opinions or speculation.
+            - **Conclusion:**
+            - End with a thought-provoking statement or a simple summary of the main points.
 
-        Format your response as follows:
-        HEADLINE: [Your SEO-optimized headline here]
+            Here's the content to summarize:
+            {content}
 
-        [Your comprehensive summary here, following the inverted pyramid style]
-        """
+            **Your summary should be approximately {self.summary_length} words long, making it informative and enjoyable for {grade_description}.**
+            """
+        else:
+            return f"""
+            Summarize the following web content from {url} for {grade_description}:
+            {content}
+
+            Your task is to provide a comprehensive and informative synopsis of the main subject matter, along with an SEO-optimized headline. Follow these guidelines:
+
+            1. Generate an SEO-optimized headline that:
+            - Captures user interest without sensationalism
+            - Accurately represents the main topic
+            - Uses relevant keywords
+            - Is concise
+            - Maintains professionalism
+            - Does not begin with anything akin to "Imagine" or "Picture this"
+            
+            2. Format your headline exactly as follows:
+            HEADLINE: [Your SEO-optimized headline here]
+
+            3. Write your summary using the inverted pyramid style:
+            - Start with a strong lede (opening sentence) that entices readers and summarizes the most crucial information
+            - Present the most important information first
+            - Follow with supporting details and context
+            - End with the least essential information
+
+            4. Adjust the language complexity strictly targeted to the reading level for {grade_description}.
+
+            5. Clearly explain the main topic or discovery being discussed
+            6. Highlight key points, findings, or arguments presented in the content
+            7. Provide relevant context or background information that helps understand the topic
+            8. Mention any significant implications, applications, or future directions discussed
+            9. If applicable, include important quotes or statistics that support the main points
+
+            Your summary should be approximately {self.summary_length} words long. Use a neutral, journalistic tone, and ensure that you're reporting the facts as presented in the content, not adding personal opinions or speculation.
+
+            Format your response as follows:
+            HEADLINE: [Your SEO-optimized headline here]
+
+            [Your comprehensive summary here, following the inverted pyramid style]
+            """
+
+
+
+
+
 
     def _format_summary(self, summary: str, url: str) -> dict:
         # Split the summary into headline and body
