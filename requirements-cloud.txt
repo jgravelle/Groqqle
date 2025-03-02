@@ -1,0 +1,11 @@
+streamlit
+Pillow
+python-dotenv
+requests
+beautifulsoup4
+anthropic
+fastapi
+uvicorn
+Flask
+tldextract
+html2text

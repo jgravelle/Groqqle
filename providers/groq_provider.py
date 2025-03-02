@@ -1,9 +1,17 @@
 import os
 import asyncio
-import groq
+import requests
 from typing import Dict, Any, Optional, Union, AsyncIterator, List
 
 from providers.base_provider import BaseLLMProvider
+
+# Try to import groq, but provide a fallback for cloud environments
+try:
+    import groq
+    HAS_GROQ_SDK = True
+except ImportError:
+    HAS_GROQ_SDK = False
+    print("Warning: groq package not found; using HTTP fallback implementation")
 
 class GroqProvider(BaseLLMProvider):
     def __init__(self, api_key: str):
@@ -11,12 +19,16 @@ class GroqProvider(BaseLLMProvider):
         if not self.api_key:
             raise ValueError("Groq API key is not provided")
         
-        try:
-            self.client = groq.Client(api_key=self.api_key)
-        except (ImportError, ModuleNotFoundError):
-            # Fallback if groq package is not installed
+        self.base_url = "https://api.groq.com/v1"
+        
+        if HAS_GROQ_SDK:
+            try:
+                self.client = groq.Client(api_key=self.api_key)
+            except Exception as e:
+                print(f"Warning: Failed to initialize Groq client: {e}")
+                self.client = None
+        else:
             self.client = None
-            print("Warning: groq package not installed. Using basic HTTP requests instead.")
 
     def generate(self, prompt: str, max_tokens: int = 4096, temperature: float = 0.0, model: str = None, image_path: Optional[str] = None) -> str:
         """
@@ -108,6 +120,7 @@ class GroqProvider(BaseLLMProvider):
         """Send a request to the Groq API"""
         try:
             if self.client:
+                # Use the SDK if available
                 response = self.client.chat.completions.create(
                     model=data["model"],
                     messages=data["messages"],
@@ -116,12 +129,48 @@ class GroqProvider(BaseLLMProvider):
                 )
                 return response
             else:
-                # Fallback implementation using requests if needed
-                raise NotImplementedError("Fallback implementation not available - please install the groq package")
+                # Fallback implementation using direct HTTP requests
+                url = f"{self.base_url}/chat/completions"
+                headers = {
+                    "Authorization": f"Bearer {self.api_key}",
+                    "Content-Type": "application/json"
+                }
+                
+                # Prepare the payload
+                payload = {
+                    "model": data["model"],
+                    "messages": data["messages"],
+                    "max_tokens": data.get("max_tokens", 4096),
+                    "temperature": data.get("temperature", 0.0)
+                }
+                
+                # Send the request
+                response = requests.post(url, headers=headers, json=payload)
+                response.raise_for_status()
+                return self._convert_to_sdk_response(response.json())
+                
         except Exception as e:
             if os.getenv('DEBUG') == 'True':
                 print(f"Groq API error: {e}")
             raise Exception(f"Groq API error: {str(e)}")
+    
+    def _convert_to_sdk_response(self, json_response: Dict[str, Any]) -> Any:
+        """Convert a JSON response to a format compatible with the SDK response"""
+        # Create a simple object to mimic the SDK response structure
+        class MockResponse:
+            def __init__(self, json_data):
+                self.json_data = json_data
+                
+                # Create a choices list with message objects
+                class Choice:
+                    def __init__(self, choice_data):
+                        self.message = type('Message', (), {
+                            'content': choice_data['message']['content'] 
+                        })
+                
+                self.choices = [Choice(choice) for choice in json_data['choices']]
+        
+        return MockResponse(json_response)
     
     async def _async_create_completion(self, **kwargs) -> Union[str, AsyncIterator[str]]:
         """Create a completion asynchronously"""

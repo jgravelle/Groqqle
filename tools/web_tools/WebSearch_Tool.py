@@ -74,7 +74,7 @@ def create_driver():
 
 def WebSearch_Tool(query: str, num_results: int = 10):
     """
-    Perform a Google search using Selenium to handle JavaScript and extract results.
+    Perform a Google search using either Selenium (local) or a direct API (cloud).
     
     Args:
         query: The search query string
@@ -83,6 +83,125 @@ def WebSearch_Tool(query: str, num_results: int = 10):
     Returns:
         List of dictionaries containing search results with title, url, and description
     """
+    # First try to detect if we're running in a cloud environment
+    is_cloud = False
+    try:
+        import os
+        # Check for common cloud environment variables
+        if any(env in os.environ for env in ['STREAMLIT_SHARING', 'STREAMLIT_CLOUD']):
+            is_cloud = True
+        
+        # Also check if we can create a driver as a fallback detection method
+        if not is_cloud:
+            try:
+                test_driver = create_driver()
+                test_driver.quit()
+            except Exception:
+                is_cloud = True
+    except Exception:
+        # If detection fails, assume cloud to be safe
+        is_cloud = True
+
+    if is_cloud:
+        log_debug("Running in cloud environment, using API fallback")
+        return _api_search(query, num_results)
+    else:
+        log_debug("Running in local environment, using Selenium")
+        return _selenium_search(query, num_results)
+
+def _api_search(query: str, num_results: int = 10):
+    """Use a simple API-based approach for cloud environments"""
+    log_debug(f"Performing API search for query: {query}")
+    
+    try:
+        # Use the SerpAPI-compatible endpoint - you'll need to register
+        # Or substitute with another appropriate API
+        import requests
+        import os
+        import json
+        
+        # Try Bing API first (safer option for cloud environments)
+        try:
+            # Format for Bing Search API
+            search_url = "https://api.bing.microsoft.com/v7.0/search"
+            headers = {"Ocp-Apim-Subscription-Key": os.environ.get("BING_API_KEY", "")}
+            params = {"q": query, "count": num_results, "responseFilter": "Webpages"}
+            
+            if headers["Ocp-Apim-Subscription-Key"]:
+                response = requests.get(search_url, headers=headers, params=params)
+                response.raise_for_status()
+                search_data = response.json()
+                
+                results = []
+                for item in search_data.get("webPages", {}).get("value", []):
+                    results.append({
+                        "title": item.get("name", "No title"),
+                        "url": item.get("url", ""),
+                        "description": item.get("snippet", "")
+                    })
+                
+                if results:
+                    return results
+        except Exception as e:
+            log_debug(f"Bing API search failed: {str(e)}")
+            
+        # Fall back to DuckDuckGo (which doesn't require API keys)
+        try:
+            # This is a simple way to access DuckDuckGo results
+            ddg_url = f"https://api.duckduckgo.com/?q={query}&format=json"
+            response = requests.get(ddg_url)
+            response.raise_for_status()
+            
+            ddg_data = response.json()
+            results = []
+            
+            # Extract results from DuckDuckGo response
+            for result in ddg_data.get("RelatedTopics", [])[:num_results]:
+                if "Result" in result and "FirstURL" in result:
+                    # Parse HTML result to extract title and description
+                    from bs4 import BeautifulSoup
+                    soup = BeautifulSoup(result["Result"], "html.parser")
+                    title_elem = soup.find("a")
+                    title = title_elem.text if title_elem else "No title"
+                    
+                    # Get everything after the title link as description
+                    description = ""
+                    if title_elem and title_elem.next_sibling:
+                        description = title_elem.next_sibling.strip()
+                    
+                    results.append({
+                        "title": title,
+                        "url": result["FirstURL"],
+                        "description": description
+                    })
+            
+            if results:
+                return results
+        except Exception as e:
+            log_debug(f"DuckDuckGo search failed: {str(e)}")
+        
+        # If all else fails, return manually created fallback results
+        return [
+            {
+                "title": f"Search result for: {query}",
+                "url": f"https://www.google.com/search?q={query}",
+                "description": "Unable to retrieve search results in cloud environment. Please follow this link to see search results."
+            }
+        ]
+            
+    except Exception as e:
+        log_debug(f"API search fallback error: {str(e)}")
+        # Return a generic result with the query so users can at least get something
+        return [
+            {
+                "title": f"Search result for: {query}",
+                "url": f"https://www.google.com/search?q={query}",
+                "description": "Unable to retrieve search results. Please follow this link to see search results."
+            }
+        ]
+
+def _selenium_search(query: str, num_results: int = 10):
+    """Original Selenium-based search implementation for local environments"""
     search_url = f"https://www.google.com/search?q={query}&num={num_results}"
     log_debug(f"Search URL: {search_url}")
     
@@ -259,12 +378,12 @@ def WebSearch_Tool(query: str, num_results: int = 10):
                     
                     if len(search_results) >= num_results:
                         break
-        
+                        
         if DEBUG:
             log_debug(f"Successfully retrieved {len(search_results)} search results for query: {query}")
             if search_results:
                 log_debug(f"First result: {search_results[0]}")
-        
+                
         return search_results
     
     except Exception as e:
