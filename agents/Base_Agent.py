@@ -6,10 +6,6 @@ from typing import Any
 class Base_Agent(ABC):
     @abstractmethod
     def process_request(self, request: str) -> Any:
-        pass
-
-    @abstractmethod
-    def process_request(self, request: str) -> Any:
         """
         Process the user's request and return a response.
         

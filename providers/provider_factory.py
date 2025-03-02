@@ -1,6 +1,6 @@
 import os
 import sys
-from pocketgroq import GroqProvider
+from providers.groq_provider import GroqProvider
 from providers.anthropic_provider import AnthropicProvider
 
 # Set up logging only if DEBUG is True in .env

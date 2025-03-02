@@ -12,8 +12,6 @@ import logging
 # Set up logging only if DEBUG is True in .env
 DEBUG = os.getenv('DEBUG', 'False').lower() == 'true'
 
-DEBUG = True
-
 if DEBUG:
     logging.basicConfig(
         filename='debug_info.txt',
