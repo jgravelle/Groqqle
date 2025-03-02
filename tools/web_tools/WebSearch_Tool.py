@@ -114,20 +114,98 @@ def _api_search(query: str, num_results: int = 10):
     log_debug(f"Performing API search for query: {query}")
     
     try:
-        # Use the SerpAPI-compatible endpoint - you'll need to register
-        # Or substitute with another appropriate API
         import requests
         import os
         import json
+        from urllib.parse import quote_plus
+        from bs4 import BeautifulSoup
+        import time
+        import random
         
-        # Try Bing API first (safer option for cloud environments)
+        # Try Google Search scraping with a simplified approach (no JavaScript required)
         try:
-            # Format for Bing Search API
-            search_url = "https://api.bing.microsoft.com/v7.0/search"
-            headers = {"Ocp-Apim-Subscription-Key": os.environ.get("BING_API_KEY", "")}
-            params = {"q": query, "count": num_results, "responseFilter": "Webpages"}
+            # Format the query for Google search
+            encoded_query = quote_plus(query)
+            search_url = f"https://www.google.com/search?q={encoded_query}&num={min(num_results + 5, 20)}"
             
-            if headers["Ocp-Apim-Subscription-Key"]:
+            # Set up headers to look like a normal browser request
+            headers = {
+                "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/110.0.0.0 Safari/537.36",
+                "Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,*/*;q=0.8",
+                "Accept-Language": "en-US,en;q=0.5",
+                "Accept-Encoding": "gzip, deflate",
+                "Connection": "keep-alive",
+                "Upgrade-Insecure-Requests": "1",
+                "Cache-Control": "max-age=0"
+            }
+            
+            log_debug(f"Attempting direct Google search at: {search_url}")
+            response = requests.get(search_url, headers=headers, timeout=10)
+            
+            if response.status_code == 200:
+                log_debug("Google search responded with 200 status")
+                soup = BeautifulSoup(response.text, "html.parser")
+                
+                # Extract search results
+                results = []
+                for result_div in soup.select("div.g"):
+                    # Find title and URL
+                    title_elem = result_div.select_one("h3")
+                    if not title_elem:
+                        continue
+                    
+                    title = title_elem.get_text(strip=True)
+                    
+                    # Find the URL
+                    link_elem = result_div.select_one("a")
+                    if not link_elem or not link_elem.has_attr("href"):
+                        continue
+                    
+                    url = link_elem["href"]
+                    if not url.startswith("http"):
+                        continue
+                    
+                    # Find the description
+                    desc_elem = result_div.select_one("div.VwiC3b") or result_div.select_one("span.aCOpRe")
+                    description = desc_elem.get_text(strip=True) if desc_elem else ""
+                    
+                    results.append({
+                        "title": title,
+                        "url": url,
+                        "description": description
+                    })
+                    
+                    if len(results) >= num_results:
+                        break
+                
+                if results:
+                    log_debug(f"Successfully scraped {len(results)} results from Google")
+                    return results
+                else:
+                    log_debug("No results found in Google search response")
+            else:
+                log_debug(f"Google search request failed with status code: {response.status_code}")
+                
+        except Exception as e:
+            log_debug(f"Google search scraping failed: {str(e)}")
+        
+        # Try Bing API (if key is available)
+        try:
+            # Check for Bing API key in streamlit secrets or environment variables
+            bing_api_key = None
+            import streamlit as st
+            if hasattr(st, 'secrets') and 'BING_API_KEY' in st.secrets:
+                bing_api_key = st.secrets['BING_API_KEY']
+            else:
+                bing_api_key = os.environ.get("BING_API_KEY", "")
+                
+            if bing_api_key:
+                log_debug("Attempting Bing API search")
+                # Format for Bing Search API
+                search_url = "https://api.bing.microsoft.com/v7.0/search"
+                headers = {"Ocp-Apim-Subscription-Key": bing_api_key}
+                params = {"q": query, "count": num_results, "responseFilter": "Webpages"}
+                
                 response = requests.get(search_url, headers=headers, params=params)
                 response.raise_for_status()
                 search_data = response.json()
@@ -141,33 +219,125 @@ def _api_search(query: str, num_results: int = 10):
                     })
                 
                 if results:
+                    log_debug(f"Successfully retrieved {len(results)} results from Bing API")
                     return results
+            else:
+                log_debug("No Bing API key found")
         except Exception as e:
             log_debug(f"Bing API search failed: {str(e)}")
-            
-        # Fall back to DuckDuckGo (which doesn't require API keys)
+        
+        # Try a more reliable fallback - modified web scraping with increased robustness
         try:
-            # This is a simple way to access DuckDuckGo results
-            ddg_url = f"https://api.duckduckgo.com/?q={query}&format=json"
-            response = requests.get(ddg_url)
+            log_debug("Attempting fallback to alternative search")
+            # Randomly choose between several search URLs to avoid detection
+            search_engines = [
+                f"https://search.brave.com/search?q={quote_plus(query)}&source=web",
+                f"https://lite.duckduckgo.com/lite/?q={quote_plus(query)}",
+                f"https://html.duckduckgo.com/html/?q={quote_plus(query)}"
+            ]
+            
+            search_url = random.choice(search_engines)
+            log_debug(f"Selected search engine URL: {search_url}")
+            
+            # Randomize the user agent
+            user_agents = [
+                "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/110.0.0.0 Safari/537.36",
+                "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/16.2 Safari/605.1.15",
+                "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/108.0.0.0 Safari/537.36",
+                "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:108.0) Gecko/20100101 Firefox/108.0"
+            ]
+            
+            headers = {
+                "User-Agent": random.choice(user_agents),
+                "Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,*/*;q=0.8",
+                "Accept-Language": "en-US,en;q=0.5",
+                "Connection": "keep-alive",
+                "Upgrade-Insecure-Requests": "1"
+            }
+            
+            response = requests.get(search_url, headers=headers, timeout=15)
             response.raise_for_status()
             
-            ddg_data = response.json()
+            soup = BeautifulSoup(response.text, "html.parser")
             results = []
             
-            # Extract results from DuckDuckGo response
-            for result in ddg_data.get("RelatedTopics", [])[:num_results]:
-                if "Result" in result and "FirstURL" in result:
-                    # Parse HTML result to extract title and description
-                    from bs4 import BeautifulSoup
-                    soup = BeautifulSoup(result["Result"], "html.parser")
-                    title_elem = soup.find("a")
-                    title = title_elem.text if title_elem else "No title"
+            # Different parsers for different engines
+            if "duckduckgo" in search_url:
+                # DuckDuckGo Lite parser
+                for item in soup.select(".result"):
+                    a_tag = item.select_one("a.result__a")
+                    if not a_tag:
+                        continue
+                        
+                    title = a_tag.get_text(strip=True)
+                    url = a_tag["href"]
                     
-                    # Get everything after the title link as description
-                    description = ""
-                    if title_elem and title_elem.next_sibling:
-                        description = title_elem.next_sibling.strip()
+                    # Extract description - approach varies by engine
+                    desc_elem = item.select_one(".result__snippet")
+                    description = desc_elem.get_text(strip=True) if desc_elem else ""
+                    
+                    results.append({
+                        "title": title,
+                        "url": url,
+                        "description": description
+                    })
+                    
+                    if len(results) >= num_results:
+                        break
+            
+            elif "brave" in search_url:
+                # Brave search parser
+                for item in soup.select(".snippet"):
+                    a_tag = item.select_one(".snippet-title a")
+                    if not a_tag:
+                        continue
+                        
+                    title = a_tag.get_text(strip=True)
+                    url = a_tag["href"]
+                    
+                    desc_elem = item.select_one(".snippet-description")
+                    description = desc_elem.get_text(strip=True) if desc_elem else ""
+                    
+                    results.append({
+                        "title": title,
+                        "url": url,
+                        "description": description
+                    })
+                    
+                    if len(results) >= num_results:
+                        break
+            
+            if results:
+                log_debug(f"Successfully retrieved {len(results)} results from fallback search")
+                return results
+            
+        except Exception as e:
+            log_debug(f"Alternative search fallback failed: {str(e)}")
+        
+        # Try another ultra-minimal approach with DDG JSON API
+        try:
+            log_debug("Attempting DDG JSON API")
+            ddg_url = f"https://api.duckduckgo.com/?q={quote_plus(query)}&format=json"
+            response = requests.get(ddg_url, timeout=10)
+            response.raise_for_status()
+            
+            data = response.json()
+            results = []
+            
+            # Extract from RelatedTopics
+            for result in data.get("RelatedTopics", [])[:num_results]:
+                if "Text" in result and "FirstURL" in result:
+                    # Attempt to extract a title and description
+                    text = result.get("Text", "")
+                    title_end = text.find(" - ")
+                    
+                    if title_end > 0:
+                        title = text[:title_end].strip()
+                        description = text[title_end+3:].strip()
+                    else:
+                        # If no separator, use the first 50 chars as title
+                        title = text[:50] + ("..." if len(text) > 50 else "")
+                        description = text
                     
                     results.append({
                         "title": title,
@@ -176,16 +346,29 @@ def _api_search(query: str, num_results: int = 10):
                     })
             
             if results:
+                log_debug(f"Successfully retrieved {len(results)} results from DDG JSON API")
                 return results
+                
         except Exception as e:
-            log_debug(f"DuckDuckGo search failed: {str(e)}")
+            log_debug(f"DDG JSON API fallback failed: {str(e)}")
         
-        # If all else fails, return manually created fallback results
+        # Last resort: Generate search results with direct links
+        log_debug("All search methods failed, returning generated results")
         return [
             {
-                "title": f"Search result for: {query}",
-                "url": f"https://www.google.com/search?q={query}",
-                "description": "Unable to retrieve search results in cloud environment. Please follow this link to see search results."
+                "title": f"Google Search: {query}",
+                "url": f"https://www.google.com/search?q={quote_plus(query)}",
+                "description": f"Search Google for information about '{query}'. Click this link to see search results directly."
+            },
+            {
+                "title": f"Bing Search: {query}",
+                "url": f"https://www.bing.com/search?q={quote_plus(query)}",
+                "description": f"Search Bing for information about '{query}'. Click this link to see search results directly."
+            },
+            {
+                "title": f"DuckDuckGo Search: {query}",
+                "url": f"https://duckduckgo.com/?q={quote_plus(query)}",
+                "description": f"Search DuckDuckGo for information about '{query}'. Click this link to see search results directly."
             }
         ]
             
@@ -194,9 +377,9 @@ def _api_search(query: str, num_results: int = 10):
         # Return a generic result with the query so users can at least get something
         return [
             {
-                "title": f"Search result for: {query}",
-                "url": f"https://www.google.com/search?q={query}",
-                "description": "Unable to retrieve search results. Please follow this link to see search results."
+                "title": f"Search failed: {query}",
+                "url": f"https://www.google.com/search?q={quote_plus(query)}",
+                "description": f"We encountered an error retrieving search results. Click here to search Google directly for '{query}'."
             }
         ]
 

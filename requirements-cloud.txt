@@ -9,3 +9,8 @@ uvicorn
 Flask
 tldextract
 html2text
+groq>=0.4.0
+pytest
+python-slugify
+markdown
+jinja2
