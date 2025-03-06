@@ -1,16 +1,26 @@
 import os
 import sys
 import time
-from selenium import webdriver
-from selenium.webdriver.chrome.options import Options
-from selenium.webdriver.chrome.service import Service as ChromeService
-from selenium.webdriver.firefox.service import Service as FirefoxService
-from selenium.webdriver.common.by import By
-from selenium.webdriver.support.ui import WebDriverWait
-from selenium.webdriver.support import expected_conditions as EC
-from selenium.common.exceptions import TimeoutException, WebDriverException
-from webdriver_manager.chrome import ChromeDriverManager
-from webdriver_manager.firefox import GeckoDriverManager
+
+# Only import Selenium if not in cloud mode
+CLOUD_MODE = any(env in os.environ for env in ['STREAMLIT_SHARING', 'STREAMLIT_CLOUD'])
+if not CLOUD_MODE:
+    try:
+        from selenium import webdriver
+        from selenium.webdriver.chrome.options import Options
+        from selenium.webdriver.chrome.service import Service as ChromeService
+        from selenium.webdriver.firefox.service import Service as FirefoxService
+        from selenium.webdriver.common.by import By
+        from selenium.webdriver.support.ui import WebDriverWait
+        from selenium.webdriver.support import expected_conditions as EC
+        from selenium.common.exceptions import TimeoutException, WebDriverException
+        from webdriver_manager.chrome import ChromeDriverManager
+        from webdriver_manager.firefox import GeckoDriverManager
+    except ImportError:
+        # If we can't import Selenium, force cloud mode
+        CLOUD_MODE = True
+        print("Selenium import failed - forcing cloud mode")
+
 from bs4 import BeautifulSoup
 
 sys.path.append(os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__)))))
@@ -22,7 +32,16 @@ def log_debug(message):
 
 def create_driver():
     """Create and configure a headless Chrome browser using webdriver-manager"""
+    # Check if we're in cloud mode - if so, we can't create a driver
+    if CLOUD_MODE:
+        log_debug("Running in cloud mode - driver creation skipped")
+        raise Exception("Driver creation not supported in cloud mode")
+        
     log_debug("Setting up Chrome WebDriver...")
+    
+    # These imports should be available since we already checked in the module imports
+    from selenium import webdriver
+    from selenium.webdriver.chrome.options import Options
     
     chrome_options = Options()
     chrome_options.add_argument("--headless")
@@ -83,26 +102,22 @@ def WebSearch_Tool(query: str, num_results: int = 10):
     Returns:
         List of dictionaries containing search results with title, url, and description
     """
-    # First try to detect if we're running in a cloud environment
-    is_cloud = False
-    try:
-        import os
-        # Check for common cloud environment variables
-        if any(env in os.environ for env in ['STREAMLIT_SHARING', 'STREAMLIT_CLOUD']):
-            is_cloud = True
-        
-        # Also check if we can create a driver as a fallback detection method
-        if not is_cloud:
-            try:
-                test_driver = create_driver()
-                test_driver.quit()
-            except Exception:
-                is_cloud = True
-    except Exception:
-        # If detection fails, assume cloud to be safe
-        is_cloud = True
-
-    if is_cloud:
+    # Check if we're in cloud mode (set at module level)
+    global CLOUD_MODE
+    
+    # Try to detect if we need to force cloud mode due to missing Selenium
+    if not CLOUD_MODE:
+        try:
+            # Try to create a driver to test if Selenium is working
+            test_driver = create_driver()
+            test_driver.quit()
+            log_debug("Successfully tested Selenium driver creation")
+        except Exception as e:
+            # If driver creation fails, force cloud mode
+            log_debug(f"Driver test failed: {str(e)}")
+            CLOUD_MODE = True
+    
+    if CLOUD_MODE:
         log_debug("Running in cloud environment, using API fallback")
         return _api_search(query, num_results)
     else:

@@ -447,7 +447,7 @@ def perform_search():
                         temperature=temperature,
                         comprehension_grade=comprehension_grade,
                         summary_length=summary_length,
-                        humanize=st.session_state.humanize 
+                        humanize=data.get("humanize", False) 
                     )
                     results = [summarize_url(url, api_key, comprehension_grade, temperature)]
             elif search_type == "Web":
@@ -459,7 +459,7 @@ def perform_search():
                     temperature=temperature,
                     comprehension_grade=comprehension_grade,
                     summary_length=summary_length,
-                    humanize=st.session_state.humanize 
+                    humanize=data.get("humanize", False) 
                 )
                 results = agent.process_request(query)
             else:  # News search
@@ -494,7 +494,7 @@ def summarize_url(url, api_key, comprehension_grade, temperature):
             comprehension_grade=comprehension_grade,
             temperature=temperature,
             summary_length=summary_length,
-            humanize=st.session_state.humanize 
+            humanize=data.get("humanize", False) 
         )
         log_debug(f"Web_Agent initialized for URL summary with comprehension grade: {comprehension_grade}, temperature: {temperature}, and summary_length: {summary_length}")
         summary_result = agent.process_request(url)
@@ -602,7 +602,7 @@ def create_api_app(api_key_arg: str = None, default_num_results: int = 10, defau
                 temperature=temperature,
                 comprehension_grade=comprehension_grade,
                 summary_length=summary_length,
-                humanize=st.session_state.humanize 
+                humanize=data.get("humanize", False) 
             )
 
             url, _ = extract_url_and_prompt(query)
